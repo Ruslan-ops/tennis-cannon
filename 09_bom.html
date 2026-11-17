@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="auto">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Смета версии 1: теннисная пушка</title>
+<style>
+:root { --bg:#f6f7f9; --card:#ffffff; --text:#1d2330; --muted:#5b6475; --line:#d9dde5; --accent:#1f6feb; --ok:#1a7f45; --warn:#9a6700; --bad:#c62828; --track:#e6e9ef; --bar:#1f6feb; --budget:#c62828; }
+:root[data-theme="dark"] { --bg:#12151c; --card:#1b1f29; --text:#e8ebf1; --muted:#a2abbb; --line:#31384a; --accent:#6aa5ff; --ok:#4cc380; --warn:#e3b341; --bad:#ff8a80; --track:#2a3040; --bar:#6aa5ff; --budget:#ff8a80; }
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] { --bg:#12151c; --card:#1b1f29; --text:#e8ebf1; --muted:#a2abbb; --line:#31384a; --accent:#6aa5ff; --ok:#4cc380; --warn:#e3b341; --bad:#ff8a80; --track:#2a3040; --bar:#6aa5ff; --budget:#ff8a80; }
+}
+* { box-sizing: border-box; }
+body { margin:0; font:15px/1.5 system-ui, "Segoe UI", sans-serif; background:var(--bg); color:var(--text); }
+main { max-width:1280px; margin:0 auto; padding:20px 16px 48px; }
+h1 { font-size:26px; margin:0 0 4px; }
+h2 { font-size:18px; margin:0 0 10px; }
+.sub { color:var(--muted); margin:0 0 16px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-bottom:16px; }
+.controls { display:flex; flex-wrap:wrap; gap:16px; align-items:center; }
+.seg { display:inline-flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.seg button { border:0; background:var(--card); color:var(--text); padding:8px 14px; font:inherit; cursor:pointer; }
+.seg button[aria-pressed="true"] { background:var(--accent); color:#fff; }
+.seg button:focus-visible, .theme:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.theme { margin-left:auto; border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:8px; padding:8px 12px; font:inherit; cursor:pointer; }
+.lbl { color:var(--muted); font-size:13px; margin-right:6px; }
+.total { font-size:34px; font-weight:700; }
+.total small { font-size:15px; font-weight:400; color:var(--muted); }
+.meter { position:relative; height:26px; background:var(--track); border-radius:13px; margin:34px 0 8px; }
+.meter .fill { height:100%; border-radius:13px; background:var(--bar); }
+.meter .fill.over { background:var(--bad); }
+.meter .mark { position:absolute; top:-8px; bottom:-8px; width:3px; background:var(--budget); }
+.meter .mark span { position:absolute; top:-22px; left:50%; transform:translateX(-50%); white-space:nowrap; font-size:12px; color:var(--budget); }
+.chart { display:flex; gap:14px; align-items:flex-end; height:220px; padding-top:20px; border-bottom:1px solid var(--line); }
+.chart .col { flex:1; display:flex; flex-direction:column; justify-content:flex-end; align-items:center; height:100%; }
+.chart .bar { width:100%; max-width:90px; background:var(--bar); border-radius:6px 6px 0 0; min-height:2px; }
+.chart .val { font-size:13px; margin-bottom:4px; }
+.names { display:flex; gap:14px; }
+.names div { flex:1; text-align:center; font-size:12px; color:var(--muted); padding-top:6px; }
+.wrap { overflow-x:auto; }
+table { border-collapse:collapse; width:100%; min-width:900px; }
+th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; font-size:14px; }
+th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; }
+td.num, th.num { text-align:right; white-space:nowrap; }
+tr.group td { background:var(--track); font-weight:700; }
+tr.muted td { color:var(--muted); }
+a { color:var(--accent); }
+.badge { display:inline-block; padding:1px 8px; border-radius:10px; font-size:12px; border:1px solid currentColor; }
+.badge.exact { color:var(--ok); }
+.badge.unchecked { color:var(--warn); }
+.badge.none { color:var(--bad); }
+.hint { font-size:12px; color:var(--muted); margin-top:3px; }
+ul { margin:6px 0 0 18px; padding:0; }
+</style>
+</head>
+<body><div id="tcsite-bar"><style>#tcsite-bar{all:initial;display:flex;align-items:center;gap:10px;flex:none;box-sizing:border-box;width:100%;height:34px;padding:0 14px;background:#1f2a37;color:#dbe4ee;font:13px/1 system-ui,Segoe UI,sans-serif;white-space:nowrap;overflow:hidden;border-bottom:1px solid #3a4756}#tcsite-bar a{color:#9fd3ff;text-decoration:none;font-weight:600;flex:none}#tcsite-bar a:hover{text-decoration:underline}#tcsite-bar .tcsite-sep{opacity:.5;flex:none}#tcsite-bar .tcsite-name{overflow:hidden;text-overflow:ellipsis;min-width:0}#tcsite-bar .tcsite-date{opacity:.8;flex:none}#tcsite-bar .tcsite-old{color:#ffcf8a;flex:none}@media (max-width:560px){#tcsite-bar .tcsite-date{display:none}}</style><a class="tcsite-back" href="index.html">← Все страницы</a><span class="tcsite-sep">·</span><span class="tcsite-name">Предварительная смета</span><span class="tcsite-sep">·</span><span class="tcsite-date">обновлено 15.11.2026</span><span class="tcsite-old">устарело — <a href="22_layout_k3.html">открыть актуальную</a></span></div>
+<main>
+<h1>Смета версии 1: теннисная пушка</h1>
+<p class="sub">Цены из выдачи магазинов на 15.11.2026. Доставка не учтена. Это предварительная прикидка, не заказ: всё нужно проверить по карточкам товаров.</p>
+
+<div class="card controls">
+  <div><span class="lbl">Привод метателя</span><span class="seg" id="segVariant"><button data-v="А" aria-pressed="true">А: мотор 775 + BTS7960</button><button data-v="Б" aria-pressed="false">Б: бесколлекторный + ESC</button></span></div>
+  <div><span class="lbl">Цены</span><span class="seg" id="segMode"><button data-m="good" aria-pressed="true">Разумный выбор</button><button data-m="min" aria-pressed="false">Минимум</button></span></div>
+  <button class="theme" id="themeBtn" type="button">Тема: авто</button>
+</div>
+
+<div class="card">
+  <h2>Итого и бюджет 50 000 ₽</h2>
+  <div class="total" id="total"></div>
+  <div class="meter" id="meter"><div class="fill" id="fill"></div><div class="mark" id="mark"><span>бюджет 50 000 ₽</span></div></div>
+  <div id="budgetText"></div>
+  <div class="hint">Не вошло в сумму: позиции «не найдено», крепёж, провода, разъёмы, 3D-печать и резка на заказ, клей, краска, инструмент, мячи.</div>
+</div>
+
+<div class="card">
+  <h2>Стоимость по группам</h2>
+  <div class="chart" id="chart"></div>
+  <div class="names" id="names"></div>
+</div>
+
+<div class="card">
+  <h2>Таблица сметы</h2>
+  <div class="wrap"><table>
+    <thead><tr><th>Позиция</th><th class="num">Кол-во</th><th>Товар из выдачи</th><th>Магазин</th><th class="num">Цена за ед.</th><th class="num">Сумма</th><th>Уверенность</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+</div>
+</main>
+<script>
+const DATA = [{"name": "Мотор метателя 775, 12 В", "variant": "А", "group": "метатель", "qty": 2.0, "item": "Двигатель постоянного тока 775 150w 12VDC-12000 об/мин", "shop": "ozon", "sum": 952.0, "url": "https://www.ozon.ru/product/dvigatel-postoyannogo-toka-775-150w-12vdc-12000-ob-min-1666397778/?at=1mGr1YUD_bOtAE8ZHy4Fr2AwoP0y07vG", "conf": "НЕ ПРОВЕРЕНО по карточке: подшипники, длина корпуса", "minSum": 378.0, "minItem": "Двигатель постоянного тока CNMAWAY RS775 12В 24В", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/1005001703665361.html?shpMethod=CAINIAO_STANDARD&sku_id=12000017220757491", "median": 2474.0}, {"name": "Мотор метателя бесколлекторный 5065 270KV", "variant": "Б", "group": "метатель", "qty": 2.0, "item": "Надежный бесколлекторный мотор N5065 270KV 1665Вт для ", "shop": "wildberries", "sum": 7374.0, "url": "https://www.wildberries.ru/catalog/1586867720/detail.aspx", "conf": "НЕ ПРОВЕРЕНО по карточке: реальные обороты и вал, нагрузка на вал", "minSum": 5350.6, "minItem": "Бесщёточный мотор 5065 270KV для электрического скутера", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/1005006931879389.html?sku_id=12000038768943773", "median": 7718.719999999999}, {"name": "Регулятор ESC 60 А", "variant": "Б", "group": "метатель", "qty": 2.0, "item": "Регулятор скорости ESC 60A двунаправленный 2-6S ", "shop": "wildberries", "sum": 4480.0, "url": "https://www.wildberries.ru/catalog/663061158/detail.aspx", "conf": "НЕ ПРОВЕРЕНО по карточке: ток 60 А, работа с 4S LiFePO4 14,6 В", "minSum": 3488.0, "minItem": "1 10 Автоматический бесколлекторный регулятор хода 60A ", "minShop": "wildberries", "minUrl": "https://www.wildberries.ru/catalog/1519685730/detail.aspx", "median": 5356.0}, {"name": "Драйвер BTS7960 43 А", "variant": "А", "group": "метатель", "qty": 2.0, "item": "Модуль драйвера двигателя высокой мощности BTS7960 43A/модуль водителя умного автомобиля для ограничения тока Arduino", "shop": "ozon", "sum": 588.0, "url": "https://www.ozon.ru/product/modul-drayvera-dvigatelya-vysokoy-moshchnosti-bts7960-43a-modul-voditelya-umnogo-avtomobilya-4304039549/?at=1mGr1Vumwc5nfZdr7AuacmTM2SgBlN1P", "conf": "НЕ ПРОВЕРЕНО по карточке: оригинальность микросхем", "minSum": 588.0, "minItem": "Модуль драйвера двигателя высокой мощности BTS7960 43A/модуль водителя умного автомобиля для ограничения тока Arduino", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/modul-drayvera-dvigatelya-vysokoy-moshchnosti-bts7960-43a-modul-voditelya-umnogo-avtomobilya-4304039549/?at=1mGr1Vumwc5nfZdr7AuacmTM2SgBlN1P", "median": 1146.0}, {"name": "Аккумулятор LiFePO4 12,8 В 10 А·ч", "variant": "общее", "group": "питание", "qty": 1.0, "item": "Аккумулятор 12В 10Ач LiFePO4 (128Втч) POWERWIN BT10, Батарея для эхолота, рыбалки, кемпинга и туризма, Портативный АКБитиевый POWERWIN, 128Втч, для рыбалки и похода", "shop": "ozon", "sum": 5092.0, "url": "https://www.ozon.ru/product/akkumulyator-12v-10ach-lifepo4-128vtch-powerwin-bt10-batareya-dlya-eholota-rybalki-kempinga-6160068301/?at=1mGr1TOYli29TFzu8J8YKikznbewZTIi", "conf": "НЕ ПРОВЕРЕНО по карточке: реальная ёмкость, наличие платы защиты BMS, макс. ток разряда", "minSum": 4838.0, "minItem": "Аккумулятор LiFePO4 12В 10Ач 12V 10AH 1pcs DIEZONG", "minShop": "wildberries", "minUrl": "https://www.wildberries.ru/catalog/1596339175/detail.aspx", "median": 6217.0}, {"name": "Зарядное LiFePO4 14,6 В", "variant": "общее", "group": "питание", "qty": 1.0, "item": "Интеллектуальное зарядное устройство LiFePO4 14.6В 5А", "shop": "aliexpress", "sum": 1222.0, "url": "https://aliexpress.ru/item/1005001958503056.html?sku_id=12000040834487522", "conf": "НЕ ПРОВЕРЕНО по карточке: разъём, защита", "minSum": 1222.0, "minItem": "Интеллектуальное зарядное устройство LiFePO4 14.6В 5А", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/1005001958503056.html?sku_id=12000040834487522", "median": 3282.0}, {"name": "Колесо метателя 125 мм, полиуретан, неповоротное", "variant": "общее", "group": "метатель", "qty": 2.0, "item": "Колесо (125 мм, 180 кг) неповоротное, полиуретан, полиамид СТЕЛЛА-ТЕХНИК", "shop": "wildberries", "sum": 1288.0, "url": "https://www.wildberries.ru/catalog/966726132/detail.aspx", "conf": "НЕ ПРОВЕРЕНО по карточке: диаметр посадочного отверстия (у аналогов 15 мм), ширина, твёрдость", "minSum": 1288.0, "minItem": "Колесо (125 мм, 180 кг) неповоротное, полиуретан, полиамид СТЕЛЛА-ТЕХНИК", "minShop": "wildberries", "minUrl": "https://www.wildberries.ru/catalog/966726132/detail.aspx", "median": 2502.0}, {"name": "Ступица/фланец на вал 12 мм", "variant": "общее", "group": "метатель", "qty": 2.0, "item": "не найдено в выдаче, нужен другой запрос: ступица фланец крепления колеса на вал 12 мм; втулка переходная 15-12 мм", "shop": "", "sum": null, "url": "", "conf": "не найдено", "minSum": null, "minItem": "", "minShop": "", "minUrl": "", "median": null}, {"name": "Вал 12 мм (2 отрезка по ~120 мм)", "variant": "общее", "group": "метатель", "qty": 2.0, "item": "Круг стальной Ст45 12х500 мм (диаметр 12, длина 500 мм) (пруток, стержень) калиброванный (ГОСТ 1050-2013, ГОСТ 7417-75)", "shop": "ozon", "sum": 334.0, "url": "https://www.ozon.ru/product/krug-stalnoy-st45-12h500-mm-diametr-12-dlina-500-mm-prutok-sterzhen-kalibrovannyy-gost-1050-1936837320/?at=1mGr1Ob5Jgrw05cH0RoZpZKIqii38OUk", "conf": "НЕ ПРОВЕРЕНО по карточке: закалка и шлифовка", "minSum": 235.0, "minItem": "Круг стальной СТ45 12х300 ГОСТ 2590-2006, пруток металлический горячекатаный, круглый прокат", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/krug-stalnoy-st45-12h300-gost-2590-2006-prutok-metallicheskiy-goryachekatanyy-kruglyy-prokat-4673943665/?at=1mGr1_yTE083Tki2cbB7UnKNymgZdk07", "median": 510.0}, {"name": "Подшипниковый узел KFL001 (12 мм)", "variant": "общее", "group": "метатель", "qty": 4.0, "item": "4 шт., самоустанавливающиеся подшипники KFL001, 12 мм", "shop": "aliexpress", "sum": 600.34, "url": "https://aliexpress.ru/item/1005008832681385.html?sku_id=12000046871142400", "conf": "НЕ ПРОВЕРЕНО по карточке: происхождение/класс подшипника", "minSum": 600.34, "minItem": "4 шт., самоустанавливающиеся подшипники KFL001, 12 мм", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/1005008832681385.html?sku_id=12000046871142400", "median": 1080.0}, {"name": "Муфта 5-12 мм", "variant": "общее", "group": "метатель", "qty": 2.0, "item": "Муфта соединительная виброгасящая BF 5x12 мм ", "shop": "wildberries", "sum": 1504.0, "url": "https://www.wildberries.ru/catalog/612588082/detail.aspx", "conf": "НЕ ПРОВЕРЕНО по карточке: момент, тип муфты (жёсткая/гибкая)", "minSum": 230.0, "minItem": "GooBetter Жесткая муфта из стали 45# для двигателя 3/4/5/6/7/8/10/12 мм", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/1005012154677763.html?shpMethod=CAINIAO_ECONOMY&sku_id=12000057642793040", "median": 462.0}, {"name": "Подшипник оси наклона 6816 (80x100x10)", "variant": "общее", "group": "наведение и подача", "qty": 1.0, "item": "Подшипник SKF 61816 2RS1 (80x100x10) (6816 2RS) Made in italy", "shop": "ozon", "sum": 1464.0, "url": "https://www.ozon.ru/product/podshipnik-skf-61816-2rs1-80x100x10-6816-2rs-made-in-italy-1414586004/?at=1mGr1YP5_FrhUM5oHwWaarz7Pft7LmM4", "conf": "НЕ ПРОВЕРЕНО по карточке: класс точности", "minSum": 758.16, "minItem": "Подшипник глубокой канавки 6816-2RS/ZZ", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/1_490455441.html?sku_id=5000002470685660", "median": 1374.0}, {"name": "Поворотная опора lazy susan ~300 мм", "variant": "общее", "group": "наведение и подача", "qty": 1.0, "item": "Поворотный столик Lazy Susan 12in, алюминий ", "shop": "wildberries", "sum": 1262.0, "url": "https://www.wildberries.ru/catalog/2194499708/detail.aspx", "conf": "НЕ ПРОВЕРЕНО по карточке: допустимая нагрузка (мебельная опора)", "minSum": 1262.0, "minItem": "Поворотный столик Lazy Susan 12in, алюминий ", "minShop": "wildberries", "minUrl": "https://www.wildberries.ru/catalog/2194499708/detail.aspx", "median": 1618.0}, {"name": "Линейный актуатор 12 В, ход 50 мм (наклон)", "variant": "общее", "group": "наведение и подача", "qty": 1.0, "item": "DC12V 300 кг 5 мм с ход 50 мм Линейный привод Актуатор ", "shop": "wildberries", "sum": 2528.0, "url": "https://www.wildberries.ru/catalog/467991458/detail.aspx", "conf": "НЕ ПРОВЕРЕНО по карточке: усилие, питание (в карточке)", "minSum": 1622.0, "minItem": "Линейный актуатор CNMAWAY 30mm Stroke/50mm Stroke 12В", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/1005003317357899.html?shpMethod=CAINIAO_STANDARD&sku_id=12000052810048350", "median": 4430.0}, {"name": "Мотор-редуктор JGY-370 12 В червячный (поворот)", "variant": "общее", "group": "наведение и подача", "qty": 1.0, "item": "Bringsmart JGY-370 Червячный мотор-редуктор 12В", "shop": "aliexpress", "sum": 449.0, "url": "https://aliexpress.ru/item/32785852366.html?shpMethod=CAINIAO_STANDARD&sku_id=12000041672492060", "conf": "НЕ ПРОВЕРЕНО по карточке: обороты, момент", "minSum": 299.0, "minItem": "Миниатюрный червячный мотор-редуктор JGY-370", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/4001339582443.html?shpMethod=CAINIAO_STANDARD&sku_id=12000050849206911", "median": 890.5}, {"name": "Мотор-редуктор JGY-370 12 В 6-30 об/мин (податчик)", "variant": "общее", "group": "наведение и подача", "qty": 1.0, "item": "Редукторный двигатель постоянного тока JGY370 12V 30 об/мин /Самоблокирующийся, высокий крутящий момент до 24 кгсм / Металлические шестерни / Для автоматики, робототехники", "shop": "ozon", "sum": 899.0, "url": "https://www.ozon.ru/product/reduktornyy-dvigatel-postoyannogo-toka-jgy370-12v-30-ob-min-samoblokiruyushchiysya-vysokiy-1639347341/?at=1mGr1S56fC0xaBuKfbqy-QwttWi73YB2", "conf": "НЕ ПРОВЕРЕНО по карточке: момент", "minSum": 899.0, "minItem": "Редукторный двигатель постоянного тока JGY370 12V 30 об/мин /Самоблокирующийся, высокий крутящий момент до 24 кгсм / Металлические шестерни / Для автоматики, робототехники", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/reduktornyy-dvigatel-postoyannogo-toka-jgy370-12v-30-ob-min-samoblokiruyushchiysya-vysokiy-1639347341/?at=1mGr1S56fC0xaBuKfbqy-QwttWi73YB2", "median": 953.0}, {"name": "Альтернатива наклону: JGY-370 12 В червячный", "variant": "альт.", "group": "наведение и подача", "qty": 1.0, "item": "Bringsmart JGY-370 Червячный мотор-редуктор 12В", "shop": "aliexpress", "sum": 449.0, "url": "https://aliexpress.ru/item/32785852366.html?shpMethod=CAINIAO_STANDARD&sku_id=12000041672492060", "conf": "НЕ ПРОВЕРЕНО по карточке: обороты, момент", "minSum": 299.0, "minItem": "Миниатюрный червячный мотор-редуктор JGY-370", "minShop": "aliexpress", "minUrl": "https://aliexpress.ru/item/4001339582443.html?shpMethod=CAINIAO_STANDARD&sku_id=12000050849206911", "median": 890.5}, {"name": "ESP32 DevKit", "variant": "общее", "group": "управление и безопасность", "qty": 1.0, "item": "ESP32-WROOM-32 Плата Разработки DEVKIT V1 30P Модуль Платы П ", "shop": "wildberries", "sum": 230.0, "url": "https://www.wildberries.ru/catalog/761547400/detail.aspx", "conf": "НЕ ПРОВЕРЕНО по карточке: чип, клон/версия", "minSum": 230.0, "minItem": "ESP32-WROOM-32 Плата Разработки DEVKIT V1 30P Модуль Платы П ", "minShop": "wildberries", "minUrl": "https://www.wildberries.ru/catalog/761547400/detail.aspx", "median": 701.0}, {"name": "Датчик тока ACS758 50 А", "variant": "общее", "group": "управление и безопасность", "qty": 2.0, "item": "Модуль датчика тока 50A ACS758LCB-050B-PFF-T, измеритель тока Холла, аналоговый выход 3-5.5В", "shop": "ozon", "sum": 634.0, "url": "https://www.ozon.ru/product/modul-datchika-toka-50a-acs758lcb-050b-pff-t-izmeritel-toka-holla-analogovyy-vyhod-3-5-5v-4476351239/?at=1mGr1U3YQMUJVTODnoux6cwF80nlKWeI", "conf": "НЕ ПРОВЕРЕНО по карточке: модификация (одно/двунаправленный)", "minSum": 634.0, "minItem": "Модуль датчика тока 50A ACS758LCB-050B-PFF-T, измеритель тока Холла, аналоговый выход 3-5.5В", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/modul-datchika-toka-50a-acs758lcb-050b-pff-t-izmeritel-toka-holla-analogovyy-vyhod-3-5-5v-4476351239/?at=1mGr1U3YQMUJVTODnoux6cwF80nlKWeI", "median": 1100.0}, {"name": "ИК-датчик E18-D80NK", "variant": "общее", "group": "управление и безопасность", "qty": 1.0, "item": "Умный автомобильный робот E18-D80NK Инфракрасный фотоэлектрический датчик преодоления препятствий, Бесконтактный переключатель, диапазон обнаружения которого регулируется на 3-80 см", "shop": "ozon", "sum": 182.0, "url": "https://www.ozon.ru/product/umnyy-avtomobilnyy-robot-e18-d80nk-infrakrasnyy-fotoelektricheskiy-datchik-preodoleniya-prepyatstviy-4584581481/?at=1mGr1MTxfbyrrFT_37KePf-OZnF0mQTi", "conf": "НЕ ПРОВЕРЕНО по карточке: питание/выход", "minSum": 182.0, "minItem": "Умный автомобильный робот E18-D80NK Инфракрасный фотоэлектрический датчик преодоления препятствий, Бесконтактный переключатель, диапазон обнаружения которого регулируется на 3-80 см", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/umnyy-avtomobilnyy-robot-e18-d80nk-infrakrasnyy-fotoelektricheskiy-datchik-preodoleniya-prepyatstviy-4584581481/?at=1mGr1MTxfbyrrFT_37KePf-OZnF0mQTi", "median": 487.0}, {"name": "Сервопривод MG996R (запас)", "variant": "общее", "group": "управление и безопасность", "qty": 1.0, "item": "Сервопривод MG996R Servo - металлическая шестерня, крутящий момент 11кг см 4.8-6 В", "shop": "ozon", "sum": 455.0, "url": "https://www.ozon.ru/product/servoprivod-mg996r-servo-metallicheskaya-shesternya-krutyashchiy-moment-11kg-sm-4-8-6-v-2708695201/?at=1mGr1XCTuGSeQVBRhLaOkphCuKHbPUnu", "conf": "НЕ ПРОВЕРЕНО по карточке: материал шестерён", "minSum": 402.0, "minItem": "Сервопривод MG996R 180 градусов, усилие 13 кг/см", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/servoprivod-mg996r-180-gradusov-usilie-13-kg-sm-1246243288/?at=1mGr1XzmUOgyn-w1c8uBXzpPKrOjJ0YS", "median": 597.5}, {"name": "Кнопка аварийной остановки «грибок»", "variant": "общее", "group": "управление и безопасность", "qty": 1.0, "item": "Кнопка - выключатель, кнопка с фиксацией, аварийная остановка Rexant", "shop": "ozon", "sum": 191.0, "url": "https://www.ozon.ru/product/knopka-vyklyuchatel-knopka-s-fiksatsiey-avariynaya-ostanovka-rexant-782638399/?at=1mGr1UUQ9dvIcI2l4G0IUQ7sAfl9SLEq", "conf": "НЕ ПРОВЕРЕНО по карточке: ток контактов", "minSum": 191.0, "minItem": "Кнопка - выключатель, кнопка с фиксацией, аварийная остановка Rexant", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/knopka-vyklyuchatel-knopka-s-fiksatsiey-avariynaya-ostanovka-rexant-782638399/?at=1mGr1UUQ9dvIcI2l4G0IUQ7sAfl9SLEq", "median": 793.0}, {"name": "Держатель предохранителя 40 А", "variant": "общее", "group": "управление и безопасность", "qty": 1.0, "item": "Держатель флажкового предохранителя типа ATC, с кабелем 6мм2 (до 40А). Разъем предохранителя с проводом.", "shop": "ozon", "sum": 274.0, "url": "https://www.ozon.ru/product/derzhatel-flazhkovogo-predohranitelya-tipa-atc-s-kabelem-6mm2-do-40a-razem-predohranitelya-5290493474/?at=1mGr1PLJ2XuPcsSfDUeCc7m9E7Z50YYd", "conf": "НЕ ПРОВЕРЕНО по карточке: допустимый ток держателя; сам предохранитель 40 А отдельно", "minSum": 274.0, "minItem": "Держатель флажкового предохранителя типа ATC, с кабелем 6мм2 (до 40А). Разъем предохранителя с проводом.", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/derzhatel-flazhkovogo-predohranitelya-tipa-atc-s-kabelem-6mm2-do-40a-razem-predohranitelya-5290493474/?at=1mGr1PLJ2XuPcsSfDUeCc7m9E7Z50YYd", "median": 310.0}, {"name": "Монолитный поликарбонат 3 мм (0,3 м²)", "variant": "общее", "group": "корпус", "qty": 0.3, "item": "Поликарбонат монолитный 3 мм прозрачный 1000х500 мм / Оргстекло прозрачное", "shop": "ozon", "sum": 1976.0, "url": "https://www.ozon.ru/product/polikarbonat-monolitnyy-3-mm-prozrachnyy-1000h500-mm-orgsteklo-prozrachnoe-730589632/?at=1mGr1URyzkkMl1MqL3QqmXpZbBeYQSYo", "conf": "НЕ ПРОВЕРЕНО по карточке: УФ-защита, ударная стойкость", "minSum": 1976.0, "minItem": "Поликарбонат монолитный 3 мм прозрачный 1000х500 мм / Оргстекло прозрачное", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/polikarbonat-monolitnyy-3-mm-prozrachnyy-1000h500-mm-orgsteklo-prozrachnoe-730589632/?at=1mGr1URyzkkMl1MqL3QqmXpZbBeYQSYo", "median": 2102.0}, {"name": "Сотовый поликарбонат 4 мм (1,5 м²)", "variant": "общее", "group": "корпус", "qty": 1.5, "item": "Поликарбонат для теплиц сотовый прозрачный 4 мм, 6 метров, 1 лист, марка Ultramarin", "shop": "ozon", "sum": 2978.0, "url": "https://www.ozon.ru/product/polikarbonat-dlya-teplits-sotovyy-prozrachnyy-4-mm-6-metrov-1-list-marka-ultramarin-560360682/?at=1mGr1VviUYjCO7n_JCStJ7pyixk7n1ag", "conf": "НЕ ПРОВЕРЕНО по карточке: размер листа 2,1x6 м взят из «6 метров» в названии, большой перерасход площади", "minSum": 2978.0, "minItem": "Поликарбонат для теплиц сотовый прозрачный 4 мм, 6 метров, 1 лист, марка Ultramarin", "minShop": "ozon", "minUrl": "https://www.ozon.ru/product/polikarbonat-dlya-teplits-sotovyy-prozrachnyy-4-mm-6-metrov-1-list-marka-ultramarin-560360682/?at=1mGr1VviUYjCO7n_JCStJ7pyixk7n1ag", "median": 2978.0}, {"name": "Алюминиевый уголок 20x20 (8 м)", "variant": "общее", "group": "корпус", "qty": 8.0, "item": "Профиль алюминиевый, уголок 20x20x2 (Без покрытия) / 1000 мм - 1 шт / СОБЕРИЗАВОД", "shop": "ozon", "sum": 2664.0, "url": "https://www.ozon.ru/product/profil-alyuminievyy-ugolok-20x20x2-bez-pokrytiya-1000-mm-1-sht-soberizavod-1787731445/?at=1mGr1W2Uc3vV0JCaxXnB_j5obVR3OTHb", "conf": "НЕ ПРОВЕРЕНО по карточке: сплав, длина в карточке", "minSum": 1302.0, "minItem": "Профиль L-образный алюминий 20x20x1x2700 мм серый", "minShop": "lemanapro", "minUrl": "https://lemanapro.ru/product/profil-l-obraznyy-alyuminiy-20x20x1x2700-mm-seryy-89034258/", "median": 2172.0}, {"name": "Мячи теннисные тренировочные 60 шт (не входит в стоимость машины)", "variant": "вне сметы", "group": "вне сметы", "qty": 60.0, "item": "Мяч теннисный, 60 шт", "shop": "ozon", "sum": 6430.0, "url": "https://www.ozon.ru/product/myach-tennisnyy-60-sht-2689794042/?at=1mGr1WU1iqeSe2hcKmsbS2nhXz9cn9QD", "conf": "НЕ ПРОВЕРЕНО по карточке: тренировочные/давление, количество в упаковке", "minSum": 5260.0, "minItem": "Мяч для большого тенниса Мяч теннисный набор 3 шт Zona Store", "minShop": "wildberries", "minUrl": "https://www.wildberries.ru/catalog/237917939/detail.aspx", "median": 7399.0}];
+const BUDGET = 50000;
+const GROUPS = ["метатель", "питание", "наведение и подача", "управление и безопасность", "корпус"];
+const SHOPS = { ozon:"Ozon", wildberries:"Wildberries", aliexpress:"AliExpress", chipdip:"ЧИП и ДИП", citilink:"Ситилинк", lemanapro:"Лемана ПРО" };
+const state = { v:"А", m:"good", theme:"auto" };
+const fmt = n => Math.round(n).toLocaleString("ru-RU") + " ₽";
+
+function pickRow(r) {
+  if (state.m === "good") return { item:r.item, shop:r.shop, sum:r.sum, url:r.url, found:r.conf !== "не найдено" };
+  return { item:r.minItem, shop:r.minShop, sum:r.minSum, url:r.minUrl, found:r.minSum !== null };
+}
+function active() { return DATA.filter(r => r.variant === "общее" || r.variant === state.v); }
+function badge(r, p) {
+  if (!p.found) return '<span class="badge none">не найдено</span>';
+  if (state.m === "min") return '<span class="badge unchecked">НЕ ПРОВЕРЕНО по карточке</span><div class="hint">минимум: параметры могут не совпадать</div>';
+  if (r.conf.startsWith("НЕ ПРОВЕРЕНО")) return '<span class="badge unchecked">НЕ ПРОВЕРЕНО по карточке</span><div class="hint">' + r.conf.replace("НЕ ПРОВЕРЕНО по карточке: ", "") + '</div>';
+  return '<span class="badge exact">точно по названию</span>';
+}
+function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;"); }
+function rowHtml(r, cls) {
+  const p = pickRow(r);
+  const item = p.found ? '<a href="' + p.url + '" target="_blank" rel="noopener">' + esc(p.item) + '</a>' : esc(r.item);
+  const unit = p.found ? fmt(p.sum / r.qty) : "—";
+  return '<tr class="' + cls + '"><td>' + esc(r.name) + '<div class="hint">вариант: ' + r.variant + '</div></td><td class="num">' + r.qty + '</td><td>' + item + '</td><td>' + (p.found ? (SHOPS[p.shop] || p.shop) : "—") + '</td><td class="num">' + unit + '</td><td class="num">' + (p.found ? fmt(p.sum) : "—") + '</td><td>' + badge(r, p) + '</td></tr>';
+}
+function render() {
+  const rows = active().filter(r => r.group !== "вне сметы" && r.variant !== "альт.");
+  const sums = {};
+  GROUPS.forEach(g => sums[g] = 0);
+  let total = 0;
+  rows.forEach(r => { const p = pickRow(r); if (p.found) { total += p.sum; sums[r.group] += p.sum; } });
+  const missing = rows.filter(r => !pickRow(r).found).length;
+  document.getElementById("total").innerHTML = fmt(total) + ' <small>' + (state.m === "good" ? "разумный выбор" : "минимум") + ', вариант ' + state.v + (missing ? ", без " + missing + " ненайденных позиций" : "") + '</small>';
+  const scale = Math.max(total, BUDGET) * 1.15;
+  const fill = document.getElementById("fill");
+  fill.style.width = (total / scale * 100) + "%";
+  fill.className = "fill" + (total > BUDGET ? " over" : "");
+  document.getElementById("mark").style.left = (BUDGET / scale * 100) + "%";
+  const left = BUDGET - total;
+  document.getElementById("budgetText").textContent = left >= 0 ? "Укладываемся в бюджет, запас " + fmt(left) + " (" + Math.round(total / BUDGET * 100) + "% бюджета)." : "Выше бюджета на " + fmt(-left) + ".";
+  const top = Math.max.apply(null, GROUPS.map(g => sums[g]));
+  document.getElementById("chart").innerHTML = GROUPS.map(g => '<div class="col"><div class="val">' + fmt(sums[g]) + '</div><div class="bar" style="height:' + (sums[g] / top * 150) + 'px"></div></div>').join("");
+  document.getElementById("names").innerHTML = GROUPS.map(g => "<div>" + g + "</div>").join("");
+  let html = "";
+  GROUPS.forEach(g => {
+    html += '<tr class="group"><td colspan="7">' + g + ' — ' + fmt(sums[g]) + '</td></tr>';
+    active().filter(r => r.group === g).forEach(r => { html += rowHtml(r, r.variant === "альт." ? "muted" : ""); });
+  });
+  html += '<tr class="group"><td colspan="7">вне сметы машины</td></tr>';
+  DATA.filter(r => r.group === "вне сметы").forEach(r => { html += rowHtml(r, "muted"); });
+  document.getElementById("rows").innerHTML = html;
+}
+function bind(id, key, attr) {
+  document.querySelectorAll("#" + id + " button").forEach(b => b.addEventListener("click", () => {
+    state[key] = b.dataset[attr];
+    document.querySelectorAll("#" + id + " button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    render();
+  }));
+}
+bind("segVariant", "v", "v");
+bind("segMode", "m", "m");
+const themes = ["auto", "light", "dark"];
+const themeNames = { auto:"авто", light:"светлая", dark:"тёмная" };
+document.getElementById("themeBtn").addEventListener("click", e => {
+  state.theme = themes[(themes.indexOf(state.theme) + 1) % 3];
+  document.documentElement.setAttribute("data-theme", state.theme);
+  e.target.textContent = "Тема: " + themeNames[state.theme];
+});
+render();
+</script>
+</body>
+</html>

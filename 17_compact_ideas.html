@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Как сделать пушку компактнее: идеи и проверка</title>
+<style>
+body{font-family:"Segoe UI",Arial,sans-serif;margin:0;background:#f6f5f1;color:#222;line-height:1.5}
+main{max-width:1040px;margin:0 auto;padding:24px 20px 60px}
+h1{font-size:28px;margin:6px 0 4px}
+h2{font-size:21px;margin:34px 0 10px;border-bottom:2px solid #ddd;padding-bottom:4px}
+h3{font-size:18px;margin:0 0 8px}
+.lead{font-size:16px;color:#444}
+.card{background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.08);padding:16px 18px;margin:16px 0}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.grid > div{min-width:0}
+.k{display:grid;grid-template-columns:140px minmax(0,1fr);gap:4px 12px;font-size:14px}
+.k b{color:#555;font-weight:600}
+.tag{font-size:11px;color:#6a6a6a;white-space:nowrap}
+.ok{color:#1f7a3a;font-weight:600}
+.bad{color:#b23a2e;font-weight:600}
+.mid{color:#a46a00;font-weight:600}
+table{border-collapse:collapse;font-size:13px;width:100%}
+th,td{border:1px solid #ddd;padding:4px 6px;text-align:center}
+th{background:#f0efe9}
+td.l,th.l{text-align:left}
+.badge{display:inline-block;font-size:12px;border-radius:10px;padding:1px 9px;margin-left:8px;vertical-align:middle}
+.b-good{background:#dff1e4;color:#1f7a3a}
+.b-maybe{background:#fbefd6;color:#8a5a00}
+.b-no{background:#f6dcd9;color:#a1342a}
+.reco{border-left:6px solid #2e8b57}
+.note{font-size:13px;color:#555}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr)}.k{grid-template-columns:110px minmax(0,1fr)}}
+</style>
+</head>
+<body><div id="tcsite-bar"><style>#tcsite-bar{all:initial;display:flex;align-items:center;gap:10px;flex:none;box-sizing:border-box;width:100%;height:34px;padding:0 14px;background:#1f2a37;color:#dbe4ee;font:13px/1 system-ui,Segoe UI,sans-serif;white-space:nowrap;overflow:hidden;border-bottom:1px solid #3a4756}#tcsite-bar a{color:#9fd3ff;text-decoration:none;font-weight:600;flex:none}#tcsite-bar a:hover{text-decoration:underline}#tcsite-bar .tcsite-sep{opacity:.5;flex:none}#tcsite-bar .tcsite-name{overflow:hidden;text-overflow:ellipsis;min-width:0}#tcsite-bar .tcsite-date{opacity:.8;flex:none}#tcsite-bar .tcsite-old{color:#ffcf8a;flex:none}@media (max-width:560px){#tcsite-bar .tcsite-date{display:none}}</style><a class="tcsite-back" href="index.html">← Все страницы</a><span class="tcsite-sep">·</span><span class="tcsite-name">Как сделать пушку компактнее</span><span class="tcsite-sep">·</span><span class="tcsite-date">обновлено 16.11.2026</span></div>
+<main>
+<h1>Как сделать пушку заметно компактнее</h1>
+<p class="lead">Ревизия 6 вышла большой и тяжёлой (9,6 кг при пределе 8,7). Здесь разобрано, откуда берётся её размер, какие есть способы его уменьшить, и одна из идей проверена быстрой симуляцией. Все рисунки на этой странице в одном масштабе с реальными миллиметрами. Пометки: <span class="tag">[ПРОВЕРЕНО]</span> взято из файла или источника, <span class="tag">[РАСЧЁТ]</span> посчитано, <span class="tag">[ОЦЕНКА]</span> прикидка, <span class="tag">[НЕ ЗНАЮ]</span> данных нет.</p>
+
+<h2>0. Почему Tenniix стоит низко и при этом невысокая, а мы нет</h2>
+<div class="card reco">
+<p>Сложим машину снизу вверх, как стопку кирпичей. Все три стопки нарисованы в одном масштабе, высоты в миллиметрах от земли.</p>
+<svg viewBox="0 0 1000 500" width="100%" style="max-width:1000px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Вертикальные стопки"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><line x1="23.8" y1="470.0" x2="110.6" y2="470.0" stroke="#6b5" stroke-width="2" />
+<polygon points="30.0,470.0 85.8,470.0 85.8,454.5 30.0,454.5" fill="#999" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="89.5" y="465.0" font-size="11" text-anchor="start" fill="#222" >основание с ножками ≈25</text>
+<polygon points="30.0,454.5 85.8,454.5 85.8,440.9 30.0,440.9" fill="#ccc" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<polygon points="30.0,440.9 85.8,440.9 85.8,315.6 30.0,315.6" fill="#4a6fa5" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="89.5" y="346.0" font-size="11" text-anchor="start" fill="#222" >окно 47–249: голова качается внутри</text>
+<polygon points="30.0,296.4 85.8,296.4 85.8,277.8 30.0,277.8" fill="#c9d43a" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="89.5" y="290.2" font-size="11" text-anchor="start" fill="#222" >диск в чаше ≈295</text>
+<polygon points="30.0,277.8 85.8,277.8 85.8,243.7 30.0,243.7" fill="#ddd" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="89.5" y="262.3" font-size="11" text-anchor="start" fill="#222" >верх корпуса 365</text>
+<polygon points="30.0,243.7 85.8,243.7 85.8,192.2 30.0,192.2" fill="#bbb" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="89.5" y="220.8" font-size="11" text-anchor="start" fill="#222" >бункер сложен 365–448</text>
+<line x1="26.3" y1="377.0" x2="87.0" y2="377.0" stroke="#d9534f" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="57.9" y="374.5" font-size="9" text-anchor="middle" fill="#7a1010" font-weight="bold">линия выстрела ≈150</text>
+<text x="57.9" y="178.6" font-size="14" text-anchor="middle" fill="#222" font-weight="bold">Tenniix (по фото)</text>
+<line x1="353.8" y1="470.0" x2="440.6" y2="470.0" stroke="#6b5" stroke-width="2" />
+<polygon points="360.0,470.0 415.8,470.0 415.8,398.1 360.0,398.1" fill="#999" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="419.5" y="468.8" font-size="11" text-anchor="start" fill="#222" >ножки: корпус поднят на 116</text>
+<polygon points="384.8,454.5 409.6,454.5 409.6,391.9 384.8,391.9" fill="#d9534f" stroke="#555" stroke-width="0.8" opacity="0.6"/>
+<text x="419.5" y="431.6" font-size="11" text-anchor="start" fill="#b23a2e" >голова проваливается до 25</text>
+<polygon points="360.0,398.1 415.8,398.1 415.8,391.9 360.0,391.9" fill="#777" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="419.5" y="395.0" font-size="11" text-anchor="start" fill="#222" >днище 126</text>
+<polygon points="360.0,391.9 415.8,391.9 415.8,227.6 360.0,227.6" fill="#4a6fa5" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="419.5" y="321.2" font-size="11" text-anchor="start" fill="#222" >голова и дуга R90</text>
+<polygon points="360.0,227.6 415.8,227.6 415.8,198.4 360.0,198.4" fill="#c9d43a" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="419.5" y="215.8" font-size="11" text-anchor="start" fill="#222" >плита 395, диск на стойках до 438</text>
+<polygon points="360.0,198.4 415.8,198.4 415.8,189.8 360.0,189.8" fill="#ddd" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="419.5" y="191.0" font-size="11" text-anchor="start" fill="#222" >крыша 452</text>
+<polygon points="360.0,189.8 415.8,189.8 415.8,67.0 360.0,67.0" fill="#eee" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="419.5" y="129.0" font-size="11" text-anchor="start" fill="#222" >корзина до 650</text>
+<line x1="356.3" y1="355.9" x2="417.0" y2="355.9" stroke="#d9534f" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="387.9" y="353.4" font-size="9" text-anchor="middle" fill="#7a1010" font-weight="bold">линия выстрела 184 (5°)</text>
+<line x1="356.3" y1="280.9" x2="417.0" y2="280.9" stroke="#d9534f" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="387.9" y="278.4" font-size="9" text-anchor="middle" fill="#7a1010" font-weight="bold">ось O 305</text>
+<text x="387.9" y="50.3" font-size="14" text-anchor="middle" fill="#222" font-weight="bold">Ревизия 6</text>
+<line x1="683.8" y1="470.0" x2="770.6" y2="470.0" stroke="#6b5" stroke-width="2" />
+<polygon points="690.0,470.0 745.8,470.0 745.8,455.1 690.0,455.1" fill="#999" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="749.5" y="466.3" font-size="11" text-anchor="start" fill="#222" >ножки и днище 24</text>
+<polygon points="690.0,450.2 745.8,450.2 745.8,366.5 690.0,366.5" fill="#4a6fa5" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="749.5" y="411.1" font-size="11" text-anchor="start" fill="#222" >голова под осью 135 (Ø100)</text>
+<polygon points="690.0,366.5 745.8,366.5 745.8,256.1 690.0,256.1" fill="#2e8b57" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="749.5" y="311.9" font-size="11" text-anchor="start" fill="#222" >дуга R90 (90) + падение 88</text>
+<polygon points="690.0,256.1 745.8,256.1 745.8,246.8 690.0,246.8" fill="#c9d43a" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="749.5" y="253.0" font-size="11" text-anchor="start" fill="#222" >диск в чаше 345–360</text>
+<polygon points="690.0,246.8 745.8,246.8 745.8,231.3 690.0,231.3" fill="#ddd" stroke="#555" stroke-width="0.8" opacity="0.85"/>
+<text x="749.5" y="235.6" font-size="11" text-anchor="start" fill="#222" >ворошилка, крышка 385</text>
+<line x1="686.3" y1="366.5" x2="747.0" y2="366.5" stroke="#d9534f" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="717.9" y="364.0" font-size="9" text-anchor="middle" fill="#7a1010" font-weight="bold">ось = линия выстрела 167</text>
+<text x="717.9" y="217.7" font-size="14" text-anchor="middle" fill="#222" font-weight="bold">K1-низкая (предложение)</text></svg>
+<p class="note">Tenniix: размеры сняты с фото FCC по линейке. Масштаб проверен по батарее: её длина 159 мм по этикетке, на фото выходит 161 мм <span class="tag">[ОЦЕНКА по фото fcc_external_p02, 2,15 мм на точку, ±10 мм]</span>. Корпус без бункера около 365 мм высотой, около 370 мм вдоль выстрела и около 205 мм в ширину спереди; окно в свету около 95 × 202 мм, его низ в 47 мм над землёй. Колесо видно широким, около 60 мм <span class="tag">[ОЦЕНКА по фото view09 и кадру Z8URByyB9c0 07:10]</span>. Диаметр колёс прямо не виден: по стопке выходит около Ø90 <span class="tag">[ОЦЕНКА, низкая уверенность]</span>. Ревизия 6 взята из модели <span class="tag">[ПРОВЕРЕНО: 12_layout_e1_summary]</span>.</p>
+<table>
+<tr><th class="l">Слагаемое (мм)</th><th>Tenniix <span class="tag">[ОЦЕНКА по фото]</span></th><th>Ревизия 6</th><th>Насколько у нас больше</th><th class="l">Что сделать без потери 80 км/ч</th><th>K1-низкая</th></tr>
+<tr><td class="l">земля → днище</td><td>≈25</td><td>126 (корпус на ножках), а голова при этом проваливается до 25</td><td>+100</td><td class="l">ставить корпус на днище с короткими ножками, голова целиком над днищем</td><td>24</td></tr>
+<tr><td class="l">низ головы → линия выстрела</td><td>≈115</td><td>159 (полузазор 23,5 + колесо 125 + обечайка 10)</td><td>+44</td><td class="l">колёса Ø100 шириной 50 мм: провал оборотов за выстрел 15,9 %, как сейчас у Ø125 × 36 <span class="tag">[РАСЧЁТ: wheels_small.py]</span>; −25 мм</td><td>135</td></tr>
+<tr><td class="l">линия выстрела → диск</td><td>≈145</td><td>211 (дуга 127 + падение 86)</td><td>+66</td><td class="l">дуга с горизонтальным выходом: 90 вместо 127 (проверено симуляцией, раздел 3а)</td><td>178</td></tr>
+<tr><td class="l">диск и крышка над ним</td><td>≈70 (диск в чаше)</td><td>57 до крыши, диск на стойках 36 мм над плитой</td><td>≈0</td><td class="l">диск прямо в чаше, без стоек</td><td>40</td></tr>
+<tr><td class="l">сложенный бункер</td><td>83 сверху</td><td>корзина складывается сверху</td><td></td><td class="l">створки опускаются вдоль боков, высоту не добавляют</td><td>0</td></tr>
+<tr><td class="l"><b>сложено, итого</b></td><td><b>392 × 271 × 448</b> <span class="tag">[ПРОВЕРЕНО: паспорт]</span></td><td><b>452 × 503 × 418</b></td><td>длина почти вдвое</td><td class="l">цель: не больше Tenniix +10–15 %, около 430 × 310 × 500</td><td><b>≈320 × 396 × 385</b></td></tr>
+</table>
+<p><b>Ответ по сути.</b> Защитник ревизии 6 прав в одном: если отсчитывать от входа трубки O, низ головы при 5° всегда оказывается на 285–295 мм ниже O, где бы ни стояла ось качания. Но эту стопку можно укоротить. Сверху лишние 66 мм: мяч падает с плиты в трубку, а дуга выводит его на линию выстрела не горизонтально, а под 30°, и спускается на 127 мм вместо 90. Снизу лишние 44 мм: колесо Ø125 и обечайка. В сумме ровно те 110 мм, на которые, по словам защитника, пришлось бы удлинить стенки. У Tenniix всё сложено вплотную: диск в чаше над колёсами, короткий спуск, маленькие широкие колёса, ось внутри окна. Поэтому машина и стоит низко, и получается невысокой. Ещё одна причина, почему она узкая (около 205 мм спереди): моторы, судя по фото, сидят внутри колёс <span class="tag">[ОЦЕНКА по фото, research/54 п.4]</span>, а у нас моторы торчат по бокам, и голова занимает около 200 мм в ширину.</p>
+<p class="note">Цена колёс Ø100 × 50: 4 990 об/мин при k<sub>v</sub> 0,85 вместо 3 990 <span class="tag">[РАСЧЁТ: engkit.launcher]</span>; по MuJoCo, пересчитанному по диаметру, около 5 500 <span class="tag">[РАСЧЁТ: research/40 даёт 4 380 об/мин для Ø125, × 125/100]</span>. Мотору 340KV от 18 В этого может не хватить: нужен KV около 400 или батарея 6S, как у Tenniix (21,9 В) <span class="tag">[ОЦЕНКА]</span>. Вариант Ø90 × 60 даёт ещё −10 мм и провал 15,4 %, но 5 550–6 100 об/мин. Подача у K1 моделировалась с колёсами Ø125, для Ø100 её надо пересчитать <span class="tag">[НЕ ПРОВЕРЕНО]</span>. Владелец согласен на лёгкий мотор поворота (переход около 2,5 с при пределе 3 с): это −0,17 кг <span class="tag">[ПРОВЕРЕНО: массы 5840-555 0,33 и JGY-370 0,162 кг, summary.drives]</span>.</p>
+</div>
+
+<h2>1. Три машины рядом: Tenniix, наша ревизия 6, предложение K1</h2>
+<div class="card">
+<svg viewBox="0 0 1000 720" width="100%" style="max-width:1000px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Силуэты в одном масштабе"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><text x="131.3" y="40.8" font-size="14" text-anchor="middle" fill="#222" font-weight="bold">Tenniix (серийная)</text>
+<line x1="53.2" y1="360.0" x2="212.8" y2="360.0" stroke="#6b5" stroke-width="2" />
+<polygon points="70.0,351.6 192.6,351.6 192.6,171.8 70.0,171.8" fill="#eee" stroke="#777" stroke-width="1.4" />
+<polygon points="70.0,171.8 192.6,171.8 208.6,58.9 54.0,58.9" fill="#f3f3f3" stroke="#777" stroke-width="1.2" stroke-dasharray="5 3"/>
+<polygon points="177.1,322.2 192.6,322.2 192.6,231.9 177.1,231.9" fill="#333" stroke="#333" stroke-width="1" />
+<text x="131.3" y="255.0" font-size="11" text-anchor="middle" fill="#222" >колонна</text>
+<text x="131.3" y="108.0" font-size="10" text-anchor="middle" fill="#555" >бункер-створки</text>
+<line x1="70.0" y1="376.8" x2="192.6" y2="376.8" stroke="#555" stroke-width="0.8" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="131.3" y="374.3" font-size="11" text-anchor="middle" fill="#333" >292</text>
+<line x1="46.9" y1="360.0" x2="46.9" y2="58.9" stroke="#555" stroke-width="0.8" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="42.9" y="209.4" font-size="11" text-anchor="end" fill="#333">717</text>
+<text x="475.0" y="40.8" font-size="14" text-anchor="middle" fill="#222" font-weight="bold">Наша ревизия 6</text>
+<line x1="353.2" y1="360.0" x2="626.2" y2="360.0" stroke="#6b5" stroke-width="2" />
+<polygon points="370.0,311.3 579.6,311.3 579.6,170.2 370.0,170.2" fill="#eee" stroke="#777" stroke-width="1.4" />
+<polygon points="370.0,194.1 546.4,194.1 546.4,87.0 370.0,87.0" fill="#f3f3f3" stroke="#777" stroke-width="1.2" stroke-dasharray="5 3"/>
+<line x1="382.6" y1="311.3" x2="357.4" y2="360.0" stroke="#555" stroke-width="3" />
+<line x1="567.4" y1="311.3" x2="605.2" y2="360.0" stroke="#555" stroke-width="3" />
+<circle cx="449.8" cy="231.9" r="133.1" fill="none" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="6 4"/>
+<circle cx="496.8" cy="245.2" r="32.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="496.8" cy="245.2" r="26.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="496.8" cy="245.2" r="3.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="503.1" cy="317.2" r="32.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="503.1" cy="317.2" r="26.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="503.1" cy="317.2" r="3.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="522.5,261.5 556.4,258.6 559.5,293.7 525.6,296.7" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="481.3" cy="282.9" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<circle cx="449.8" cy="231.9" r="2.1" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<polygon points="577.9,295.3 579.6,295.3 579.6,172.7 577.9,172.7" fill="#333" stroke="#333" stroke-width="1" />
+<line x1="357.4" y1="376.8" x2="607.7" y2="376.8" stroke="#555" stroke-width="0.8" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="482.6" y="374.3" font-size="11" text-anchor="middle" fill="#333" >596 (с ножками)</text>
+<line x1="344.8" y1="360.0" x2="344.8" y2="87.0" stroke="#555" stroke-width="0.8" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="340.8" y="223.5" font-size="11" text-anchor="end" fill="#333">655</text>
+<text x="824.0" y="40.8" font-size="14" text-anchor="middle" fill="#222" font-weight="bold">Предложение K1</text>
+<line x1="714.8" y1="360.0" x2="933.2" y2="360.0" stroke="#6b5" stroke-width="2" />
+<polygon points="756.8,353.7 887.0,353.7 887.0,350.8 756.8,350.8" fill="#777" stroke="#555" stroke-width="1" />
+<line x1="765.2" y1="353.7" x2="727.4" y2="360.0" stroke="#555" stroke-width="3" />
+<line x1="878.6" y1="353.7" x2="916.4" y2="360.0" stroke="#555" stroke-width="3" />
+<polygon points="741.7,349.9 904.2,349.9 904.2,166.8 741.7,166.8" fill="#eef1f5" stroke="#777" stroke-width="1.4" />
+<polygon points="902.5,291.5 904.2,291.5 904.2,189.1 902.5,189.1" fill="#333" stroke="#333" stroke-width="1" />
+<circle cx="821.9" cy="278.5" r="79.0" fill="none" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="6 4"/>
+<circle cx="827.2" cy="238.2" r="32.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="827.2" cy="238.2" r="26.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="827.2" cy="238.2" r="3.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="851.9" cy="306.0" r="32.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="851.9" cy="306.0" r="26.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="851.9" cy="306.0" r="3.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="856.2,247.3 888.2,235.6 900.2,268.8 868.3,280.4" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="821.9" cy="278.5" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<circle cx="821.9" cy="278.5" r="2.1" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<path d="M746.5,240.7 L746.6,242.9 L746.7,245.1 L746.9,247.3 L747.2,249.4 L747.6,251.6 L748.1,253.7 L748.7,255.9 L749.3,257.9 L750.0,260.0 L750.9,262.0 L751.8,264.0 L752.7,266.0 L753.8,267.9 L754.9,269.8 L756.1,271.6 L757.4,273.4 L758.8,275.1 L760.2,276.8 L761.7,278.4 L763.2,279.9 L764.8,281.4 L766.5,282.9 L768.2,284.2 L770.0,285.5 L771.8,286.7 L773.7,287.8 L775.6,288.9 L777.6,289.9 L779.6,290.8 L781.6,291.6 L783.7,292.3 L785.8,293.0 L787.9,293.5 L790.0,294.0 L792.2,294.4 L794.3,294.7 L796.5,294.9 L798.7,295.1 L800.9,295.1" fill="none" stroke="#2e8b57" stroke-width="2.5" />
+<line x1="800.9" y1="295.1" x2="820.2" y2="295.1" stroke="#2e8b57" stroke-width="2.5" />
+<line x1="746.5" y1="240.7" x2="746.5" y2="203.8" stroke="#2e8b57" stroke-width="2.5" />
+<polygon points="748.4,203.8 897.5,203.8 897.5,202.1 748.4,202.1" fill="#999" stroke="#666" stroke-width="1" />
+<polygon points="745.0,187.0 833.2,187.0 833.2,184.0 745.0,184.0" fill="#c9d43a" stroke="#7a8020" stroke-width="1" />
+<polygon points="748.4,276.0 782.0,276.0 782.0,229.8 748.4,229.8" fill="none" stroke="#285" stroke-width="1.2" stroke-dasharray="4 3"/>
+<polygon points="748.4,343.2 782.0,343.2 782.0,297.0 748.4,297.0" fill="none" stroke="#246" stroke-width="1.2" stroke-dasharray="4 3"/>
+<polygon points="741.7,166.8 693.4,83.2 695.1,82.4 743.4,166.0" fill="#ddd" stroke="#777" stroke-width="1" />
+<polygon points="904.2,166.8 952.5,83.2 950.8,82.4 902.5,166.0" fill="#ddd" stroke="#777" stroke-width="1" />
+<line x1="740.0" y1="376.8" x2="904.2" y2="376.8" stroke="#555" stroke-width="0.8" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="822.1" y="374.3" font-size="11" text-anchor="middle" fill="#333" >≈391</text>
+<line x1="721.1" y1="360.0" x2="721.1" y2="82.8" stroke="#555" stroke-width="0.8" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="717.1" y="221.4" font-size="11" text-anchor="end" fill="#333">≈660</text>
+<polygon points="70.0,640.0 192.6,640.0 192.6,475.4 70.0,475.4" fill="#eee" stroke="#777" stroke-width="1.4" />
+<text x="131.3" y="648.4" font-size="10" text-anchor="middle" fill="#555" >вид сверху 292×392</text>
+<polygon points="370.0,640.0 579.6,640.0 579.6,476.2 370.0,476.2" fill="#eee" stroke="#777" stroke-width="1.4" />
+<polygon points="357.4,690.4 607.7,690.4 607.7,425.8 357.4,425.8" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="475.0" y="698.8" font-size="10" text-anchor="middle" fill="#555" >корпус 499×390, ножки 596×630</text>
+<polygon points="740.0,621.1 904.2,621.1 904.2,495.1 740.0,495.1" fill="#eee" stroke="#777" stroke-width="1.4" />
+<polygon points="689.6,669.4 954.6,669.4 954.6,446.8 689.6,446.8" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="821.9" y="677.8" font-size="10" text-anchor="middle" fill="#555" >корпус 391×300, створки раскрыты 630×530</text></svg>
+<p class="note">Сверху вид сбоку (мяч летит вправо), снизу вид сверху. Красный пунктир: круг, который заметает голова с колёсами при наклоне 5–40°. У ревизии 6 радиус 317 мм, у K1 188 мм <span class="tag">[РАСЧЁТ: research/data/compact/geom.py]</span>. Размеры Tenniix по паспорту <span class="tag">[ПРОВЕРЕНО: research/54]</span>, форма бункера условная. Пунктирные прямоугольники в K1 (батарея и плата) стоят сбоку от канала мяча, а не на нём.</p>
+</div>
+
+<h2>2. Почему ревизия 6 такая большая</h2>
+<div class="card">
+<p>Главная причина одна: <b>ось качания головы стоит далеко от колёс</b>, наверху, у входа трубки. Колёса висят на ней, как гиря на длинной верёвке, в 168 мм от оси. Поэтому при наклоне от 5° до 40° они заметают круг радиусом 317 мм, и под этот круг пришлось строить всю башню: высоко поднять ось (305 мм над землёй), прорезать проём в днище и всё равно оставить место впереди.</p>
+<table>
+<tr><th class="l">Размер</th><th class="l">Из чего складывается у ревизии 6 (мм)</th><th>Итого</th><th class="l">Tenniix</th></tr>
+<tr><td class="l">Длина</td><td class="l">корзина и диск позади оси 190 + заметание головы впереди 300 + обшивка 9</td><td>499 корпус, 596 с ножками <span class="tag">[ПРОВЕРЕНО: 12_layout_e1_summary]</span></td><td class="l">292 <span class="tag">[ПРОВЕРЕНО: паспорт]</span></td></tr>
+<tr><td class="l">Ширина</td><td class="l">корзина 390 задаёт ширину; голова с моторами всего около 200; ножки разводятся до 630</td><td>390 корпус, 630 с ножками</td><td class="l">392 (с бункером); корпус спереди около 200–230 <span class="tag">[ОЦЕНКА по фото]</span></td></tr>
+<tr><td class="l">Высота</td><td class="l">зазор 25 + опускание головы под осью 280 = ось на 305; плита подачи 395; стенки корзины 255</td><td>655</td><td class="l">717 раскрыта, 448 сложена</td></tr>
+<tr><td class="l">Окно</td><td class="l">ход конца рукава по дуге R300</td><td>96 × 292</td><td class="l">около 80 × 215 <span class="tag">[ОЦЕНКА по фото fcc_external_p02, ±15 %]</span></td></tr>
+</table>
+<p class="note">Лишнее у нас: плечо 168 мм от оси до колёс (около 130 мм длины и 120 мм высоты уходят на «качание на верёвке»), проём в днище, короб корзины шире головы на 190 мм, ножки, расходящиеся далеко за корпус.</p>
+</div>
+
+<h2>3. Идеи</h2>
+
+<div class="card reco">
+<h3>(а) Ось качания прямо в точке захвата, лоток неподвижен <span class="badge b-good">главная идея, проверена симуляцией</span></h3>
+<div class="grid"><div><svg viewBox="0 0 460 400" width="100%" style="max-width:460px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея а"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><circle cx="230.0" cy="215.0" r="158.5" fill="none" stroke="#999" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="80.0" y="90.0" font-size="10" text-anchor="start" fill="#888" >старое заметание R317</text>
+<circle cx="230.0" cy="215.0" r="94.0" fill="#fbeaea" stroke="#d9534f" stroke-width="1.4" stroke-dasharray="6 4"/>
+<circle cx="248.5" cy="170.2" r="38.8" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.35"/>
+<circle cx="248.5" cy="170.2" r="31.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="0.35"/>
+<circle cx="248.5" cy="170.2" r="4.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="0.35"/>
+<circle cx="256.0" cy="255.9" r="38.8" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.35"/>
+<circle cx="256.0" cy="255.9" r="31.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="0.35"/>
+<circle cx="256.0" cy="255.9" r="4.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="0.35"/>
+<polygon points="279.1,189.6 319.4,186.1 323.1,227.9 282.7,231.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.35"/>
+<circle cx="219.5" cy="167.7" r="38.8" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="219.5" cy="167.7" r="31.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="219.5" cy="167.7" r="4.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="274.7" cy="233.6" r="38.8" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="274.7" cy="233.6" r="31.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="274.7" cy="233.6" r="4.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="255.6,166.1 286.7,140.0 313.7,172.2 282.6,198.3" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="230.0" cy="215.0" r="16.8" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<path d="M160.0,170.0 L160.0,171.8 L160.1,173.6 L160.3,175.4 L160.6,177.2 L160.9,179.0 L161.3,180.8 L161.8,182.5 L162.3,184.3 L162.9,186.0 L163.6,187.6 L164.3,189.3 L165.2,190.9 L166.0,192.5 L167.0,194.1 L168.0,195.6 L169.0,197.0 L170.1,198.5 L171.3,199.8 L172.5,201.2 L173.8,202.5 L175.2,203.7 L176.5,204.9 L178.0,206.0 L179.4,207.0 L180.9,208.0 L182.5,209.0 L184.1,209.8 L185.7,210.7 L187.4,211.4 L189.0,212.1 L190.7,212.7 L192.5,213.2 L194.2,213.7 L196.0,214.1 L197.8,214.4 L199.6,214.7 L201.4,214.9 L203.2,215.0 L205.0,215.0" fill="none" stroke="#2e8b57" stroke-width="3" />
+<line x1="205.0" y1="215.0" x2="228.0" y2="215.0" stroke="#2e8b57" stroke-width="3" />
+<line x1="160.0" y1="170.0" x2="160.0" y2="130.0" stroke="#2e8b57" stroke-width="3" />
+<circle cx="160.0" cy="127.5" r="16.8" fill="#c9d43a" stroke="#7a8020" stroke-width="1" />
+<circle cx="230.0" cy="215.0" r="2.0" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<text x="230.0" y="321.0" font-size="11" text-anchor="middle" fill="#d9534f" >красная точка: ось = точка захвата</text>
+<text x="155.0" y="230.0" font-size="11" text-anchor="middle" fill="#2e8b57" >лоток неподвижен</text>
+<text x="245.0" y="117.0" font-size="11" text-anchor="start" fill="#d9534f" >огибающая R188</text>
+<text x="305.0" y="135.0" font-size="11" text-anchor="start" fill="#222" >40°</text>
+<text x="325.0" y="210.0" font-size="11" text-anchor="start" fill="#888" >5°</text></svg></div><div class="k">
+<b>Суть</b><span>Голова качается вокруг той точки, где мяч касается обеих шин. Лоток с дугой стоит в корпусе неподвижно и всегда приводит мяч в одну и ту же точку: она не двигается при наклоне. Меняется только угол, под которым мяч входит к колёсам.</span>
+<b>Что даёт</b><span>Огибающая головы R188 вместо R317 <span class="tag">[РАСЧЁТ: geom.py]</span>; ось опускается с 305 до около 194 мм; окно 96 × 244 вместо 96 × 292; днище целое, колесо больше не вылезает наружу; голова легче (дуга не ездит с ней), момент от веса на моторе наклона около 0,9 Н·м вместо 3,9 <span class="tag">[РАСЧЁТ: m·g·r, массы ОЦЕНКА]</span>.</span>
+<b>Чем платим</b><span>Мяч заходит к колёсам под разными углами (от 5° до 40° к линии выстрела). Опоры оси надо вынести наружу за моторы колёс (короткие полуоси около 70 мм). Кожух верхнего колеса сзади должен быть открыт, чтобы не задевать лоток.</span>
+<b>Проверено ли</b><span class="ok">Да, быстрой симуляцией (MuJoCo, один движок, 12 прогонов на точку). Ниже график и таблица.</span>
+</div></div>
+<h3 style="margin-top:14px">Что показала симуляция</h3>
+<svg viewBox="0 0 780 300" width="100%" style="max-width:780px" xmlns="http://www.w3.org/2000/svg"><rect x="60" y="20" width="490" height="230" fill="#fafafa" stroke="#ccc"/><line x1="60" x2="550" y1="205.8" y2="205.8" stroke="#e5e5e5"/><text x="54" y="209.8" font-size="11" text-anchor="end">0.5°</text><line x1="60" x2="550" y1="161.5" y2="161.5" stroke="#e5e5e5"/><text x="54" y="165.5" font-size="11" text-anchor="end">1.0°</text><line x1="60" x2="550" y1="117.3" y2="117.3" stroke="#e5e5e5"/><text x="54" y="121.3" font-size="11" text-anchor="end">1.5°</text><line x1="60" x2="550" y1="73.1" y2="73.1" stroke="#e5e5e5"/><text x="54" y="77.1" font-size="11" text-anchor="end">2.0°</text><line x1="60" x2="550" y1="28.8" y2="28.8" stroke="#e5e5e5"/><text x="54" y="32.8" font-size="11" text-anchor="end">2.5°</text><text x="60.0" y="266" font-size="11" text-anchor="middle">5°</text><text x="130.0" y="266" font-size="11" text-anchor="middle">10°</text><text x="200.0" y="266" font-size="11" text-anchor="middle">15°</text><text x="270.0" y="266" font-size="11" text-anchor="middle">20°</text><text x="340.0" y="266" font-size="11" text-anchor="middle">25°</text><text x="410.0" y="266" font-size="11" text-anchor="middle">30°</text><text x="480.0" y="266" font-size="11" text-anchor="middle">35°</text><text x="550.0" y="266" font-size="11" text-anchor="middle">40°</text><text x="305.0" y="294" font-size="12" text-anchor="middle">наклон головы</text><text x="14" y="135.0" font-size="12" text-anchor="middle" transform="rotate(-90 14 135.0)">разброс угла σ</text><rect x="60" y="205.8" width="490" height="44.2" fill="#2e8b57" opacity="0.07"/><polyline points="60.0,237.7 130.0,234.2 200.0,242.9 270.0,234.1 340.0,235.6 410.0,233.4 480.0,230.7 550.0,209.3" fill="none" stroke="#2e8b57" stroke-width="2"/><circle cx="60.0" cy="237.7" r="3" fill="#2e8b57"/><circle cx="130.0" cy="234.2" r="3" fill="#2e8b57"/><circle cx="200.0" cy="242.9" r="3" fill="#2e8b57"/><circle cx="270.0" cy="234.1" r="3" fill="#2e8b57"/><circle cx="340.0" cy="235.6" r="3" fill="#2e8b57"/><circle cx="410.0" cy="233.4" r="3" fill="#2e8b57"/><circle cx="480.0" cy="230.7" r="3" fill="#2e8b57"/><circle cx="550.0" cy="209.3" r="3" fill="#2e8b57"/><polyline points="60.0,221.7 130.0,232.3 200.0,224.6 270.0,220.4 340.0,221.1 410.0,221.3 480.0,216.7 550.0,178.9" fill="none" stroke="#4a6fa5" stroke-width="2"/><circle cx="60.0" cy="221.7" r="3" fill="#4a6fa5"/><circle cx="130.0" cy="232.3" r="3" fill="#4a6fa5"/><circle cx="200.0" cy="224.6" r="3" fill="#4a6fa5"/><circle cx="270.0" cy="220.4" r="3" fill="#4a6fa5"/><circle cx="340.0" cy="221.1" r="3" fill="#4a6fa5"/><circle cx="410.0" cy="221.3" r="3" fill="#4a6fa5"/><circle cx="480.0" cy="216.7" r="3" fill="#4a6fa5"/><circle cx="550.0" cy="178.9" r="3" fill="#4a6fa5"/><polyline points="60.0,229.6 130.0,220.2 200.0,224.0 270.0,220.5 340.0,216.5 410.0,226.2 480.0,212.6 550.0,214.7" fill="none" stroke="#e8a33d" stroke-width="2"/><circle cx="60.0" cy="229.6" r="3" fill="#e8a33d"/><circle cx="130.0" cy="220.2" r="3" fill="#e8a33d"/><circle cx="200.0" cy="224.0" r="3" fill="#e8a33d"/><circle cx="270.0" cy="220.5" r="3" fill="#e8a33d"/><circle cx="340.0" cy="216.5" r="3" fill="#e8a33d"/><circle cx="410.0" cy="226.2" r="3" fill="#e8a33d"/><circle cx="480.0" cy="212.6" r="3" fill="#e8a33d"/><circle cx="550.0" cy="214.7" r="3" fill="#e8a33d"/><polyline points="60.0,210.8 130.0,211.9 200.0,220.8 270.0,164.8 340.0,28.3 410.0,204.6 480.0,36.5 550.0,73.3" fill="none" stroke="#d9534f" stroke-width="2"/><circle cx="60.0" cy="210.8" r="3" fill="#d9534f"/><circle cx="130.0" cy="211.9" r="3" fill="#d9534f"/><circle cx="200.0" cy="220.8" r="3" fill="#d9534f"/><circle cx="270.0" cy="164.8" r="3" fill="#d9534f"/><circle cx="340.0" cy="28.3" r="3" fill="#d9534f"/><circle cx="410.0" cy="204.6" r="3" fill="#d9534f"/><circle cx="480.0" cy="36.5" r="3" fill="#d9534f"/><circle cx="550.0" cy="73.3" r="3" fill="#d9534f"/><line x1="560" x2="578" y1="30" y2="30" stroke="#2e8b57" stroke-width="3"/><text x="582" y="34" font-size="11">K1: дуга R90 + прямой 50 мм</text><line x1="560" x2="578" y1="48" y2="48" stroke="#4a6fa5" stroke-width="3"/><text x="582" y="52" font-size="11">прямой лоток, уклон 0°</text><line x1="560" x2="578" y1="66" y2="66" stroke="#e8a33d" stroke-width="3"/><text x="582" y="70" font-size="11">лоток на тяге полу-угла</text><line x1="560" x2="578" y1="84" y2="84" stroke="#d9534f" stroke-width="3"/><text x="582" y="88" font-size="11">прямой лоток, уклон 25°</text><text x="560" y="116" font-size="10" fill="#555">зелёная полоса: σ ≤ 0,5°</text></svg>
+<table>
+<tr><th rowspan="2">наклон</th><th colspan="4">K1: неподвижная дуга R90 + прямой 50 мм (feedpath)</th><th colspan="2">прямой лоток 0°, неподвижен (feed3)</th><th colspan="2">лоток на тяге полу-угла (feed3)</th></tr>
+<tr><th>захват</th><th>сдвиг угла</th><th>разброс σ</th><th>скорость, км/ч</th><th>захват</th><th>сдвиг / σ</th><th>захват</th><th>сдвиг / σ</th></tr>
+<tr><td>5°</td><td>100 %</td><td>-0,15°</td><td>0,14°</td><td>80,5</td><td>12/12</td><td>-0,41° / 0,32°</td><td>12/12</td><td>-0,17° / 0,23°</td></tr>
+<tr><td>10°</td><td>100 %</td><td>-0,27°</td><td>0,18°</td><td>80,4</td><td>12/12</td><td>-0,16° / 0,20°</td><td>12/12</td><td>-0,11° / 0,34°</td></tr>
+<tr><td>15°</td><td>100 %</td><td>-0,27°</td><td>0,08°</td><td>79,8</td><td>12/12</td><td>-0,11° / 0,29°</td><td>12/12</td><td>0,02° / 0,29°</td></tr>
+<tr><td>20°</td><td>100 %</td><td>-0,31°</td><td>0,18°</td><td>80,2</td><td>12/12</td><td>-0,15° / 0,33°</td><td>12/12</td><td>0,14° / 0,33°</td></tr>
+<tr><td>25°</td><td>100 %</td><td>-0,26°</td><td>0,16°</td><td>79,8</td><td>12/12</td><td>-0,02° / 0,33°</td><td>12/12</td><td>0,01° / 0,38°</td></tr>
+<tr><td>30°</td><td>100 %</td><td>-0,29°</td><td>0,19°</td><td>80,2</td><td>12/12</td><td>-0,01° / 0,32°</td><td>12/12</td><td>-0,24° / 0,27°</td></tr>
+<tr><td>35°</td><td>100 %</td><td>-0,33°</td><td>0,22°</td><td>80,0</td><td>12/12</td><td>-0,11° / 0,38°</td><td>12/12</td><td>0,10° / 0,42°</td></tr>
+<tr><td>40°</td><td>100 %</td><td>-1,58°</td><td>0,46°</td><td>80,2</td><td>12/12</td><td>-1,55° / 0,80°</td><td>12/12</td><td>-0,01° / 0,40°</td></tr>
+</table>
+<p class="note">Как читать. «Сдвиг угла» одинаковый каждый раз, его снимает калибровка. «Разброс σ» случаен, его не убрать. На наклонах 5–35° разброс у K1 0,08–0,22°, это даже меньше, чем у ревизии 2 (0,23–0,45°). При 40° разброс растёт до 0,46°, а сдвиг до −1,6°: мяч перед захватом касается верхнего колеса. Но 40° нужны для свечи, а при таком угле ошибка в 1° сдвигает точку падения всего на 4 см <span class="tag">[РАСЧЁТ: engkit.ball_flight, 55 км/ч]</span>. Красная линия: если лоток слишком крутой (25°), при больших наклонах мяч бьётся о верхнее колесо и разброс растёт до 2–2,5°. Значит, неподвижный лоток надо ставить почти горизонтально: тогда один лоток покрывает весь диапазон 5–40°.</p>
+<p class="note">Чему верить: один движок, 12 прогонов на точку (погрешность σ около ±20 %), скорость колёс 70 км/ч, трение шины 0,5–0,9, трубки 0,3 и 0,6 <span class="tag">[ОЦЕНКА диапазонов]</span>. Не моделировались: вибрация, просадка оборотов, ворс и мокрый мяч. Вариант с прямым участком 30 мм и уклоном 5° при наклоне 30–40° мяч не захватывал, причину я не выяснил <span class="tag">[НЕ ЗНАЮ]</span>: длина 50 мм выбрана по факту.</p>
+</div>
+
+<div class="card">
+<h3>(б) Мяч заходит сбоку, вдоль оси качания <span class="badge b-maybe">возможно, но хуже (а)</span></h3>
+<div class="grid"><div><svg viewBox="0 0 440 330" width="100%" style="max-width:440px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея б"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><polygon points="203.8,148.8 236.2,148.8 236.2,36.3 203.8,36.3" fill="#555" stroke="#222" stroke-width="1" />
+<polygon points="166.0,98.0 274.0,98.0 274.0,87.2 166.0,87.2" fill="#bbb" stroke="#333" stroke-width="0.8" />
+<polygon points="203.8,303.6 236.2,303.6 236.2,191.2 203.8,191.2" fill="#555" stroke="#222" stroke-width="1" />
+<polygon points="166.0,252.8 274.0,252.8 274.0,242.0 166.0,242.0" fill="#bbb" stroke="#333" stroke-width="0.8" />
+<polygon points="184.0,305.0 182.2,305.0 182.2,35.0 184.0,35.0" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1" />
+<polygon points="256.0,305.0 257.8,305.0 257.8,35.0 256.0,35.0" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1" />
+<polygon points="257.8,206.0 355.0,206.0 355.0,202.4 257.8,202.4" fill="#999" stroke="#666" stroke-width="1" />
+<polygon points="257.8,137.6 355.0,137.6 355.0,134.0 257.8,134.0" fill="#999" stroke="#666" stroke-width="1" />
+<circle cx="220.0" cy="170.0" r="30.2" fill="#c9d43a" stroke="#7a8020" stroke-width="1" opacity="0.5"/>
+<circle cx="310.0" cy="170.0" r="30.2" fill="#c9d43a" stroke="#7a8020" stroke-width="1" />
+<line x1="292.0" y1="170.0" x2="256.0" y2="170.0" stroke="#d9534f" stroke-width="2" marker-end="url(#ar)"/>
+<text x="310.0" y="120.5" font-size="11" text-anchor="middle" fill="#222" >полая цапфа Ø80</text>
+<text x="220.0" y="318.5" font-size="11" text-anchor="middle" fill="#222" >вид спереди: шины 36 мм, мяч 67 мм</text>
+<text x="85.0" y="71.0" font-size="10" text-anchor="start" fill="#222" >верхняя шина</text></svg></div><div class="k">
+<b>Суть</b><span>Ось наклона сделать полой трубой (цапфой) и катить мяч прямо по ней, сбоку, к точке захвата.</span>
+<b>Что даёт</b><span>Мяч всегда приходит в одну точку при любом наклоне, без дуги сзади: длина корпуса меньше ещё на 100–150 мм <span class="tag">[ОЦЕНКА]</span>.</span>
+<b>Чем платим</b><span>Геометрически мяч проходит: шины по 36 мм, между боковинами 80 мм, мяч 67 мм. Но мяч прилетает с боковой скоростью около 1 м/с, а шины хватают его за кромки. Боковая скорость 0,8–2,5 м/с при вылете 22 м/с даёт ошибку направления 2–6,5° <span class="tag">[РАСЧЁТ: atan(v/22), если мяч не остановить]</span>, то есть 0,7–2 м вбок на 20 м. Нужен упор и остановка мяча, а ось горизонтальна, катиться ему некуда. Сбоку прибавляется цапфа и труба (+60–100 мм ширины).</span>
+<b>Проверено ли</b><span class="mid">Только геометрией. Не моделировал.</span>
+</div></div></div>
+
+<div class="card">
+<h3>(в) Ось на валу одного из колёс <span class="badge b-no">не лучше (а)</span></h3>
+<div class="grid"><div><svg viewBox="0 0 500 360" width="100%" style="max-width:500px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея в"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><circle cx="250.0" cy="190.0" r="137.2" fill="#fbeaea" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="6 4"/>
+<circle cx="250.0" cy="190.0" r="42.6" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.35"/>
+<circle cx="250.0" cy="190.0" r="34.4" fill="#555" stroke="#222" stroke-width="1.0" opacity="0.35"/>
+<circle cx="250.0" cy="190.0" r="4.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="0.35"/>
+<circle cx="258.2" cy="284.2" r="42.6" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.35"/>
+<circle cx="258.2" cy="284.2" r="34.4" fill="#555" stroke="#222" stroke-width="1.0" opacity="0.35"/>
+<circle cx="258.2" cy="284.2" r="4.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="0.35"/>
+<polygon points="283.6,211.4 328.0,207.5 332.0,253.5 287.6,257.4" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.35"/>
+<circle cx="250.0" cy="190.0" r="42.6" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="250.0" cy="190.0" r="34.4" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="250.0" cy="190.0" r="4.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="310.8" cy="262.5" r="42.6" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="310.8" cy="262.5" r="34.4" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="310.8" cy="262.5" r="4.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="289.8,188.2 323.9,159.6 353.6,195.0 319.5,223.6" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="261.6" cy="242.0" r="18.4" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<circle cx="250.0" cy="190.0" r="2.8" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<text x="250.0" y="44.2" font-size="11" text-anchor="middle" fill="#d9534f" >ось = вал верхнего колеса, огибающая R250</text>
+<text x="250.0" y="339.6" font-size="11" text-anchor="middle" fill="#222" >точка захвата ходит по дуге ~60 мм</text></svg></div><div class="k">
+<b>Суть</b><span>Качается вокруг вала верхнего колеса: верхнее стоит на месте, нижнее и носик обходят его по кругу.</span>
+<b>Что даёт</b><span>Неподвижный мотор верхнего колеса, меньше движущейся массы.</span>
+<b>Чем платим</b><span>Огибающая R250 вместо R188, точка захвата ездит по дуге около 60 мм, мяч надо ловить в движущейся точке. Окно 220 мм, но ниже уходит на 250 мм под ось <span class="tag">[РАСЧЁТ: geom.py]</span>.</span>
+<b>Проверено ли</b><span>Геометрией. Вариант «оба колеса вокруг центра верхнего» даёт ту же огибающую R250.</span>
+</div></div></div>
+
+<div class="card">
+<h3>(г) Колёса неподвижны, угол меняет носик или подкрутка <span class="badge b-no">не годится как основное</span></h3>
+<div class="grid"><div><svg viewBox="0 0 480 330" width="100%" style="max-width:480px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея г"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><circle cx="176.8" cy="148.4" r="46.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="176.8" cy="148.4" r="37.5" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="176.8" cy="148.4" r="4.8" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="176.8" cy="251.6" r="46.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="176.8" cy="251.6" r="37.5" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="176.8" cy="251.6" r="4.8" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="211.3,174.8 259.9,174.8 259.9,225.2 211.3,225.2" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="150.0" cy="200.0" r="20.1" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<polygon points="237.6,174.8 288.0,158.0 289.2,161.6 238.8,178.4" fill="#e8a33d" stroke="#a66" stroke-width="1.2" />
+<line x1="258.0" y1="200.0" x2="330.0" y2="200.0" stroke="#888" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="258.0" y1="200.0" x2="330.0" y2="176.0" stroke="#d9534f" stroke-width="1.5" marker-end="url(#ar)"/>
+<text x="294.0" y="164.0" font-size="11" text-anchor="start" fill="#a66" >носик-дефлектор</text>
+<text x="198.0" y="315.2" font-size="11" text-anchor="middle" fill="#222" >колёса неподвижны, угол меняет носик</text></svg></div><div class="k">
+<b>Суть</b><span>Блок колёс закреплён под одним углом, траекторию меняют короткий отклоняющий носик на выходе или разница скоростей колёс.</span>
+<b>Что даёт</b><span>Нет привода наклона и нет окна под качание.</span>
+<b>Чем платим</b><span>Подкрутка меняет глубину, но не делает свечу. При угле 15° и скоростях 40–100 км/ч мяч поднимается не выше 3,8 м, свеча 40° поднимается до 4,5–6,5 м <span class="tag">[РАСЧЁТ: engkit.ball_flight, flight_fixed_angle.json]</span>. Медленные мячи при 15° не перелетают сетку до 55 км/ч. Носик трёт мяч на скорости 80 км/ч: сбивает вращение и скорость, разброс не известен <span class="tag">[НЕ ЗНАЮ]</span>, износ.</span>
+<b>Проверено ли</b><span>Расчётом полёта. Разброс носика не моделировался.</span>
+</div></div></div>
+
+<div class="card">
+<h3>(д) Колёса меньше: Ø110 или Ø100 <span class="badge b-maybe">небольшой выигрыш</span></h3>
+<div class="grid"><div><svg viewBox="0 0 460 340" width="100%" style="max-width:460px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея д"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><circle cx="220.5" cy="136.7" r="48.0" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.4"/>
+<circle cx="220.5" cy="136.7" r="38.8" fill="#555" stroke="#222" stroke-width="1.0" opacity="0.4"/>
+<circle cx="220.5" cy="136.7" r="5.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="0.4"/>
+<circle cx="220.5" cy="243.3" r="48.0" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.4"/>
+<circle cx="220.5" cy="243.3" r="38.8" fill="#555" stroke="#222" stroke-width="1.0" opacity="0.4"/>
+<circle cx="220.5" cy="243.3" r="5.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="0.4"/>
+<polygon points="256.1,164.0 306.4,164.0 306.4,216.0 256.1,216.0" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="0.4"/>
+<circle cx="312.4" cy="141.3" r="43.4" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="312.4" cy="141.3" r="34.1" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="312.4" cy="141.3" r="5.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="312.4" cy="238.7" r="43.4" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="312.4" cy="238.7" r="34.1" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="312.4" cy="238.7" r="5.0" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="343.4,164.0 393.6,164.0 393.6,216.0 343.4,216.0" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="285.8" cy="190.0" r="20.8" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<text x="192.8" y="310.9" font-size="11" text-anchor="middle" fill="#222" >Ø125: R огибающей 188</text>
+<text x="316.8" y="310.9" font-size="11" text-anchor="middle" fill="#222" >Ø110: R 179</text></svg></div><div class="k">
+<b>Суть</b><span>Взять колёса меньше, как катки у Tenniix.</span>
+<b>Что даёт</b><span>С осью в точке захвата огибающая R179 (Ø110) и R173 (Ø100) вместо R188, высота качания −30…−50 мм, окно −7…−11 мм <span class="tag">[РАСЧЁТ: geom.py]</span>. Масса −0,06 кг на пару <span class="tag">[РАСЧЁТ: research/36]</span>.</span>
+<b>Чем платим</b><span>Нужно 4 540 и 4 990 об/мин вместо 3 990, а провал оборотов за выстрел 20,8 и 23 % вместо 17,9 % <span class="tag">[РАСЧЁТ: research/36 проверка 2]</span>. В research/36 этот шаг уже отвергнут. Шире шина почти ничего не даёт по габариту: ширину задаёт не голова.</span>
+<b>Проверено ли</b><span>Расчётом прежних работ. Не сейчас.</span>
+</div></div></div>
+
+<div class="card">
+<h3>(е) Поворот: весь корпус или одна голова <span class="badge b-good">оставить поворот корпуса</span></h3>
+<div class="grid"><div><svg viewBox="0 0 520 360" width="100%" style="max-width:520px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея е"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><polygon points="52.5,317.8 187.5,317.8 187.5,141.8 52.5,141.8" fill="#eef1f5" stroke="#777" stroke-width="1.2" />
+<polygon points="98.4,167.0 141.6,167.0 141.6,141.8 98.4,141.8" fill="#333" stroke="#333" stroke-width="1" />
+<circle cx="120.0" cy="230.0" r="2.7" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<text x="120.0" y="126.5" font-size="11" text-anchor="middle" fill="#222" >поворот всего корпуса: окно 96</text>
+<polygon points="302.5,317.8 437.5,317.8 437.5,141.8 302.5,141.8" fill="#eef1f5" stroke="#777" stroke-width="1.2" />
+<polygon points="302.5,167.0 437.5,167.0 437.5,141.8 302.5,141.8" fill="#333" stroke="#333" stroke-width="1" />
+<circle cx="370.0" cy="293.0" r="2.7" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<line x1="370.0" y1="293.0" x2="294.4" y2="162.1" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="5 3"/>
+<line x1="370.0" y1="293.0" x2="445.6" y2="162.1" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="370.0" y="126.5" font-size="11" text-anchor="middle" fill="#222" >поворот одной головы ±30°: окно шире корпуса</text></svg></div><div class="k">
+<b>Суть</b><span>Поворачивать по горизонтали весь корпус на маленьком основании (как в ревизии 6) или только голову в двухосном подвесе внутри неподвижного корпуса.</span>
+<b>Что даёт</b><span>Поворот одной головы убирает вращающееся основание (около 0,7 кг <span class="tag">[ПРОВЕРЕНО: 12_layout_e1_masses]</span>), но добавляет подвес (около 0,4 кг <span class="tag">[ОЦЕНКА]</span>).</span>
+<b>Чем платим</b><span>Мяч падает сверху позади головы, поэтому вертикальная ось поворота может пройти только там. Тогда голова ходит по дуге радиусом около 335 мм, и при ±30° окно должно быть около 475 мм шириной, шире корпуса <span class="tag">[РАСЧЁТ: 335·tan30 + 45]</span>. Вертикаль через саму точку захвата перекрыта верхним колесом. Широкое окно опасно: к колёсам можно сунуть руку.</span>
+<b>Проверено ли</b><span>Геометрией. Как поворачивает Tenniix, по фото не ясно: днище отдельно от корпуса, похоже на поворот всей колонны <span class="tag">[ОЦЕНКА по фото fcc_internal_view24]</span>.</span>
+</div></div></div>
+
+<div class="card">
+<h3>(ж) Корзина из четырёх створок, раскрытых воронкой <span class="badge b-good">берём</span></h3>
+<div class="grid"><div><svg viewBox="0 0 760 350" width="100%" style="max-width:760px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея ж"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><polygon points="150.0,310.0 318.0,310.0 318.0,116.8 150.0,116.8" fill="#eef1f5" stroke="#777" stroke-width="1.2" />
+<polygon points="150.0,116.8 101.7,33.2 103.4,32.4 151.7,116.0" fill="#ddd" stroke="#777" stroke-width="1" />
+<polygon points="318.0,116.8 366.3,33.2 364.6,32.4 316.3,116.0" fill="#ddd" stroke="#777" stroke-width="1" />
+<circle cx="166.8" cy="100.0" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="166.8" cy="74.8" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="166.8" cy="49.6" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="193.7" cy="100.0" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="193.7" cy="74.8" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="193.7" cy="49.6" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="220.6" cy="100.0" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="220.6" cy="74.8" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="220.6" cy="49.6" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="247.4" cy="100.0" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="247.4" cy="74.8" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="247.4" cy="49.6" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="274.3" cy="100.0" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="274.3" cy="74.8" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="274.3" cy="49.6" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="301.2" cy="100.0" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="301.2" cy="74.8" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<circle cx="301.2" cy="49.6" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="0.6" />
+<text x="234.0" y="328.9" font-size="15" text-anchor="middle" fill="#222" >раскрыто: около 106 мячей (оценка)</text>
+<polygon points="520.0,310.0 688.0,310.0 688.0,116.8 520.0,116.8" fill="#eef1f5" stroke="#777" stroke-width="1.2" />
+<polygon points="520.0,116.8 688.0,116.8 688.0,115.1 520.0,115.1" fill="#ccc" stroke="#777" stroke-width="0.8" />
+<polygon points="520.0,114.3 688.0,114.3 688.0,112.6 520.0,112.6" fill="#ccc" stroke="#777" stroke-width="0.8" />
+<polygon points="520.0,111.8 688.0,111.8 688.0,110.1 520.0,110.1" fill="#ccc" stroke="#777" stroke-width="0.8" />
+<polygon points="520.0,109.2 688.0,109.2 688.0,107.6 520.0,107.6" fill="#ccc" stroke="#777" stroke-width="0.8" />
+<text x="604.0" y="328.9" font-size="15" text-anchor="middle" fill="#222" >сложено: створки вдоль боков</text></svg></div><div class="k">
+<b>Суть</b><span>Вместо короба 390 × 500 четыре створки на петлях по краям корпуса 300 × 400; в работе раскрыты наружу на 30°, при переноске опущены вдоль боков.</span>
+<b>Что даёт</b><span>Створки по 230 мм дают верх 530 × 630, объём около 43 л, около 106 мячей <span class="tag">[ОЦЕНКА: плотность укладки 2,45 мяча/л из research/32]</span>; створки 200 мм под 25°: около 84 мяча. Корпус в плане 300 × 400 вместо 390 × 500.</span>
+<b>Чем платим</b><span>Раскрытая воронка шире корпуса (как у Tenniix); петли и защёлки; порядок складывания. Вместимость по движку не проверялась.</span>
+<b>Проверено ли</b><span>Объёмом. Укладку в MuJoCo не повторял.</span>
+</div></div></div>
+
+<div class="card">
+<h3>(з) Короткие складные ножки под днищем <span class="badge b-good">берём</span></h3>
+<div class="grid"><div><svg viewBox="0 0 540 360" width="100%" style="max-width:540px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Идея з"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><line x1="95.0" y1="330.0" x2="425.0" y2="330.0" stroke="#6b5" stroke-width="2" />
+<polygon points="185.0,322.5 335.0,322.5 335.0,100.0 185.0,100.0" fill="#eef1f5" stroke="#777" stroke-width="1.2" />
+<line x1="200.0" y1="322.5" x2="155.0" y2="330.0" stroke="#555" stroke-width="3" />
+<line x1="320.0" y1="322.5" x2="365.0" y2="330.0" stroke="#555" stroke-width="3" />
+<circle cx="260.0" cy="169.0" r="4.0" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<line x1="260.0" y1="169.0" x2="365.0" y2="330.0" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="5 3"/>
+<line x1="260.0" y1="169.0" x2="335.0" y2="330.0" stroke="#e8a33d" stroke-width="1.2" stroke-dasharray="5 3"/>
+<text x="260.0" y="85.0" font-size="11" text-anchor="middle" fill="#d9534f" >центр масс со 100 мячами около 322 мм</text>
+<text x="367.5" y="320.0" font-size="11" text-anchor="start" fill="#d9534f" >ножки: 31°</text>
+<text x="300.0" y="300.0" font-size="11" text-anchor="end" fill="#a66" >корпус: 23°</text></svg></div><div class="k">
+<b>Суть</b><span>Четыре коротких поворотных ножки под основанием, как у Tenniix: на корте чуть выдвинуты, при переноске убраны под днище.</span>
+<b>Что даёт</b><span>Со 100 мячами центр масс около 322 мм над землёй <span class="tag">[ОЦЕНКА]</span>. Для запаса 20° нужна полуширина опоры 117 мм, для 15° 86 мм <span class="tag">[РАСЧЁТ: h·tg]</span>. Уже сам корпус 300 мм даёт около 23° вбок и 28° вперёд-назад; ножки с выносом до 210 мм от центра дают около 31°.</span>
+<b>Чем платим</b><span>Нужен запас не меньше 15–20°: машина на ровном корте (Tenniix разрешает уклон до 5° <span class="tag">[ПРОВЕРЕНО: research/54]</span>), но её толкают, задевают ногой, ветер. Длинные ножки ревизии 6 (до 630 мм) не нужны.</span>
+<b>Проверено ли</b><span>Расчётом. Центр масс K1 оценочный.</span>
+</div></div></div>
+
+<div class="card">
+<h3>(и) Свои идеи</h3>
+<div class="grid"><div><svg viewBox="0 0 460 340" width="100%" style="max-width:460px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Свои идеи"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><circle cx="226.9" cy="147.2" r="42.6" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="226.9" cy="147.2" r="34.4" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="226.9" cy="147.2" r="4.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="259.3" cy="236.0" r="42.6" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="259.3" cy="236.0" r="34.4" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="259.3" cy="236.0" r="4.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="264.9,159.1 306.8,143.8 322.6,187.3 280.7,202.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="220.0" cy="200.0" r="18.4" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<path d="M319.7,246.5 L321.4,242.7 L322.9,238.8 L324.3,234.8 L325.6,230.8 L326.7,226.8 L327.6,222.7 L328.4,218.6 L329.0,214.5 L329.5,210.3 L329.8,206.2 L330.0,202.0 L330.0,197.8 L329.8,193.6 L329.5,189.4 L329.0,185.3 L328.4,181.1 L327.6,177.0 L326.6,173.0 L325.5,168.9 L324.3,164.9 L322.9,161.0 L321.3,157.1 L319.6,153.3 L317.7,149.5 L315.8,145.9 L313.6,142.3 L311.4,138.7 L309.0,135.3 L306.4,132.0 L303.8,128.7 L301.0,125.6 L298.1,122.6 L295.1,119.7 L292.0,116.9 L288.8,114.2 L285.5,111.6 L282.1,109.2 L278.6,106.9 L275.0,104.7" fill="none" stroke="#666" stroke-width="6" opacity="0.5"/>
+<circle cx="220.0" cy="200.0" r="2.8" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<text x="302.5" y="90.0" font-size="11" text-anchor="middle" fill="#222" >барабан-шторка вращается вместе с головой</text>
+<line x1="220.0" y1="200.0" x2="154.0" y2="200.0" stroke="#2e8b57" stroke-width="3" />
+<line x1="220.0" y1="200.0" x2="159.5" y2="175.2" stroke="#e8a33d" stroke-width="3" />
+<line x1="220.0" y1="200.0" x2="170.5" y2="161.5" stroke="#888" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="148.5" y="216.5" font-size="11" text-anchor="middle" fill="#a66" >тяга полу-угла</text></svg></div><div class="k">
+<b>Барабан-шторка</b><span>Перед головой цилиндр радиусом около 200 мм с осью в точке захвата, он качается вместе с головой. В нём только маленький вырез под мяч, остальное окно закрыто: пальцы к колёсам не пролезут. +0,15 кг <span class="tag">[ОЦЕНКА]</span>. Берём в K1.</span>
+<b>Тяга полу-угла</b><span>Короткий прямой лоток, шарнир в точке захвата, ромбовидная тяга поворачивает его на половину наклона. Проверено: при всех наклонах 5–40° разброс 0,23–0,42° <span class="tag">[РАСЧЁТ: MuJoCo, 12 прогонов]</span>. Нужна, только если при 40° понадобится точность: запасной вариант K2.</span>
+<b>Виртуальная ось</b><span>Голова катится по двум дуговым направляющим с центром в точке захвата, настоящих полуосей нет. Полезно, если полуоси мешают моторам колёс.</span>
+<b>Странная: колёса бок о бок</b><span>Если колёса стоят слева и справа, мяч может прийти сверху под любым углом: колёса ему не мешают. Но вращение тогда боковое, а нам нужны верхнее и нижнее: отвергнуто.</span>
+<b>Странная: батарея в основании</b><span>Батарея внизу, в неповорачивающемся основании: центр масс ниже на 10–15 мм <span class="tag">[ОЦЕНКА]</span>, но провод через поворот (хватит петли на ±30°).</span>
+</div></div></div>
+
+<h2>4. Что нашлось у настоящих машин</h2>
+<div class="card">
+<table>
+<tr><th class="l">Машина или документ</th><th class="l">Где ось наклона и как мяч доходит до колёс</th><th>Источник</th></tr>
+<tr><td class="l">US 3777732 (два колеса, теннис)</td><td class="l">наклоняется рама колёс, бункер и податчик неподвижны, мяч идёт по гибкой гофротрубе</td><td><span class="tag">[ПРОВЕРЕНО: research/19 S8]</span></td></tr>
+<tr><td class="l">Slinger Bag US 11883728</td><td class="l">одно колесо: пластины с колесом и направляющей поворачиваются на пальце, 10–40°; бункер и диск не наклоняются</td><td><span class="tag">[ПРОВЕРЕНО: research/19 S9a]</span></td></tr>
+<tr><td class="l">Siboasi CN 209333158</td><td class="l">«ведро» с колесом качается на оси, кривошип и шатун</td><td><span class="tag">[ПРОВЕРЕНО: research/38]</span></td></tr>
+<tr><td class="l">Hydrogen (Proton) US 11590400</td><td class="l">наклоняется весь корпус винтом у передней опоры</td><td><span class="tag">[ПРОВЕРЕНО: research/38]</span></td></tr>
+<tr><td class="l">US 5437261 (бейсбол)</td><td class="l">колёса закреплены на подающей трубе, наклон поворачивает трубу вместе с колёсами</td><td><span class="tag">[ПРОВЕРЕНО: patents.google.com/patent/US5437261]</span></td></tr>
+<tr><td class="l">US 3774584 (два колеса)</td><td class="l">колёса на шаровой опоре, лоток закреплён на блоке и наклоняется вместе с колёсами</td><td><span class="tag">[ПРОВЕРЕНО: patents.google.com/patent/US3774584A]</span></td></tr>
+<tr><td class="l">US 4086903 (теннис, два колеса)</td><td class="l">наклоняется вся машина передней опорой, лоток на общей раме</td><td><span class="tag">[ПРОВЕРЕНО: patents.google.com/patent/US4086903]</span></td></tr>
+<tr><td class="l">Lobster Elite</td><td class="l">мотор наклона через «вилку» и тягу; где ось, не найдено</td><td><span class="tag">[ПОИСК: manualshive.com, сайт закрыт]</span></td></tr>
+<tr><td class="l">Sports Attack Hack Attack</td><td class="l">ручка лотка поворачивает метательную голову вместе с лотком</td><td><span class="tag">[ПОИСК: forelle.com]</span></td></tr>
+<tr><td class="l">Spinshot, Tennis Tutor, Playmate, Silent Partner, SAM, BOLA, JUGS</td><td class="l">устройство наклона в открытых источниках не нашёл</td><td><span class="tag">[НЕ ЗНАЮ]</span></td></tr>
+<tr><td class="l">Tenniix</td><td class="l">колёса одно над другим за узким окном, видимо качается узел внутри</td><td><span class="tag">[ОЦЕНКА по фото, research/55]</span></td></tr>
+</table>
+<p class="note">Вывод: почти все качают колёса вместе с лотком (так и у нас в ревизии 6). Неподвижный податчик с гибкой трубой есть у US 3777732. Схему «ось в точке захвата + неподвижный лоток» в найденных источниках я не встретил: она наша, и потому проверена симуляцией, а не примером.</p>
+</div>
+
+<h2>5. Три целостные компоновки</h2>
+<div class="card">
+<table>
+<tr><th class="l"></th><th>K1-низкая (рекомендую)</th><th>K1</th><th>K2</th><th>K3</th></tr>
+<tr><td class="l">Голова</td><td>Ø100 × 50, ось в точке захвата</td><td>Ø125, ось в точке захвата</td><td>как K1</td><td>Ø110, рукав 40 мм</td></tr>
+<tr><td class="l">Подача</td><td>как K1, диск в чаше</td><td>неподвижная дуга R90 + прямой 50 мм</td><td>то же + тяга полу-угла</td><td>как K1</td></tr>
+<tr><td class="l">Поворот</td><td>весь корпус, лёгкий мотор, около 2,5 с</td><td colspan="3">весь корпус на малом основании, ±30°</td></tr>
+<tr><td class="l">Корзина</td><td colspan="4">4 створки над корпусом 300 × 391, около 106 мячей</td></tr>
+<tr><td class="l">Корпус в плане</td><td>300 × 376</td><td>300 × 391</td><td>300 × 391</td><td>290 × 370</td></tr>
+<tr><td class="l">Высота в работе</td><td>около 585</td><td>около 660</td><td>около 660</td><td>около 625</td></tr>
+<tr><td class="l">Сложена</td><td><b>320 × 396 × 385</b></td><td>320 × 411 × 460</td><td>320 × 411 × 460</td><td>310 × 390 × 425</td></tr>
+<tr><td class="l">Масса по модели</td><td>8,14 кг</td><td>8,45 кг</td><td>8,50 кг</td><td>8,39 кг</td></tr>
+<tr><td class="l">Приводов</td><td colspan="4">5: два колеса, диск, наклон, поворот</td></tr>
+</table>
+<p class="note">Все размеры и массы K1-низкой и K1–K3 <span class="tag">[ОЦЕНКА: масштабирование масс ревизии 6 по узлам, budget.json; ±0,5 кг]</span>. Запас до предела 8,7 кг всего 0,2–0,3 кг, это меньше погрешности. Складывание: створки опускаются вдоль боков, поэтому план вырастает на 20 мм, а высота остаётся высотой корпуса.</p>
+<div class="grid"><div><svg viewBox="0 0 520 300" width="100%" style="max-width:520px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="K1 сложена"><defs><marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,2 L10,5 L0,8 z" fill="#555"/></marker></defs><line x1="34.8" y1="280.0" x2="253.2" y2="280.0" stroke="#6b5" stroke-width="2" />
+<polygon points="76.8,273.7 207.0,273.7 207.0,270.8 76.8,270.8" fill="#777" stroke="#555" stroke-width="1" />
+<line x1="85.2" y1="273.7" x2="47.4" y2="280.0" stroke="#555" stroke-width="3" />
+<line x1="198.6" y1="273.7" x2="236.4" y2="280.0" stroke="#555" stroke-width="3" />
+<polygon points="61.7,269.9 224.2,269.9 224.2,86.8 61.7,86.8" fill="#eef1f5" stroke="#777" stroke-width="1.4" />
+<polygon points="222.5,211.5 224.2,211.5 224.2,109.1 222.5,109.1" fill="#333" stroke="#333" stroke-width="1" />
+<circle cx="141.9" cy="198.5" r="79.0" fill="none" stroke="#d9534f" stroke-width="1.2" stroke-dasharray="6 4"/>
+<circle cx="133.1" cy="158.8" r="32.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="133.1" cy="158.8" r="26.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="133.1" cy="158.8" r="3.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<circle cx="179.5" cy="214.1" r="32.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="179.5" cy="214.1" r="26.2" fill="#555" stroke="#222" stroke-width="1.0" opacity="1.0"/>
+<circle cx="179.5" cy="214.1" r="3.4" fill="#bbb" stroke="#333" stroke-width="0.8" opacity="1.0"/>
+<polygon points="163.4,157.4 189.5,135.6 212.2,162.6 186.1,184.5" fill="#dfe7f3" stroke="#4a6fa5" stroke-width="1.2" opacity="1.0"/>
+<circle cx="141.9" cy="198.5" r="14.1" fill="#c9d43a" stroke="#7a8020" stroke-width="1.0" opacity="1.0"/>
+<circle cx="141.9" cy="198.5" r="2.1" fill="#d9534f" stroke="#d9534f" stroke-width="1.2" />
+<path d="M66.5,160.7 L66.6,162.9 L66.7,165.1 L66.9,167.3 L67.2,169.4 L67.6,171.6 L68.1,173.7 L68.7,175.9 L69.3,177.9 L70.0,180.0 L70.9,182.0 L71.8,184.0 L72.7,186.0 L73.8,187.9 L74.9,189.8 L76.1,191.6 L77.4,193.4 L78.8,195.1 L80.2,196.8 L81.7,198.4 L83.2,199.9 L84.8,201.4 L86.5,202.9 L88.2,204.2 L90.0,205.5 L91.8,206.7 L93.7,207.8 L95.6,208.9 L97.6,209.9 L99.6,210.8 L101.6,211.6 L103.7,212.3 L105.8,213.0 L107.9,213.5 L110.0,214.0 L112.2,214.4 L114.3,214.7 L116.5,214.9 L118.7,215.1 L120.9,215.1" fill="none" stroke="#2e8b57" stroke-width="2.5" />
+<line x1="120.9" y1="215.1" x2="140.2" y2="215.1" stroke="#2e8b57" stroke-width="2.5" />
+<line x1="66.5" y1="160.7" x2="66.5" y2="123.8" stroke="#2e8b57" stroke-width="2.5" />
+<polygon points="68.4,123.8 217.5,123.8 217.5,122.1 68.4,122.1" fill="#999" stroke="#666" stroke-width="1" />
+<polygon points="65.0,107.0 153.2,107.0 153.2,104.0 65.0,104.0" fill="#c9d43a" stroke="#7a8020" stroke-width="1" />
+<polygon points="68.4,196.0 102.0,196.0 102.0,149.8 68.4,149.8" fill="none" stroke="#285" stroke-width="1.2" stroke-dasharray="4 3"/>
+<polygon points="68.4,263.2 102.0,263.2 102.0,217.0 68.4,217.0" fill="none" stroke="#246" stroke-width="1.2" stroke-dasharray="4 3"/>
+<polygon points="57.5,183.4 61.7,183.4 61.7,86.8 57.5,86.8" fill="#ddd" stroke="#777" stroke-width="1" />
+<polygon points="224.2,183.4 228.4,183.4 228.4,86.8 224.2,86.8" fill="#ddd" stroke="#777" stroke-width="1" /></svg></div><div>
+<b>Что надо доказать по K1</b>
+<ol class="note">
+<li>3D-модель: полуоси наклона за моторами колёс, кожух верхнего колеса не задевает лоток, высота 460 мм сложенной.</li>
+<li>Масса по 3D, а не масштабом: запас 0,25 кг ненадёжен.</li>
+<li>Подача: второй движок или больше прогонов, особенно 5° (зазор пола лотка до нижней шины 4,5 мм) и 40°.</li>
+<li>Скорость мяча на входе в дугу при падении 88 мм.</li>
+<li>Вместимость створок в MuJoCo.</li>
+<li>Время наклона и поворота по моторам (ожидаю меньше, чем 1,35–1,58 с у ревизии 6: инерция головы около в 4 раза меньше <span class="tag">[ОЦЕНКА]</span>).</li>
+</ol></div></div>
+</div>
+
+<h2>6. Рекомендация</h2>
+<div class="card reco">
+<p><b>Для ревизии 7 взять K1-низкую</b>: ось качания головы прямо в точке, где мяч касается колёс; колёса Ø100 шириной 50 мм; лёгкий мотор поворота; лоток с дугой неподвижен в корпусе и почти горизонтален у колёс; диск подачи над головой; корзина из четырёх створок; короткие ножки под днищем; поворот всего корпуса на малом основании.</p>
+<p>Что это решает: в сложенном виде около 320 × 396 × 385 мм, то есть в пределах Tenniix +15 % по каждому размеру (Tenniix 392 × 271 × 448); корпус стоит на днище в 24 мм от земли, и колесо сквозь днище не проходит; голова заметает круг R173 вместо R317; масса по прикидке 8,14 кг вместо 9,6. Если не удастся раскрутить колёса Ø100 до нужных оборотов, остаётся K1 с колёсами Ø125: он выше на 75 мм, но всё равно в пределе.</p>
+<p><b>Насколько я уверен.</b> В том, что голова и габарит станут меньше: высокая уверенность, это геометрия. В подаче: средняя, симуляция одним движком на 12 прогонах показала захват 100 % и разброс не хуже прежнего, но реальных опытов нет. В массе 8,14 кг: низкая, это масштабирование с погрешностью ±0,5 кг. Колёса Ø100: средняя, нужны обороты около 5 000–5 500 и пересчёт подачи. Если при 40° разброс окажется плохим, есть K2 с тягой полу-угла.</p>
+</div>
+<p class="note">Файлы: research/61_compact_ideas.md, расчёты и данные в research/data/compact/.</p>
+</main>
+</body>
+</html>

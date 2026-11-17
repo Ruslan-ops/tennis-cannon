@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TennisCanon — трение и жёсткость мяча: на что влияют</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f5f1;--card:#fff;--ink:#1d2330;--mute:#667085;--line:#d9d6cc;--acc:#2f6f4f;--acc2:#c8e04a;--warn:#b4541a;--bad:#b3261e;--ok:#2f6f4f;--tgt:#c8e04a;--soft:#eef0e6;--c1:#2a6fdb;--tire:#aab3c2;--hub:#e3e6ec;--mid:#9a8a12;--halo:#ffffff}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--ink:#e8eaee;--mute:#98a2b3;--line:#333a45;--acc:#6fcf97;--acc2:#c8e04a;--warn:#f0a36b;--bad:#ff8f85;--ok:#6fcf97;--tgt:#5d6b1d;--soft:#262b33;--c1:#6ea8ff;--tire:#4a5262;--hub:#2c323d;--mid:#d9c63a;--halo:#1d2128}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:30px;margin:0 0 4px}
+h2{font-size:21px;margin:38px 0 12px}
+h3{margin:0 0 6px;font-size:17px}
+p.lead{color:var(--mute);margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+svg{width:100%;height:auto;display:block}
+.top{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:16px;align-items:start}
+@media (max-width:980px){.top{grid-template-columns:1fr}}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+.controls{display:grid;grid-template-columns:1fr;gap:12px}
+.ctl .nm{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.ctl .nm b{font-weight:600;text-align:right}
+.ctl .hint{font-size:12px;color:var(--mute);line-height:1.4}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:4px;background:var(--line);margin:8px 0 4px;cursor:pointer}
+input[type=range].banded{background:linear-gradient(to right,var(--line) 0 var(--a),var(--tgt) var(--a) var(--b),var(--line) var(--b) 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--acc);border:2px solid var(--card);box-shadow:0 0 0 1px var(--acc)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--acc);border:2px solid var(--card)}
+input[type=range]:focus-visible{outline:2px solid var(--warn);outline-offset:4px}
+.btn{font:inherit;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn[aria-pressed=true]{background:var(--acc2);color:#1d2330;border-color:var(--acc)}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.legend{font-size:13px;color:var(--mute)}
+.sw{display:inline-block;width:22px;height:0;border-top:4px solid;vertical-align:middle;margin-right:5px}
+.sw.n{border-color:var(--c1)}.sw.g{border-color:var(--ok)}.sw.o{border-color:var(--mid)}.sw.r{border-color:var(--bad)}
+.badge{display:inline-block;border-radius:20px;padding:2px 12px;font-size:14px;font-weight:600;border:2px solid var(--line)}
+.badge.roll{border-color:var(--ok);color:var(--ok)}.badge.part{border-color:var(--mid);color:var(--mid)}.badge.slip{border-color:var(--bad);color:var(--bad)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:6px}
+.stat{background:var(--soft);border-radius:10px;padding:10px 12px}
+.stat small{display:block;color:var(--mute);font-size:12px}
+.stat b{font-size:20px}
+.stat span{display:block;font-size:12px;color:var(--mute)}
+.scale{position:relative;display:flex;height:24px;border-radius:6px;overflow:hidden;margin:14px 0 2px}
+.scale i{display:block;height:100%}
+.s0{background:#c0392b;width:33.333%}.s1{background:#e08a2c;width:16.667%}.s2{background:#b8c93a;width:16.667%}.s3{background:#3f9b5f;width:33.333%}
+.scalewrap{position:relative}
+.pointer{position:absolute;top:8px;width:4px;height:36px;margin-left:-2px;background:var(--ink);border-radius:2px;border:1px solid var(--card)}
+.ticks{position:relative;height:18px;font-size:12px;color:var(--mute)}
+.ticks span{position:absolute;transform:translateX(-50%)}
+.verdict{margin-top:10px;padding:10px 14px;border-radius:10px;border:2px solid var(--line);font-weight:600}
+.verdict.v0{border-color:var(--bad);color:var(--bad)}.verdict.v1{border-color:var(--warn);color:var(--warn)}.verdict.v2{border-color:var(--mid);color:var(--mid)}.verdict.v3{border-color:var(--ok);color:var(--ok)}
+.note{background:var(--soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;font-size:14px;margin-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;font-size:13px;color:var(--mute)}
+.chips i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+.txt{fill:var(--mute);font-size:13px}
+.txt.ink{fill:var(--ink)}
+.txt.b{font-weight:600}
+.txt.halo{paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.tire{fill:var(--tire);stroke:var(--ink);stroke-width:2}
+.hubc{fill:var(--hub);stroke:var(--ink);stroke-width:2}
+.spoke{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.mark{fill:var(--card);stroke:var(--ink);stroke-width:1.5}
+.chute{stroke:var(--mute);stroke-width:3;stroke-linecap:round}
+.ballb{fill:#c8e04a;stroke:var(--ink);stroke-width:2.5}
+.ballb.roll{stroke:var(--ok)}.ballb.part{stroke:var(--mid)}.ballb.slip{stroke:var(--bad)}
+.seam{fill:none;stroke:#ffffff;stroke-width:2.5;stroke-linecap:round}
+.ghost{fill:none;stroke:var(--mute);stroke-width:1.5;stroke-dasharray:5 4}
+.al{fill:none;stroke-width:5;stroke-linecap:round}
+.al.n{stroke:var(--c1)}.al.roll{stroke:var(--ok)}.al.part{stroke:var(--mid)}.al.slip{stroke:var(--bad)}
+.alh{stroke:var(--halo);stroke-width:9;stroke-linecap:round;fill:none;opacity:.8}
+.mk-n{fill:var(--c1)}.mk-roll{fill:var(--ok)}.mk-part{fill:var(--mid)}.mk-slip{fill:var(--bad)}
+.gridl{stroke:var(--line);stroke-width:1}
+.axl{stroke:var(--ink);stroke-width:1.5}
+.cur1{fill:none;stroke:var(--ink);stroke-width:3}
+.cur2{fill:none;stroke:#ffffff;stroke-width:1.5}
+.brk{stroke:var(--ink);stroke-width:2;fill:none}
+.bpos{fill:var(--ok)}.bneg{fill:var(--warn)}
+.answer p{margin:0 0 12px}
+.answer ol{margin:6px 0 12px;padding-left:22px}
+.answer li{margin-bottom:6px}
+.src{font-size:12px;color:var(--mute);margin-top:22px}
+.tag{font-size:11px;border:1px solid var(--line);border-radius:10px;padding:0 6px;color:var(--mute);white-space:nowrap}
+</style>
+</head>
+<body><div id="tcsite-bar"><style>#tcsite-bar{all:initial;display:flex;align-items:center;gap:10px;flex:none;box-sizing:border-box;width:100%;height:34px;padding:0 14px;background:#1f2a37;color:#dbe4ee;font:13px/1 system-ui,Segoe UI,sans-serif;white-space:nowrap;overflow:hidden;border-bottom:1px solid #3a4756}#tcsite-bar a{color:#9fd3ff;text-decoration:none;font-weight:600;flex:none}#tcsite-bar a:hover{text-decoration:underline}#tcsite-bar .tcsite-sep{opacity:.5;flex:none}#tcsite-bar .tcsite-name{overflow:hidden;text-overflow:ellipsis;min-width:0}#tcsite-bar .tcsite-date{opacity:.8;flex:none}#tcsite-bar .tcsite-old{color:#ffcf8a;flex:none}@media (max-width:560px){#tcsite-bar .tcsite-date{display:none}}</style><a class="tcsite-back" href="index.html">← Все страницы</a><span class="tcsite-sep">·</span><span class="tcsite-name">Трение и жёсткость мяча: на что они влияют</span><span class="tcsite-sep">·</span><span class="tcsite-date">обновлено 13.11.2026</span></div>
+<main>
+<h1>Трение и жёсткость мяча: на что они влияют</h1>
+<p class="lead">Вопрос владельца: «Неужели трение и жёсткость мяча так важны?» Двигай ползунки и смотри: анимация иллюстративная, а все числа рядом посчитаны моделью проекта (engkit, отчёт 08).</p>
+
+<h2>1. Мяч проходит между колёсами</h2>
+<div class="top">
+<div>
+<div class="card">
+<svg id="anim" viewBox="0 0 640 470" role="img" aria-label="Вид сбоку: мяч проходит между двумя вращающимися колёсами, сжимается и вылетает"></svg>
+<div class="row">
+<button class="btn" id="again">ещё раз</button>
+<button class="btn" id="spN" aria-pressed="true">обычный темп (в 30 раз медленнее жизни)</button>
+<button class="btn" id="spS" aria-pressed="false">замедленно (в 150 раз)</button>
+</div>
+<div class="row legend">
+<span><i class="sw n"></i>сила прижатия</span>
+<span><i class="sw g"></i>трение: катится без проскальзывания</span>
+<span><i class="sw o"></i>частично проскальзывает</span>
+<span><i class="sw r"></i>проскальзывает</span>
+</div>
+<div class="legend" style="margin-top:6px">Штриховой круг: мяч до сжатия, 67 мм. Положения и размеры в масштабе; скорость подачи мяча (3 м/с) и форма разгона внутри контакта нарисованы для наглядности. Длина стрелок пропорциональна силе в данный момент; стрелка трения показывает предельную силу μ·F.</div>
+<div class="row"><span class="badge" id="slipBadge"></span><span id="slipText"></span></div>
+</div>
+</div>
+<div class="card">
+<h3>Регулировки</h3>
+<div class="controls" id="ctl"></div>
+</div>
+</div>
+
+<h2>2. Что получилось: показатели</h2>
+<div class="card">
+<div class="stats" id="stats"></div>
+<div class="scalewrap">
+<div class="scale"><i class="s0"></i><i class="s1"></i><i class="s2"></i><i class="s3"></i></div>
+<div class="pointer" id="ptr"></div>
+<div class="ticks"><span style="left:0">0</span><span style="left:33.333%">1</span><span style="left:50%">1,5</span><span style="left:66.667%">2</span><span style="left:100%;transform:translateX(-100%)">3+</span></div>
+</div>
+<div class="legend">Запас по трению: предел скорости по трению, делённый на желаемую скорость мяча.</div>
+<div class="verdict" id="verdict"></div>
+</div>
+
+<h2>3. Где машина достигает скорости, и что влияет сильнее всего</h2>
+<div class="grid2">
+<div class="card">
+<h3>Карта «зазор × трение»</h3>
+<div class="legend">Цвет клетки: запас по трению при текущих диаметре колёс, жёсткости мяча и желаемой скорости. Чёрное кольцо: текущая точка. Нажми на карту, чтобы переставить зазор и трение.</div>
+<svg id="heat" viewBox="0 0 720 372" role="img" aria-label="Тепловая карта запаса по трению в зависимости от зазора и коэффициента трения"></svg>
+<div class="chips">
+<span><i style="background:#c0392b"></i>меньше 1: не разгонится</span>
+<span><i style="background:#e08a2c"></i>1–1,5: на грани</span>
+<span><i style="background:#b8c93a"></i>1,5–2: хороший запас</span>
+<span><i style="background:#3f9b5f"></i>2 и больше: почти не влияет</span>
+</div>
+</div>
+<div class="card">
+<h3>Что сильнее всего влияет на скорость мяча</h3>
+<div class="legend">В текущей точке: на сколько процентов изменится скорость на выходе, если величину увеличить на 1 % (обороты колёс остаются теми, что на ползунке).</div>
+<svg id="bars" viewBox="0 0 640 300" role="img" aria-label="Столбчатая диаграмма чувствительности скорости мяча к каждой величине"></svg>
+<div id="barsText" class="legend"></div>
+</div>
+</div>
+
+<h2>4. Ответ простыми словами</h2>
+<div class="card answer">
+<p><b>На что влияют трение и жёсткость.</b> Мяч разгоняется только тем, что колёса трутся о его войлок. Чем сильнее колёса прижаты к мячу, тем сильнее трение и тем большую скорость оно способно ему передать. Прижим зависит от зазора и от жёсткости мяча: твёрдый мяч при том же зазоре давит сильнее. А цепкость шины говорит, какую долю прижима можно превратить в тягу. Из этого получается «предел по трению»: скорость, быстрее которой колёса мяч не разгонят, как бы быстро они ни крутились.</p>
+<p><b>Почему при достаточном сжатии точные значения почти не важны.</b> Если предел по трению выше нужной скорости хотя бы в 1,5 раза, мяч успевает «подхватить» скорость колёс, и неточность в трении или жёсткости даёт ошибку скорости в несколько процентов. При запасе 2 и больше ошибка меньше 1,5 %. Если запас ниже 1,2, мяч уходит на 10–25 % медленнее, чем нужно, а добавлять обороты бесполезно: колесо просто проскальзывает.</p>
+<p><b>Что известно, а что нет.</b> В литературе трение войлока и жёсткость мяча найдены только диапазонами в 3–4 раза: трение 0,3–1,2, жёсткость 11–35 кН/м. Диаметр колёс 100–150 мм почти ничего не меняет (предел по трению меняется на 3–6 %). Самая сильная ручка — зазор: сужение с 51 до 47 мм поднимает предел примерно на 18 %.</p>
+<p><b>Три регулировки в конструкции, которые делают машину нечувствительной к этим неизвестным.</b></p>
+<ol>
+<li>Регулируемый зазор между колёсами в пределах 43–55 мм. Рабочая точка для 80 км/ч около 47–48 мм, для 55 км/ч достаточно 51–53 мм.</li>
+<li>Запас оборотов мотора: не менее 1,5 от расчётных (для колеса 125 мм до 6200 об/мин), а колесо и шина рассчитаны на скорость обода 40 м/с.</li>
+<li>Калибровка по измеренной скорости мяча на готовой машине: один раз снять таблицу «обороты → скорость мяча» минимум в трёх точках (55, 70 и 80 км/ч). Одной точки мало: ошибка достигает ±8 %.</li>
+</ol>
+<p><b>Что остаётся проверить на собранной машине.</b> Скорость мяча при заданных оборотах в трёх точках и при двух-трёх зазорах (43, 47, 51 мм). Достигается ли 80 км/ч при зазоре около 47 мм: если скорость растёт с оборотами всё медленнее, трения не хватает. Как ведут себя износ и влажность мяча и шины, нагрев и склейка шины после 15–20 минут серии, разброс скорости от выстрела к выстрелу.</p>
+<div class="note"><b>Честное ограничение.</b> Модель предела по трению и форма перехода к проскальзыванию не проверены измерениями ни в литературе, ни нами. Жёсткость мяча в модели линейная: при большом сжатии стенка мяча выпучивается, и реальная сила ниже расчётной, а значит предел по трению может быть ниже. Поэтому целевой запас взят 1,5, а не 1,2, и проверка на собранной машине обязательна.</div>
+</div>
+<div class="src">Источники: research/08_ball_data_and_sensitivity.md (диапазоны, выводы, чувствительность) и tools/engkit/launcher.py (модель). Метки: ПРОВЕРЕНО — число найдено в тексте источника; ОЦЕНКА — суждение отчёта. Физика на странице — порт функций engkit на JavaScript (viz/src/launcher_physics.js), сверен с engkit на 400 эталонных случаях (node viz/src/check_launcher.mjs). Коэффициент передачи скорости колесо→мяч принят 0,85, показатель плавности перехода к проскальзыванию 4: оба значения — оценки, измерений нет.</div>
+</main>
+
+<script>
+const LC = {
+  BALL_MASS_KG: 0.0577,
+  BALL_RADIUS_M: 0.0335,
+  LAUNCHER_K_V: 0.85,
+  LAUNCHER_K_W: 1.0,
+  LAUNCHER_CONTACT_RADIUS_M: 0.028,
+  GRAVITY_M_S2: 9.81,
+  SLIP_N: 4,
+};
+
+function ballExit(v1, v2, kV = LC.LAUNCHER_K_V, kW = LC.LAUNCHER_K_W, rC = LC.LAUNCHER_CONTACT_RADIUS_M) {
+  return [(kV * (v1 + v2)) / 2, (kW * (v1 - v2)) / (2 * rC)];
+}
+
+function wheelSpeedsLauncher(vBall, omegaBall, kV = LC.LAUNCHER_K_V, kW = LC.LAUNCHER_K_W, rC = LC.LAUNCHER_CONTACT_RADIUS_M) {
+  const mean = vBall / kV;
+  const halfDiff = (rC * omegaBall) / kW;
+  return [mean + halfDiff, mean - halfDiff];
+}
+
+function rimToRpmL(vRim, diameter) {
+  return (60 * vRim) / (Math.PI * diameter);
+}
+
+function rpmToRimSpeed(rpm, diameter) {
+  return (Math.PI * diameter * rpm) / 60;
+}
+
+function rpmForBallL(vBall, diameter, kV) {
+  return rimToRpmL(vBall / kV, diameter);
+}
+
+function contactHalfLength(radiusWheel, radiusBall, delta0) {
+  const reach = radiusWheel + radiusBall;
+  return Math.sqrt(reach ** 2 - (reach - delta0) ** 2);
+}
+
+function frictionLimitSpeed(radiusWheel, radiusBall, delta0, mu, stiffness, mass, exactContact = true) {
+  const xC = exactContact ? contactHalfLength(radiusWheel, radiusBall, delta0) : Math.sqrt(2 * (radiusWheel + radiusBall) * delta0);
+  return Math.sqrt(((32 / 3) * mu * stiffness * delta0 * xC) / mass);
+}
+
+function energyDraw(vBall, vRim, mass) {
+  return mass * vBall * vRim;
+}
+
+function transferEfficiency(kV) {
+  return kV / 2;
+}
+
+function compressionPerSide(gap, radiusBall = LC.BALL_RADIUS_M) {
+  return (2 * radiusBall - gap) / 2;
+}
+
+function frictionMuRequired(vBall, radiusWheel, radiusBall, delta0, stiffness, mass, exactContact = true) {
+  const vLim = frictionLimitSpeed(radiusWheel, radiusBall, delta0, 1.0, stiffness, mass, exactContact);
+  return (vBall / vLim) ** 2;
+}
+
+function exitSpeedSlipLimited(vRim, kV, vFric, n = LC.SLIP_N) {
+  return ((kV * vRim) ** -n + vFric ** -n) ** (-1 / n);
+}
+
+function rimSpeedSlipLimited(vBall, kV, vFric, n = LC.SLIP_N) {
+  if (vBall >= vFric) throw new Error('target speed is not below the friction limit');
+  return (vBall ** -n - vFric ** -n) ** (-1 / n) / kV;
+}
+
+function rpmBandForBall(vBall, diameter, kVLow, kVHigh) {
+  return [rpmForBallL(vBall, diameter, kVHigh), rpmForBallL(vBall, diameter, kVLow)];
+}
+
+function compressionForSpeed(vBall, radiusWheel, radiusBall, mu, stiffness, mass, lo = 1e-4, hi = 0.025) {
+  const f = (d) => frictionLimitSpeed(radiusWheel, radiusBall, d, mu, stiffness, mass) - vBall;
+  let a = lo;
+  let b = hi;
+  let fa = f(a);
+  if (fa * f(b) > 0) throw new Error('root is not bracketed');
+  for (let i = 0; i < 200; i++) {
+    const m = 0.5 * (a + b);
+    const fm = f(m);
+    if (fm === 0) return m;
+    if (fa * fm < 0) b = m;
+    else {
+      a = m;
+      fa = fm;
+    }
+  }
+  return 0.5 * (a + b);
+}
+
+function evaluateLauncher(p) {
+  const kV = p.kV === undefined ? LC.LAUNCHER_K_V : p.kV;
+  const n = p.n === undefined ? LC.SLIP_N : p.n;
+  const diameter = p.dMm / 1000;
+  const delta0 = compressionPerSide(p.gapMm / 1000);
+  const stiffness = p.kKnM * 1000;
+  const forceN = stiffness * 2 * delta0;
+  const vFric = frictionLimitSpeed(diameter / 2, LC.BALL_RADIUS_M, delta0, p.mu, stiffness, LC.BALL_MASS_KG);
+  const vTarget = p.targetKmh / 3.6;
+  const vRim = rpmToRimSpeed(p.rpm, diameter);
+  const vExit = exitSpeedSlipLimited(vRim, kV, vFric, n);
+  let rpmNeeded = null;
+  if (vTarget < vFric) rpmNeeded = rimToRpmL(rimSpeedSlipLimited(vTarget, kV, vFric, n), diameter);
+  return {
+    delta0Mm: delta0 * 1000,
+    forceN,
+    forceKgf: forceN / LC.GRAVITY_M_S2,
+    vFricKmh: vFric * 3.6,
+    margin: vFric / vTarget,
+    vRimMs: vRim,
+    vExitKmh: vExit * 3.6,
+    noSlipKmh: kV * vRim * 3.6,
+    slipRatio: vExit / (kV * vRim),
+    rpmNeeded,
+    rpmBlind: rpmForBallL(vTarget, diameter, kV),
+    muRequired: frictionMuRequired(vTarget, diameter / 2, LC.BALL_RADIUS_M, delta0, stiffness, LC.BALL_MASS_KG),
+  };
+}
+
+const ELASTICITY_KEYS = ['dMm', 'gapMm', 'rpm', 'mu', 'kKnM', 'kV'];
+
+function exitElasticity(p, key, h = 0.01) {
+  const base = { kV: LC.LAUNCHER_K_V, ...p };
+  const up = evaluateLauncher({ ...base, [key]: base[key] * (1 + h) }).vExitKmh;
+  const down = evaluateLauncher({ ...base, [key]: base[key] * (1 - h) }).vExitKmh;
+  return (Math.log(up) - Math.log(down)) / (Math.log(1 + h) - Math.log(1 - h));
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { LC, ballExit, wheelSpeedsLauncher, rimToRpmL, rpmToRimSpeed, rpmForBallL, contactHalfLength, frictionLimitSpeed, energyDraw, transferEfficiency, compressionPerSide, frictionMuRequired, exitSpeedSlipLimited, rimSpeedSlipLimited, rpmBandForBall, compressionForSpeed, evaluateLauncher, exitElasticity, ELASTICITY_KEYS };
+}
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+const BALL_D_MM = 67;
+const BALL_R_MM = 33.5;
+const V_IN = 3;
+const S = 1.25;
+const CX = 290;
+const YM = 235;
+const VBW = 640;
+const FORCE_PX_PER_N = 0.12;
+const NEED_COLORS = ['#c0392b', '#e08a2c', '#b8c93a', '#3f9b5f'];
+const RPM_STEP = 50;
+
+const SLIDERS = [
+  { key: 'dMm', name: 'Диаметр колёс', unit: 'мм', min: 100, max: 150, step: 5, dec: 0, band: null, hint: 'Почти не влияет: от 100 до 150 мм предел по трению растёт всего на 3–6 % (отчёт 08, Б1). Меняет только нужные обороты. <span class="tag">РАСЧЁТ</span>' },
+  { key: 'gapMm', name: 'Зазор между колёсами', unit: 'мм', min: 43, max: 57, step: 0.5, dec: 1, band: [47, 53], hint: 'Мяч 67 мм (ITF). Чем меньше зазор, тем сильнее сжат мяч. Рабочая регулировка 43–55 мм: для 80 км/ч около 47–48, для 55 км/ч 51–53 (отчёт 08, Б5). Зелёная полоса: 47–53 мм. <span class="tag">ОЦЕНКА</span>' },
+  { key: 'rpm', name: 'Обороты колёс', unit: 'об/мин', min: 1000, max: 8000, step: RPM_STEP, dec: 0, band: null, hint: '' },
+  { key: 'mu', name: 'Трение мяч–колесо', unit: '', min: 0.3, max: 1.2, step: 0.05, dec: 2, band: [0.5, 0.9], hint: 'Зелёная полоса 0,5–0,9: вероятнее для матовой или рифлёной шины <span class="tag">ОЦЕНКА отчёта 08</span>. Опорные точки: мяч по гладкому текстолиту 0,27 ± 0,03; корт «около 0,5 и выше»; шлифбумага около 1 <span class="tag">ПРОВЕРЕНО: Cross 2002</span>. Войлок по резине или полиуретану прямых измерений нет. Глянцевая шина (0,3 и ниже) — риск.' },
+  { key: 'kKnM', name: 'Жёсткость мяча', unit: 'кН/м', min: 10.9, max: 35, step: 0.1, dec: 1, band: [14, 25], hint: 'Статика по правилам ITF 10,9–14,3 кН/м <span class="tag">ПРОВЕРЕНО: Cross 1999</span>. При ударе жёсткость в 1,5–3 раза выше, среднее около 20 <span class="tag">ОЦЕНКА по Cross</span>. Зелёная полоса 14–25: вероятнее. Линейная модель даёт верхнюю оценку силы.' },
+  { key: 'targetKmh', name: 'Желаемая скорость мяча', unit: 'км/ч', min: 55, max: 80, step: 1, dec: 0, band: null, hint: 'Целевой диапазон проекта 55–80 км/ч.' },
+];
+
+const state = { dMm: 125, gapMm: 50, rpm: 3700, mu: 0.7, kKnM: 20, targetKmh: 70 };
+let cur = null;
+let traj = null;
+let slow = 30;
+let t0 = performance.now();
+const freezeMatch = /f=([0-9.]+)/.exec(location.hash);
+const freeze = freezeMatch ? parseFloat(freezeMatch[1]) : null;
+
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+const fmt = (x, d) => x.toFixed(d).replace('.', ',');
+const el = (name, attrs = {}, parent = null) => {
+  const e = document.createElementNS(NS, name);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+};
+const marginClass = (m) => (m < 1 ? 0 : m < 1.5 ? 1 : m < 2 ? 2 : 3);
+const slipState = (r) => (r >= 0.97 ? 'roll' : r >= 0.85 ? 'part' : 'slip');
+const SLIP_TEXT = { roll: 'катится без проскальзывания', part: 'частично проскальзывает', slip: 'проскальзывает' };
+
+function neededRounded() {
+  if (cur.rpmNeeded === null) return null;
+  const sl = SLIDERS[2];
+  return clamp(Math.round(cur.rpmNeeded / RPM_STEP) * RPM_STEP, sl.min, sl.max);
+}
+
+function buildControls() {
+  const host = $('ctl');
+  SLIDERS.forEach((sl) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'ctl';
+    wrap.innerHTML = `<div class="nm"><span>${sl.name}</span><b id="v_${sl.key}"></b></div><input type="range" id="r_${sl.key}" min="${sl.min}" max="${sl.max}" step="${sl.step}" aria-label="${sl.name}"><div class="hint" id="h_${sl.key}">${sl.hint}</div>`;
+    host.appendChild(wrap);
+    const input = wrap.querySelector('input');
+    if (sl.band) {
+      input.classList.add('banded');
+      input.style.setProperty('--a', `${((sl.band[0] - sl.min) / (sl.max - sl.min)) * 100}%`);
+      input.style.setProperty('--b', `${((sl.band[1] - sl.min) / (sl.max - sl.min)) * 100}%`);
+    }
+    input.addEventListener('input', () => {
+      state[sl.key] = parseFloat(input.value);
+      update();
+    });
+  });
+  const hr = $('h_rpm');
+  hr.innerHTML = '<span id="rpmHint"></span><div class="row"><button class="btn" id="setRpm">поставить нужные обороты</button></div>';
+  $('setRpm').addEventListener('click', () => {
+    const n = neededRounded();
+    if (n !== null) {
+      state.rpm = n;
+      update();
+    }
+  });
+}
+
+function syncControls() {
+  SLIDERS.forEach((sl) => {
+    $(`r_${sl.key}`).value = state[sl.key];
+    const u = sl.unit ? ` ${sl.unit}` : '';
+    $(`v_${sl.key}`).textContent = `${fmt(state[sl.key], sl.dec)}${u}`;
+  });
+  const n = neededRounded();
+  $('rpmHint').textContent = n === null ? 'Для этой цели оборотов не существует: предел по трению ниже желаемой скорости.' : `Нужные для желаемой скорости: около ${fmt(cur.rpmNeeded, 0)} об/мин. Без учёта проскальзывания хватило бы ${fmt(cur.rpmBlind, 0)}.`;
+  $('setRpm').disabled = n === null;
+}
+
+function renderStats() {
+  const c = cur;
+  const dev = ((c.vExitKmh - state.targetKmh) / state.targetKmh) * 100;
+  const items = [
+    ['Сжатие мяча', `${fmt(c.delta0Mm, 1)} мм на сторону`, `всего ${fmt(c.delta0Mm * 2, 1)} мм, это ${fmt(((c.delta0Mm * 2) / BALL_D_MM) * 100, 0)} % диаметра; мяч сплющен с 67 до ${fmt(state.gapMm, 1)} мм`],
+    ['Сила прижатия на колесо', `${fmt(c.forceN, 0)} Н`, `как давить пальцами с силой около ${fmt(c.forceKgf, 0)} кг. Проверка ITF: 8,2 кг сжимает мяч всего на 5,6–7,4 мм`],
+    ['Предел скорости по трению', `${fmt(c.vFricKmh, 0)} км/ч`, 'быстрее трение мяч разогнать не может'],
+    ['Запас по трению', fmt(c.margin, 2), `нужно трение не ниже ${fmt(c.muRequired, 2)}, сейчас ${fmt(state.mu, 2)}`],
+    ['Скорость мяча на выходе', `${fmt(c.vExitKmh, 1)} км/ч`, `при ${fmt(state.rpm, 0)} об/мин; желаемая ${state.targetKmh} км/ч (${dev >= 0 ? '+' : '−'}${fmt(Math.abs(dev), 1)} %); без проскальзывания было бы ${fmt(c.noSlipKmh, 1)}`],
+    ['Нужные обороты', c.rpmNeeded === null ? 'недостижимо' : `${fmt(c.rpmNeeded, 0)} об/мин`, c.rpmNeeded === null ? 'предел по трению ниже желаемой скорости' : `скорость обода ${fmt((Math.PI * (state.dMm / 1000) * c.rpmNeeded) / 60, 1)} м/с`],
+  ];
+  $('stats').innerHTML = items.map(([a, b, d]) => `<div class="stat"><small>${a}</small><b>${b}</b><span>${d}</span></div>`).join('');
+  $('ptr').style.left = `${clamp(c.margin / 3, 0, 1) * 100}%`;
+  const k = marginClass(c.margin);
+  const texts = [
+    'Меньше 1: предел по трению ниже нужной скорости. Мяч проскальзывает и до цели не разгонится, сколько ни добавляй обороты.',
+    'От 1 до 1,5: на грани. Скорость сильно зависит от трения, жёсткости и зазора; без подстройки оборотов недобор обычно 6–12 %.',
+    'От 1,5 до 2: хороший запас. Трение и жёсткость почти не мешают; типичная ошибка скорости около 3 %.',
+    '2 и больше: трение и жёсткость почти не влияют; ошибка скорости меньше 1,5 %.',
+  ];
+  const v = $('verdict');
+  v.className = `verdict v${k}`;
+  v.textContent = `Запас ${fmt(c.margin, 2)}. ${texts[k]}`;
+}
+
+function heatY(mu, top, h) {
+  return top + h * (1 - (mu - 0.3) / 0.9);
+}
+
+function renderHeat() {
+  const L = 64;
+  const T = 12;
+  const W = 560;
+  const H = 300;
+  const cols = 28;
+  const rows = 36;
+  const cw = W / cols;
+  const ch = H / rows;
+  let s = '';
+  for (let i = 0; i < cols; i++) {
+    const gap = 43 + i * 0.5 + 0.25;
+    for (let j = 0; j < rows; j++) {
+      const mu = 0.3 + (j + 0.5) * (0.9 / rows);
+      const m = evaluateLauncher({ ...state, gapMm: gap, mu }).margin;
+      s += `<rect x="${(L + i * cw).toFixed(2)}" y="${(T + H - (j + 1) * ch).toFixed(2)}" width="${(cw + 0.4).toFixed(2)}" height="${(ch + 0.4).toFixed(2)}" fill="${NEED_COLORS[marginClass(m)]}"/>`;
+    }
+  }
+  for (let g = 43; g <= 57; g += 2) {
+    const x = L + ((g - 43) / 14) * W;
+    s += `<line class="axl" x1="${x}" y1="${T + H}" x2="${x}" y2="${T + H + 5}"/><text class="txt" x="${x}" y="${T + H + 20}" text-anchor="middle">${g}</text>`;
+  }
+  for (let k = 0; k <= 9; k++) {
+    const mu = 0.3 + k * 0.1;
+    const y = heatY(mu, T, H);
+    s += `<line class="axl" x1="${L - 5}" y1="${y}" x2="${L}" y2="${y}"/><text class="txt" x="${L - 9}" y="${y + 4}" text-anchor="end">${fmt(mu, 1)}</text>`;
+  }
+  s += `<rect x="${L}" y="${T}" width="${W}" height="${H}" fill="none" stroke="var(--ink)" stroke-width="1.5"/>`;
+  s += `<text class="txt ink" x="${L + W / 2}" y="${T + H + 44}" text-anchor="middle">зазор между колёсами, мм (слева мяч сжат сильнее)</text>`;
+  s += `<text class="txt ink" transform="translate(16 ${T + H / 2}) rotate(-90)" text-anchor="middle">трение мяч–колесо</text>`;
+  const yA = heatY(0.9, T, H);
+  const yB = heatY(0.5, T, H);
+  s += `<path class="brk" d="M${L + W + 6} ${yA} h6 V${yB} h-6"/><text class="txt" x="${L + W + 16}" y="${(yA + yB) / 2 - 2}">вероятнее</text><text class="txt" x="${L + W + 16}" y="${(yA + yB) / 2 + 14}">0,5–0,9</text>`;
+  const cx = L + ((clamp(state.gapMm, 43, 57) - 43) / 14) * W;
+  const cy = heatY(clamp(state.mu, 0.3, 1.2), T, H);
+  s += `<circle class="cur1" cx="${cx}" cy="${cy}" r="8"/><circle class="cur2" cx="${cx}" cy="${cy}" r="11"/>`;
+  $('heat').innerHTML = s;
+  heatGeom = { L, T, W, H };
+}
+let heatGeom = null;
+
+function renderBars() {
+  const labels = { dMm: 'диаметр колёс', gapMm: 'зазор между колёсами', rpm: 'обороты колёс', mu: 'трение мяч–колесо', kKnM: 'жёсткость мяча', kV: 'передача скорости, k_v = 0,85' };
+  const rows = ELASTICITY_KEYS.map((k) => ({ k, e: exitElasticity(state, k) })).sort((a, b) => Math.abs(b.e) - Math.abs(a.e));
+  const max = Math.max(1, ...rows.map((r) => Math.abs(r.e)));
+  const zero = 395;
+  const half = 160;
+  let s = `<line class="gridl" x1="${zero}" y1="8" x2="${zero}" y2="262"/>`;
+  rows.forEach((r, i) => {
+    const y = 14 + i * 41;
+    const w = (Math.abs(r.e) / max) * half;
+    const x = r.e >= 0 ? zero : zero - w;
+    s += `<text class="txt ink" x="8" y="${y + 19}">${labels[r.k]}</text><rect class="${r.e >= 0 ? 'bpos' : 'bneg'}" x="${x}" y="${y}" width="${Math.max(w, 1)}" height="26" rx="3"/><text class="txt ink b" x="632" y="${y + 19}" text-anchor="end">${r.e >= 0 ? '+' : '−'}${fmt(Math.abs(r.e), 2)}</text>`;
+  });
+  s += `<text class="txt" x="${zero - half}" y="288">скорость падает</text><text class="txt" x="${zero + half}" y="288" text-anchor="end">скорость растёт</text>`;
+  $('bars').innerHTML = s;
+  const g = (k) => Math.abs(rows.find((r) => r.k === k).e) * 10;
+  $('barsText').textContent = `Если изменить на 10 %: трение — скорость мяча меняется примерно на ${fmt(g('mu'), 1)} %, жёсткость — на ${fmt(g('kKnM'), 1)} %, зазор — на ${fmt(g('gapMm'), 1)} %, обороты — на ${fmt(g('rpm'), 1)} %. При запасе 2 и больше трение и жёсткость почти исчезают из списка.`;
+}
+
+const A = {};
+
+function buildAnim() {
+  const svg = $('anim');
+  svg.innerHTML = '';
+  const defs = el('defs', {}, svg);
+  [['n', 'mk-n'], ['roll', 'mk-roll'], ['part', 'mk-part'], ['slip', 'mk-slip']].forEach(([id, cls]) => {
+    const m = el('marker', { id: `mk_${id}`, viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 12, markerHeight: 12, markerUnits: 'userSpaceOnUse', orient: 'auto' }, defs);
+    el('path', { d: 'M0 0L10 5L0 10z', class: cls }, m);
+  });
+  A.chute1 = el('line', { class: 'chute' }, svg);
+  A.chute2 = el('line', { class: 'chute' }, svg);
+  A.chuteTxt = el('text', { class: 'txt ink', x: 14 }, svg);
+  A.chuteTxt.textContent = 'подача мяча';
+  A.wheels = [0, 1].map((i) => {
+    const g = el('g', {}, svg);
+    const rot = el('g', {}, g);
+    const tire = el('circle', { class: 'tire' }, rot);
+    const hub = el('circle', { class: 'hubc' }, rot);
+    const spokes = [0, 1, 2].map((k) => el('line', { class: 'spoke' }, rot));
+    const mark = el('rect', { class: 'mark', width: 8, height: 16, rx: 2 }, rot);
+    return { g, rot, tire, hub, spokes, mark };
+  });
+  A.wlabel1 = el('text', { class: 'txt ink b' }, svg);
+  A.wlabel2 = el('text', { class: 'txt ink b' }, svg);
+  A.ghost = el('circle', { class: 'ghost' }, svg);
+  A.ball = el('g', {}, svg);
+  A.ballE = el('ellipse', { class: 'ballb' }, A.ball);
+  A.seam1 = el('path', { class: 'seam' }, A.ball);
+  A.seam2 = el('path', { class: 'seam' }, A.ball);
+  A.arrows = [0, 1].map(() => ({ nh: el('line', { class: 'alh' }, svg), n: el('line', { class: 'al n', 'marker-end': 'url(#mk_n)' }, svg), fh: el('line', { class: 'alh' }, svg), f: el('line', { class: 'al', 'marker-end': 'url(#mk_roll)' }, svg) }));
+  A.tN = el('text', { class: 'txt ink b halo' }, svg);
+  A.tF = el('text', { class: 'txt ink b halo' }, svg);
+  A.speed = el('text', { class: 'txt ink b', x: 14, y: 20 }, svg);
+  A.speed2 = el('text', { class: 'txt', x: 14, y: 38 }, svg);
+  A.scaleLine = el('line', { class: 'axl', x1: 14, x2: 14 + 50 * S, y1: 452, y2: 452 }, svg);
+  A.scaleTxt = el('text', { class: 'txt', x: 14 + 25 * S, y: 465, 'text-anchor': 'middle' }, svg);
+  A.scaleTxt.textContent = '50 мм';
+}
+
+function layoutAnim() {
+  const R = state.dMm / 2;
+  const half = state.gapMm / 2;
+  const rr = R * S;
+  const ys = [YM - (half + R) * S, YM + (half + R) * S];
+  A.wheels.forEach((w, i) => {
+    w.g.setAttribute('transform', `translate(${CX} ${ys[i]})`);
+    w.tire.setAttribute('r', rr);
+    w.hub.setAttribute('r', rr * 0.7);
+    w.spokes.forEach((sp, k) => {
+      const a = (k * 2 * Math.PI) / 3;
+      sp.setAttribute('x1', 0);
+      sp.setAttribute('y1', 0);
+      sp.setAttribute('x2', Math.cos(a) * rr * 0.68);
+      sp.setAttribute('y2', Math.sin(a) * rr * 0.68);
+    });
+    w.mark.setAttribute('x', -4);
+    w.mark.setAttribute('y', -rr + 3);
+  });
+  const lx = CX - (R + 45) * S;
+  const yc = (BALL_R_MM + 3) * S;
+  A.chuteTxt.setAttribute('y', YM - yc - 12);
+  A.chute1.setAttribute('x1', 14);
+  A.chute1.setAttribute('x2', lx - 20);
+  A.chute1.setAttribute('y1', YM - yc);
+  A.chute1.setAttribute('y2', YM - yc);
+  A.chute2.setAttribute('x1', 14);
+  A.chute2.setAttribute('x2', lx - 20);
+  A.chute2.setAttribute('y1', YM + yc);
+  A.chute2.setAttribute('y2', YM + yc);
+  A.wlabel1.setAttribute('x', CX + rr + 10);
+  A.wlabel1.setAttribute('y', ys[0] + 4);
+  A.wlabel1.textContent = 'верхнее колесо';
+  A.wlabel2.setAttribute('x', CX + rr + 10);
+  A.wlabel2.setAttribute('y', ys[1] + 4);
+  A.wlabel2.textContent = 'нижнее колесо';
+  A.ghost.setAttribute('r', BALL_R_MM * S);
+  A.ys = ys;
+  A.R = R;
+}
+
+function overlap(dx) {
+  const R = A.R;
+  const reach = R + BALL_R_MM;
+  return Math.max(0, reach - Math.sqrt(dx * dx + (R + state.gapMm / 2) ** 2));
+}
+
+function buildTraj() {
+  const R = state.dMm / 2;
+  const xc = contactHalfLength(R / 1000, LC.BALL_RADIUS_M, cur.delta0Mm / 1000) * 1000;
+  const vEx = Math.max(cur.vExitKmh / 3.6, 0.5);
+  const xStart = -(R + 45);
+  const xEnd = (VBW - CX) / S + BALL_R_MM + 4;
+  const dt = 2e-5;
+  const xs = [xStart];
+  const vs = [V_IN];
+  let x = xStart;
+  let t = 0;
+  while (x < xEnd && t < 1.5) {
+    const sp = clamp((x + xc) / (2 * xc), 0, 1);
+    const v = V_IN + (vEx - V_IN) * sp * sp * (3 - 2 * sp);
+    x += v * 1000 * dt;
+    t += dt;
+    xs.push(x);
+    vs.push(v);
+  }
+  traj = { xs, vs, dt, total: t, xc, xStart };
+}
+
+function trajAt(t) {
+  const f = clamp(t / traj.dt, 0, traj.xs.length - 1);
+  const i = Math.floor(f);
+  const j = Math.min(i + 1, traj.xs.length - 1);
+  const w = f - i;
+  return [traj.xs[i] * (1 - w) + traj.xs[j] * w, traj.vs[i] * (1 - w) + traj.vs[j] * w];
+}
+
+function renderFrame(dx, v, theta) {
+  const sstate = slipState(cur.slipRatio);
+  const d = overlap(dx);
+  const bx = CX + dx * S;
+  const ry = (BALL_R_MM - d) * S;
+  const rx = (BALL_R_MM + d * 0.35) * S;
+  A.ball.setAttribute('transform', `translate(${bx} ${YM})`);
+  A.ballE.setAttribute('rx', rx);
+  A.ballE.setAttribute('ry', ry);
+  A.ballE.setAttribute('class', `ballb ${sstate}`);
+  A.seam1.setAttribute('d', `M${-rx * 0.9} ${-ry * 0.35} Q0 ${ry * 0.3} ${rx * 0.9} ${-ry * 0.35}`);
+  A.seam2.setAttribute('d', `M${-rx * 0.9} ${ry * 0.35} Q0 ${-ry * 0.3} ${rx * 0.9} ${ry * 0.35}`);
+  A.ghost.setAttribute('cx', bx);
+  A.ghost.setAttribute('cy', YM);
+  A.wheels[0].rot.setAttribute('transform', `rotate(${(-theta * 180) / Math.PI})`);
+  A.wheels[1].rot.setAttribute('transform', `rotate(${(theta * 180) / Math.PI})`);
+  const force = state.kKnM * 1000 * 2 * (d / 1000);
+  const lenN = Math.min(force * FORCE_PX_PER_N, 120);
+  const lenF = Math.min(force * state.mu * FORCE_PX_PER_N, 120);
+  const show = d > 0.05;
+  const fclass = `al ${sstate}`;
+  [-1, 1].forEach((sgn, i) => {
+    const a = A.arrows[i];
+    const edge = YM + sgn * ry;
+    const xn = bx - 26;
+    const xf = bx - 4;
+    const yf = edge - sgn * 8;
+    const nset = [xn, edge - sgn * lenN, xn, edge - sgn * 3];
+    const fset = [xf, yf, xf + lenF, yf];
+    const vis = show ? 'visible' : 'hidden';
+    [[a.nh, nset], [a.n, nset], [a.fh, fset], [a.f, fset]].forEach(([line, p]) => {
+      line.setAttribute('x1', p[0]);
+      line.setAttribute('y1', p[1]);
+      line.setAttribute('x2', p[2]);
+      line.setAttribute('y2', p[3]);
+      line.setAttribute('visibility', vis);
+    });
+    a.f.setAttribute('class', fclass);
+    a.f.setAttribute('marker-end', `url(#mk_${sstate})`);
+  });
+  const topEdge = YM - ry;
+  A.tN.setAttribute('x', bx - 150);
+  A.tN.setAttribute('y', topEdge - Math.max(lenN, 20) - 8);
+  A.tN.textContent = show ? `прижим ${fmt(force, 0)} Н` : '';
+  A.tF.setAttribute('x', bx + 6);
+  A.tF.setAttribute('y', topEdge - 14);
+  A.tF.textContent = show ? `трение до ${fmt(force * state.mu, 0)} Н` : '';
+  A.speed.textContent = `скорость мяча сейчас: ${fmt(v * 3.6, 1)} км/ч`;
+  A.speed2.textContent = `скорость обода колеса: ${fmt(cur.vRimMs * 3.6, 0)} км/ч (${fmt(state.rpm, 0)} об/мин)`;
+}
+
+function tick(now) {
+  const lead = 0.5;
+  const tail = 0.9;
+  const run = traj.total * slow;
+  const tc = ((now - t0) / 1000) % (lead + run + tail);
+  const ts = clamp(tc - lead, 0, run) / slow;
+  const [x, v] = trajAt(ts);
+  const omega = (state.rpm * 2 * Math.PI) / 60;
+  renderFrame(x, v, (omega * (now - t0)) / 1000 / slow);
+  requestAnimationFrame(tick);
+}
+
+function showFrozen() {
+  const dx = -traj.xc + freeze * 2 * traj.xc;
+  const sp = clamp(freeze, 0, 1);
+  const v = V_IN + (Math.max(cur.vExitKmh / 3.6, 0.5) - V_IN) * sp * sp * (3 - 2 * sp);
+  renderFrame(dx, v, 0.3);
+}
+
+function renderSlip() {
+  const ss = slipState(cur.slipRatio);
+  const b = $('slipBadge');
+  b.className = `badge ${ss}`;
+  b.textContent = `при ${fmt(state.rpm, 0)} об/мин мяч ${SLIP_TEXT[ss]}`;
+  $('slipText').textContent = `Мяч получает ${fmt(cur.vExitKmh, 1)} км/ч из ${fmt(cur.noSlipKmh, 1)} км/ч, которые дало бы качение без проскальзывания (${fmt(cur.slipRatio * 100, 0)} %).`;
+}
+
+function update() {
+  cur = evaluateLauncher(state);
+  syncControls();
+  renderStats();
+  renderHeat();
+  renderBars();
+  renderSlip();
+  layoutAnim();
+  buildTraj();
+  if (freeze !== null) showFrozen();
+}
+
+function setSpeed(k) {
+  slow = k;
+  $('spN').setAttribute('aria-pressed', String(k === 30));
+  $('spS').setAttribute('aria-pressed', String(k === 150));
+  t0 = performance.now();
+}
+
+$('again').addEventListener('click', () => {
+  t0 = performance.now();
+});
+$('spN').addEventListener('click', () => setSpeed(30));
+$('spS').addEventListener('click', () => setSpeed(150));
+$('heat').addEventListener('click', (ev) => {
+  const box = $('heat').getBoundingClientRect();
+  const px = ((ev.clientX - box.left) / box.width) * 720;
+  const py = ((ev.clientY - box.top) / box.height) * 372;
+  const { L, T, W, H } = heatGeom;
+  if (px < L || px > L + W || py < T || py > T + H) return;
+  state.gapMm = clamp(Math.round((43 + ((px - L) / W) * 14) * 2) / 2, 43, 57);
+  state.mu = clamp(Math.round((0.3 + (1 - (py - T) / H) * 0.9) * 20) / 20, 0.3, 1.2);
+  update();
+});
+
+buildControls();
+buildAnim();
+cur = evaluateLauncher(state);
+state.rpm = neededRounded();
+update();
+if (freeze === null) requestAnimationFrame(tick);
+</script>
+</body>
+</html>

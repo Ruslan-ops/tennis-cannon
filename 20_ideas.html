@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Идеи с нуля: что в машине действительно нужно</title>
+<style>
+body { margin: 0; background: #f3f1ea; color: #222; font: 16px/1.5 "Segoe UI", Arial, sans-serif; }
+main { max-width: 1060px; margin: 0 auto; padding: 24px 20px 60px; }
+h1 { font-size: 28px; margin: 8px 0 4px; }
+h2 { font-size: 22px; margin: 36px 0 12px; border-bottom: 2px solid #d8d3c4; padding-bottom: 4px; }
+h3 { font-size: 19px; margin: 0 0 8px; }
+.lead { color: #555; margin: 0 0 18px; }
+.top3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.top { background: #fff; border-radius: 10px; padding: 14px 16px; border-top: 6px solid #3a8d4f; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.top.amber { border-top-color: #d89b2b; }
+.top b.num { font-size: 26px; color: #3a8d4f; display: block; }
+.top.amber b.num { color: #b97d10; }
+.card { background: #fff; border-radius: 10px; padding: 16px 18px; margin: 16px 0; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.figs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0 10px; }
+.fig { text-align: center; font-size: 13px; color: #555; }
+.fig svg { display: block; margin: 0 auto 4px; }
+.arrow { font-size: 30px; color: #999; }
+.grid4 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; }
+.grid4 p { margin: 2px 0; }
+.lbl { font-weight: 600; color: #444; }
+.badge { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 14px; font-weight: 600; margin-left: 8px; vertical-align: middle; }
+.take { background: #dcefdc; color: #22622f; }
+.check { background: #faecc9; color: #8a5a00; }
+.no { background: #e6e3dc; color: #555; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; background: #fff; }
+th, td { border: 1px solid #ddd6c6; padding: 4px 6px; text-align: center; }
+th { background: #ece7da; }
+td.l { text-align: left; }
+.ok { background: #e3f2e1; }
+.bad { background: #f6dcd6; }
+.mid { background: #fbefcf; }
+.note { font-size: 13px; color: #666; }
+.scale { font-size: 13px; color: #666; margin: 4px 0 0; }
+svg text { font-family: "Segoe UI", Arial, sans-serif; }
+.cons { columns: 2; column-gap: 26px; font-size: 14px; }
+.cons li { break-inside: avoid; margin-bottom: 4px; }
+</style>
+</head>
+<body><div id="tcsite-bar"><style>#tcsite-bar{all:initial;display:flex;align-items:center;gap:10px;flex:none;box-sizing:border-box;width:100%;height:34px;padding:0 14px;background:#1f2a37;color:#dbe4ee;font:13px/1 system-ui,Segoe UI,sans-serif;white-space:nowrap;overflow:hidden;border-bottom:1px solid #3a4756}#tcsite-bar a{color:#9fd3ff;text-decoration:none;font-weight:600;flex:none}#tcsite-bar a:hover{text-decoration:underline}#tcsite-bar .tcsite-sep{opacity:.5;flex:none}#tcsite-bar .tcsite-name{overflow:hidden;text-overflow:ellipsis;min-width:0}#tcsite-bar .tcsite-date{opacity:.8;flex:none}#tcsite-bar .tcsite-old{color:#ffcf8a;flex:none}@media (max-width:560px){#tcsite-bar .tcsite-date{display:none}}</style><a class="tcsite-back" href="index.html">← Все страницы</a><span class="tcsite-sep">·</span><span class="tcsite-name">Идеи с чистого листа</span><span class="tcsite-sep">·</span><span class="tcsite-date">обновлено 16.11.2026</span></div>
+<svg width="0" height="0" style="position:absolute">
+<defs>
+<marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#555"/></marker>
+<g id="head">
+<line x1="10.3" y1="-245.8" x2="66.6" y2="-110" stroke="#7a8796" stroke-width="128" stroke-linecap="round" opacity="0.18"/>
+<circle cx="10.3" cy="-245.8" r="50" fill="#2e2e2e"/><circle cx="10.3" cy="-245.8" r="36" fill="#a9b0b8"/>
+<circle cx="66.6" cy="-110" r="50" fill="#2e2e2e"/><circle cx="66.6" cy="-110" r="36" fill="#a9b0b8"/>
+<circle cx="0" cy="-162" r="33.5" fill="#d7e04a" stroke="#8a9a20" stroke-width="2"/>
+<circle cx="0" cy="-162" r="5" fill="#c0392b"/>
+</g>
+<g id="env"><circle cx="0" cy="-162" r="148.5" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="8 6"/></g>
+<g id="rev7">
+<line x1="-330" y1="0" x2="230" y2="0" stroke="#8c8577" stroke-width="3"/>
+<line x1="-80" y1="-19" x2="-158" y2="0" stroke="#777" stroke-width="7"/><line x1="80" y1="-19" x2="158" y2="0" stroke="#777" stroke-width="7"/>
+<rect x="-205.5" y="-433" width="411" height="414" fill="#eef1f4" stroke="#6b7785" stroke-width="3"/>
+<rect x="199" y="-388" width="10" height="255" fill="#ffffff" stroke="#333" stroke-width="2"/>
+<rect x="-195" y="-95" width="77" height="65" fill="#c9a43a"/>
+<path d="M -140 -252 A 90 90 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<line x1="-140" y1="-375" x2="-140" y2="-252" stroke="#3f8f6a" stroke-width="3" stroke-dasharray="7 5"/>
+<rect x="-201" y="-342" width="402" height="4" fill="#555"/>
+<rect x="-183.5" y="-391" width="210" height="7" fill="#b5c43a"/>
+<circle cx="-140" cy="-375.5" r="33.5" fill="#d7e04a" opacity="0.6"/>
+<rect x="-120" y="-459" width="240" height="26" fill="#56606c" opacity="0.7"/>
+<use href="#head"/>
+</g>
+<g id="puck">
+<line x1="-330" y1="0" x2="230" y2="0" stroke="#8c8577" stroke-width="3"/>
+<rect x="-280" y="-19.5" width="430" height="6" fill="#777"/>
+<path d="M -280 -324.5 L 150 -324.5 L 150 -19.5 L -280 -19.5 Z" fill="#eef4ee" stroke="#4b7d57" stroke-width="3"/>
+<rect x="144" y="-300" width="10" height="230" fill="#ffffff" stroke="#333" stroke-width="2"/>
+<rect x="-270" y="-95" width="77" height="65" fill="#c9a43a"/>
+<path d="M -130 -222 A 60 60 0 0 0 -70 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<rect x="-276" y="-212.5" width="190" height="4" fill="#555"/>
+<rect x="-270" y="-252" width="180" height="7" fill="#b5c43a"/>
+<circle cx="-130" cy="-242" r="33.5" fill="#d7e04a" opacity="0.7"/>
+<line x1="-86" y1="-324.5" x2="-86" y2="-258" stroke="#4b7d57" stroke-width="3"/>
+<rect x="-280" y="-350.5" width="430" height="26" fill="#56606c" opacity="0.7"/>
+<use href="#head"/>
+</g>
+</defs>
+</svg>
+<main>
+<h1>Идеи «с чистого листа»: что в машине действительно нужно</h1>
+<p class="lead">Мы забыли, «как принято», и для каждой части машины спросили: это требует физика или так просто сложилось? Ниже 16 идей. Каждая с рисунком «как сейчас → как можно», числами и вердиктом. Боковые разрезы нарисованы в одном масштабе: 100 мм на рисунке везде одинаковой длины. Мяч жёлтый, красная точка — ось наклона головы, красный пунктирный круг (R148,5 мм) — граница, за которую колёса головы не выходят ни при каком наклоне; при рабочих 5–40° голова занимает только его переднюю и верхнюю часть: назад не дальше 79 мм от оси.</p>
+
+<h2>Три лучшие идеи</h2>
+<div class="top3">
+<div class="top amber"><b class="num">−108 мм</b><h3>«Шайба»: диск позади головы</h3>Машина становится ниже на 11 см, мячи лежат ниже, стоит устойчивее. Нужно проверить, как податчик берёт мячи из колодца за головой.<br><span class="badge check">проверить отдельно</span></div>
+<div class="top"><b class="num">−21 / −15 мм</b><h3>Убрать «падение», дуга R75</h3>Мячу не нужно падать с диска 9 см: симуляция показала, что можно просто опустить плиту и укоротить дугу. Дёшево и уже проверено.<br><span class="badge take">взять в ревизию 8</span></div>
+<div class="top amber"><b class="num">−5 деталей</b><h3>Корзина на пружинном ободе</h3>Как складная корзина для белья: без прутков и клипс, складывается одним движением. Проверка — образец ткани за несколько сотен рублей.<br><span class="badge check">проверить отдельно</span></div>
+</div>
+
+<h2>Главное открытие: высоту задаёт голова, а не падение мяча</h2>
+<div class="card">
+<div class="figs">
+<div class="fig"><svg viewBox="-330 -500 560 520" width="330" height="306">
+<use href="#rev7"/><use href="#env"/>
+<line x1="-60" y1="-252" x2="-60" y2="-338" stroke="#c0392b" stroke-width="3" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="-205" y="-298" font-size="24" fill="#c0392b">падение 86</text>
+<line x1="60" y1="-310" x2="205" y2="-310" stroke="#c0392b" stroke-width="2"/>
+<text x="80" y="-316" font-size="24" fill="#c0392b">верх 310</text>
+<text x="-320" y="-470" font-size="26" font-weight="600">Ревизия 7 (сбоку)</text>
+</svg>Сейчас: диск лежит над головой</div>
+<div class="arrow">→</div>
+<div class="fig" style="max-width:560px;text-align:left;font-size:15px;color:#222">
+<p>Голова качается вокруг оси (красная точка), и колёса заметают круг радиусом 148,5 мм (красный пунктир). Его верх — 310 мм от земли [РАСЧЁТ]. Диск лежит над этим кругом, поэтому выше него.</p>
+<p>Мяч падает с диска 86 мм, но это не нужно для подачи: падение просто заполняет место между дугой и головой. Если убрать падение, а диск оставить над головой, машина станет ниже всего на 21 мм.</p>
+<p>Чтобы машина заметно стала ниже, диск должен уйти из-под этого круга: назад и вниз. Это и есть «шайба».</p>
+</div>
+</div>
+<p class="scale">Масштаб боковых разрезов: 560 мм = ширина рисунка. Числа — [РАСЧЁТ: research/data/ideas70/ideas_calc.json] по размерам ревизии 7.</p>
+</div>
+
+<h2>Проверка симуляцией: короткий путь мяча</h2>
+<div class="card">
+<p>1 650 коротких прогонов физического движка MuJoCo: мяч сбрасывается в канал при разных размерах, 30 прогонов на каждую клетку таблицы. «Захват» — сколько из 30 колёса выстрелили. «σ» — разброс угла вылета: чем меньше, тем точнее. Хорошо, если σ меньше 0,5°.</p>
+<table>
+<tr><th class="l">Канал</th><th>старт мяча над линией выстрела</th><th>5°: захват / σ</th><th>22,5°</th><th>40°</th><th>скорость у колёс, м/с</th></tr>
+<tr><td class="l">ревизия 7: дуга R90, падение 90 мм</td><td>180 мм</td><td class="ok">30/30 · 0,16°</td><td class="ok">30/30 · 0,16°</td><td class="ok">30/30 · 0,30°</td><td>0,78–0,84</td></tr>
+<tr><td class="l">дуга R90, падение 20 мм</td><td>110 мм</td><td class="ok">30/30 · 0,16°</td><td class="ok">30/30 · 0,12°</td><td class="ok">30/30 · 0,31°</td><td>0,85–0,90</td></tr>
+<tr><td class="l">дуга R90, падение 3 мм (гнездо = верх канала)</td><td>93 мм</td><td class="ok">30/30 · 0,16°</td><td class="ok">30/30 · 0,13°</td><td class="ok">30/30 · 0,34°</td><td>0,87–0,88</td></tr>
+<tr><td class="l">дуга R75, падение 20 мм</td><td>95 мм</td><td class="ok">30/30 · 0,17°</td><td class="ok">30/30 · 0,18°</td><td class="ok">30/30 · 0,31°</td><td>0,77–0,78</td></tr>
+<tr><td class="l">дуга R60, прямой 50 мм</td><td>80 мм</td><td class="ok">30/30 · 0,09°</td><td class="ok">30/30 · 0,23°</td><td class="bad">0/30</td><td>0,71</td></tr>
+<tr><td class="l">дуга R60, прямой 70 мм</td><td>80 мм</td><td class="ok">30/30 · 0,12°</td><td class="ok">30/30 · 0,18°</td><td class="ok">30/30 · 0,31°</td><td>0,68–0,71</td></tr>
+<tr><td class="l">дуга R45</td><td>65 мм</td><td class="ok">30/30 · 0,10°</td><td class="ok">29/30 · 0,23°</td><td class="bad">0/30</td><td>0,60</td></tr>
+<tr><td class="l">наклонная рампа 45° + дуга R90</td><td>44–69 мм</td><td class="ok">30/30 · 0,09°</td><td class="ok">29/30 · 0,21°</td><td class="ok">30/30 · 0,34°</td><td class="mid">0,48–0,55</td></tr>
+<tr><td class="l">канал на голове (как воронка Novashot), лучший вариант</td><td>—</td><td class="bad">29/30, угол уходит на +29°</td><td class="ok">30/30 · 0,16°</td><td class="ok">30/30 · 0,22°</td><td>0,69–0,83</td></tr>
+<tr><td class="l">канал на голове с крутой воронкой (30–60°)</td><td>—</td><td class="bad">0–7/30</td><td class="bad">0–22/30</td><td class="bad">0–2/30</td><td>—</td></tr>
+</table>
+<p class="note">Чему верить: один движок, 30 прогонов на клетку (σ ±25 %). Захват 30/30 значит «отказов не больше примерно 12 %», не «никогда». Колёса Ø100×50, зазор 47 мм, трение и скорость в диапазонах, как в research/62. Что можно сказать твёрдо: падение с диска не помогает подаче; дуга меньше 75 мм на 40° требует удлинить прямой участок до 70 мм.</p>
+</div>
+
+<h2>Все идеи</h2>
+
+<div class="card">
+<h3>И3. «Шайба»: низкий диск позади головы, корзина над всей машиной <span class="badge check">проверить отдельно</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="-330 -500 560 520" width="330" height="306"><use href="#rev7"/><use href="#env"/>
+<line x1="-250" y1="0" x2="-250" y2="-459" stroke="#333" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="-322" y="-230" font-size="24">459</text>
+<text x="-320" y="-470" font-size="26" font-weight="600">Ревизия 8 (вариант Б)</text></svg>сложено 240 × 399 × 459 мм, 44 л</div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="-330 -500 560 520" width="330" height="306"><use href="#puck"/><use href="#env"/>
+<line x1="-305" y1="0" x2="-305" y2="-350" stroke="#333" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/><text x="-328" y="-362" font-size="24">351</text>
+<path d="M -270 -351 L -285 -450 L 165 -450 L 150 -351" fill="none" stroke="#4b7d57" stroke-width="2" stroke-dasharray="6 6"/>
+<text x="-150" y="-395" font-size="24" fill="#4b7d57">корзина в работе</text>
+<text x="-250" y="-270" font-size="22">диск Ø180</text>
+<text x="-262" y="-60" font-size="22">батарея</text>
+<text x="-320" y="-470" font-size="26" font-weight="600">Шайба</text></svg>сложено 240 × 430 × 351 мм, 36 л</div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Диск-податчик переезжает из-под крыши за голову и опускается на 10 см. Мяч из гнезда сразу катится в короткую дугу R60 с прямым участком 70 мм. Над головой остаётся только крыша-скат, по ней мячи стекают в колодец к диску.</p>
+<p><span class="lbl">Что даёт.</span> Высота в сумке −108 мм (351 против 459), объём 36 л против 44, у Tenniix 47,6. Мячи лежат примерно на 11 см ниже, поэтому машина стоит заметно устойчивее (около +5°) [ОЦЕНКА]. Складные лапы можно заменить плоским основанием. Масса примерно −0,3…−0,45 кг [ОЦЕНКА].</p>
+<p><span class="lbl">Чем платим.</span> Длина 430 мм, ровно на пределе цели. Диск меньше (Ø180, 3 гнезда), а такой ещё не проверялся. Колодец у задней стенки, и мячи должны стечь в него со ската.</p>
+<p><span class="lbl">Проверено ли.</span> Канал R60 + 70 — да, 90 прогонов. Податчик в колодце — нет; следующий шаг — симуляция карусели (до 200 прогонов) и сборка 3D-модели. У серийных машин такой схемы не встречали: они кладут диск над колёсами ради малой площади.</p>
+</div></div>
+
+<div class="card">
+<h3>И1. Гнездо диска — сразу верх канала (без падения) <span class="badge take">взять в ревизию 8</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="-330 -500 560 520" width="300" height="279"><use href="#rev7"/><use href="#env"/><text x="-320" y="-470" font-size="26" font-weight="600">Сейчас: падение 86</text></svg></div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="-330 -500 560 520" width="300" height="279">
+<line x1="-330" y1="0" x2="230" y2="0" stroke="#8c8577" stroke-width="3"/>
+<rect x="-205.5" y="-411.5" width="411" height="392.5" fill="#eef1f4" stroke="#6b7785" stroke-width="3"/>
+<path d="M -125 -237 A 75 75 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<line x1="-125" y1="-354" x2="-125" y2="-237" stroke="#3f8f6a" stroke-width="3" stroke-dasharray="7 5"/>
+<rect x="-201" y="-320.5" width="402" height="4" fill="#555"/>
+<rect x="-168.5" y="-369.5" width="210" height="7" fill="#b5c43a"/>
+<circle cx="-125" cy="-354" r="33.5" fill="#d7e04a" opacity="0.6"/>
+<use href="#head"/><use href="#env"/>
+<text x="-320" y="-470" font-size="26" font-weight="600">Плита −21, дуга R75</text></svg></div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Мяч не обязан падать на 9 см: если отпустить его прямо в верх дуги, колёса берут его так же. Падение даже вредит: при ударе о раструб мяч теряет скорость.</p>
+<p><span class="lbl">Что даёт.</span> Плиту с диском можно опустить на 21 мм (до зазора 6 мм над головой), а дугу сделать R75 вместо R90: корпус короче на 15 мм.</p>
+<p><span class="lbl">Чем платим.</span> Зазор между головой и плитой 6 мм — нужна аккуратная сборка. Козырёк против двойной выдачи при новом сбросе надо перепроверить.</p>
+<p><span class="lbl">Проверено ли.</span> Да: 360 прогонов, захват 30/30 на 5, 22,5 и 40°, разброс 0,13–0,34°, как у ревизии 7.</p>
+</div></div>
+
+<div class="card">
+<h3>И2. Дуга меньше радиуса <span class="badge take">R75 — взять</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="-200 -300 300 200" width="160" height="107">
+<path d="M -140 -252 A 90 90 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<circle cx="0" cy="-162" r="33.5" fill="#d7e04a"/><text x="-190" y="-275" font-size="30">R90 + 50</text></svg></div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="-200 -300 300 200" width="160" height="107">
+<path d="M -125 -237 A 75 75 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<circle cx="0" cy="-162" r="33.5" fill="#d7e04a"/><text x="-190" y="-275" font-size="30">R75 + 50</text></svg></div>
+<div class="fig"><svg viewBox="-200 -300 300 200" width="160" height="107">
+<path d="M -130 -222 A 60 60 0 0 0 -70 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<circle cx="0" cy="-162" r="33.5" fill="#d7e04a"/><text x="-190" y="-275" font-size="30">R60 + 70</text></svg></div>
+<div class="fig"><svg viewBox="-200 -300 300 200" width="160" height="107">
+<path d="M -95 -207 A 45 45 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#c0392b" stroke-width="71" opacity="0.25"/>
+<circle cx="0" cy="-162" r="33.5" fill="#d7e04a"/><text x="-190" y="-275" font-size="30">R45 — нет</text></svg></div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Дуга в четверть круга поворачивает падающий мяч в горизонтальный. Чем меньше радиус, тем короче и ниже канал.</p>
+<p><span class="lbl">Что даёт.</span> R75: −15 мм длины. R60 с прямым 70: −30 мм высоты канала (это важно для «шайбы»).</p>
+<p><span class="lbl">Чем платим.</span> На наклоне 40° мяч садится на верхнюю шину, если дуга мала, а прямой короток: R60 с прямым 50 — 0 из 30. Помогает удлинить прямой до 70 мм. R45 ломается уже на 30–35°.</p>
+<p><span class="lbl">Проверено ли.</span> Да, 30 прогонов на точку (таблица выше). Почему именно так ведёт себя мяч у шины, точно не выяснено.</p>
+</div></div>
+
+<div class="card">
+<h3>И4. Наклонный вход: мяч скатывается по рампе 45° <span class="badge no">резерв</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="-330 -500 560 520" width="300" height="279"><use href="#rev7"/><text x="-320" y="-470" font-size="26" font-weight="600">Сейчас</text></svg></div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="-330 -500 560 520" width="300" height="279">
+<line x1="-330" y1="0" x2="230" y2="0" stroke="#8c8577" stroke-width="3"/>
+<path d="M -156.0 -230.9 L -113.6 -188.4 A 90 90 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<circle cx="-156" cy="-231" r="33.5" fill="#d7e04a" opacity="0.7"/>
+<use href="#head"/><use href="#env"/>
+<text x="-320" y="-470" font-size="26" font-weight="600">Рампа 45°</text>
+<text x="-300" y="-430" font-size="24">старт мяча на 44–69 мм</text><text x="-300" y="-402" font-size="24">выше линии выстрела</text></svg></div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Вместо вертикального падения мяч скатывается из гнезда по наклонной рампе, потом по короткой дуге — к колёсам.</p>
+<p><span class="lbl">Что даёт.</span> Мяч стартует очень низко: всего на 4–7 см выше линии выстрела. Подходит для «лежачей» машины.</p>
+<p><span class="lbl">Чем платим.</span> Путь длиннее назад примерно на 4 см, чем у вертикального входа. Скорость мяча у колёс на грани запаса (0,48–0,55 м/с при пороге 0,55).</p>
+<p><span class="lbl">Проверено ли.</span> Да: 179 из 180 захватов, разброс 0,09–0,38°. Держим как резерв.</p>
+</div></div>
+
+<div class="card">
+<h3>И5. Воронка-ловушка на самой голове (как Novashot T1) <span class="badge no">не переходить</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="-330 -500 560 520" width="300" height="279">
+<line x1="-330" y1="0" x2="230" y2="0" stroke="#8c8577" stroke-width="3"/>
+<path d="M -140 -252 A 90 90 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.28"/>
+<g transform="rotate(17.5 0 -162)"><use href="#head"/></g>
+<g transform="rotate(-17.5 0 -162)" opacity="0.35"><use href="#head"/></g>
+<text x="-320" y="-470" font-size="26" font-weight="600">Наш канал неподвижен</text>
+<text x="-300" y="-420" font-size="24">голова 5° и 40°, канал тот же</text></svg></div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="-330 -500 560 520" width="300" height="279">
+<line x1="-330" y1="0" x2="230" y2="0" stroke="#8c8577" stroke-width="3"/>
+<g transform="rotate(17.5 0 -162)"><path d="M -140 -252 A 90 90 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#c0392b" stroke-width="71" opacity="0.25"/><use href="#head"/></g>
+<g transform="rotate(-17.5 0 -162)" opacity="0.4"><path d="M -140 -252 A 90 90 0 0 0 -50 -162 L 0 -162" fill="none" stroke="#3f8f6a" stroke-width="71" opacity="0.3"/><use href="#head"/></g>
+<line x1="-112" y1="-440" x2="-112" y2="-330" stroke="#333" stroke-width="3" marker-end="url(#ar)"/>
+<text x="-320" y="-470" font-size="26" font-weight="600">Канал едет с головой</text>
+<text x="-95" y="-400" font-size="24">мяч падает сверху</text>
+<text x="-320" y="-40" font-size="24" fill="#c0392b">на 5° канал в гору</text></svg></div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> У серийной Novashot T1 мяч падает из чаши в широкую трёхлепестковую воронку, которая, по-видимому, стоит прямо на голове. Дуги в четверть круга нет [ОЦЕНКА по фото].</p>
+<p><span class="lbl">Что дало бы.</span> Канал короче сзади (до 140 мм длины корпуса). Но высоту у нас задаёт голова, а не канал, так что по высоте выигрыша нет.</p>
+<p><span class="lbl">Чем платим.</span> Когда голова опускается на 5°, канал на ней наклоняется «в гору», и угол вылета уходит на 29°. Крутая воронка бросает мяч на верхнее колесо, и оно отбрасывает его назад.</p>
+<p><span class="lbl">Проверено ли.</span> Да, 630 прогонов разных воронок: лучшая хороша только на 22,5–40°. У Novashot геометрия, видимо, иная, и мы её не знаем. Наш неподвижный канал проверен на 5–40° — оставляем его.</p>
+</div></div>
+
+<div class="card">
+<h3>И6. Поворачивать только голову (карданный узел), а не всю колонну <span class="badge check">проверить отдельно</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="-280 -290 560 580" width="300" height="311">
+<rect x="-112" y="-205.5" width="224" height="411" fill="#eef1f4" stroke="#6b7785" stroke-width="3" transform="rotate(30 0 0)"/>
+<rect x="-102" y="-102" width="204" height="182" fill="#7a8796" opacity="0.5" transform="rotate(30 0 0)"/>
+<rect x="-112" y="-205.5" width="224" height="411" fill="none" stroke="#bbb" stroke-width="2" stroke-dasharray="6 6"/>
+<circle cx="0" cy="0" r="6" fill="#c0392b"/>
+<text x="-270" y="-255" font-size="26" font-weight="600">Сейчас: крутится всё</text>
+<text x="-270" y="275" font-size="24">с корзиной, 0,196 кг·м²</text></svg>вид сверху, поворот 30°</div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="-280 -290 560 580" width="300" height="311">
+<rect x="-149.5" y="-205.5" width="299" height="411" fill="#eef4ee" stroke="#4b7d57" stroke-width="3"/>
+<rect x="-102" y="-102" width="204" height="182" fill="#7a8796" opacity="0.5" transform="rotate(30 0 0)"/>
+<rect x="-102" y="-102" width="204" height="182" fill="none" stroke="#999" stroke-dasharray="5 5" transform="rotate(-30 0 0)"/>
+<circle cx="0" cy="0" r="6" fill="#c0392b"/>
+<line x1="-149.5" y1="250" x2="149.5" y2="250" stroke="#333" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+<text x="-270" y="-255" font-size="26" font-weight="600">Крутится только голова</text>
+<text x="-40" y="280" font-size="24">299 мм</text></svg>голова 0,018 кг·м²</div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Корзина, диск и батарея стоят на месте. Поворачивается только голова с колёсами в вилке, как камера на подвесе. Обе оси проходят через точку захвата мяча.</p>
+<p><span class="lbl">Что даёт.</span> Поворачивать нужно в 11 раз меньшую инерцию. Хватит слабого мотора, а большое кольцо под всей колонной и его натяг не нужны. Такое внутреннее качание головы есть у Lobster Elite Two и Spinshot Plus 2.</p>
+<p><span class="lbl">Чем платим.</span> Голове нужно место, чтобы повернуться: корпус шире — 299 мм вместо 224 (цель 310). Мяч входит в повёрнутые колёса наискось, до 30°.</p>
+<p><span class="lbl">Проверено ли.</span> Нет. Для проверки надо научить симулятор поворачивать колёса относительно канала — это правка инструмента и потом 30 прогонов на угол.</p>
+</div></div>
+
+<div class="card">
+<h3>И11. Корзина без прутков: пружинный обод или сумка <span class="badge check">проверить отдельно</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="0 0 300 150" width="300" height="150">
+<rect x="40" y="110" width="220" height="26" fill="#56606c" opacity="0.7"/>
+<line x1="50" y1="105" x2="250" y2="105" stroke="#8a6d2b" stroke-width="5"/><line x1="50" y1="97" x2="250" y2="97" stroke="#8a6d2b" stroke-width="5"/>
+<line x1="50" y1="89" x2="250" y2="89" stroke="#8a6d2b" stroke-width="5"/><line x1="50" y1="81" x2="250" y2="81" stroke="#8a6d2b" stroke-width="5"/>
+<text x="10" y="40" font-size="15">ткань + обод + 4 прутка + клипсы</text><text x="10" y="60" font-size="15">стопка 26 мм, 10 действий</text></svg>схема, без масштаба</div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="0 0 300 150" width="300" height="150">
+<ellipse cx="150" cy="118" rx="110" ry="14" fill="none" stroke="#4b7d57" stroke-width="5"/>
+<ellipse cx="150" cy="114" rx="70" ry="9" fill="none" stroke="#4b7d57" stroke-width="5"/>
+<ellipse cx="150" cy="110" rx="40" ry="6" fill="none" stroke="#4b7d57" stroke-width="5"/>
+<text x="10" y="40" font-size="15">кольцо из пружинной стали в ткани</text><text x="10" y="60" font-size="15">складывается «восьмёркой» в 3 витка</text></svg>схема, без масштаба</div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Стенки корзины держит кольцо из пружинной проволоки, вшитое в ткань, — как у складной корзины для белья. Кольцо само раскрывается и складывается одним скручиванием.</p>
+<p><span class="lbl">Что даёт.</span> Нет 4 прутков, обода и клипс: −5 деталей, стопка ниже на 10–15 мм [ОЦЕНКА], ничего не потеряется.</p>
+<p><span class="lbl">Чем платим.</span> Такое кольцо складывается, если корзина круглая или овальная, а не прямоугольная. Машина в сумке без складывания (как Slinger) не подходит: высота была бы 76 см.</p>
+<p><span class="lbl">Проверено ли.</span> Нет. Дёшево: купить обычную складную корзину и примерить.</p>
+</div></div>
+
+<div class="card">
+<h3>И12. «Клетка» из листа вместо колонны с обшивкой (как Novashot) <span class="badge check">проверить с «шайбой»</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="0 0 260 200" width="260" height="200">
+<rect x="50" y="20" width="160" height="170" fill="#eef1f4" stroke="#6b7785" stroke-width="5"/>
+<text x="62" y="110" font-size="15">несущие стенки</text><text x="62" y="128" font-size="15">и обшивка</text></svg>схема, без масштаба</div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="0 0 260 220" width="260" height="220">
+<ellipse cx="130" cy="180" rx="95" ry="12" fill="#ddd" stroke="#555" stroke-width="3"/>
+<ellipse cx="130" cy="30" rx="95" ry="12" fill="none" stroke="#333" stroke-width="6"/>
+<rect x="44" y="30" width="8" height="150" fill="#333"/><rect x="208" y="30" width="8" height="150" fill="#333"/>
+<rect x="100" y="38" width="8" height="150" fill="#333" opacity="0.5"/><rect x="152" y="38" width="8" height="150" fill="#333" opacity="0.5"/>
+<text x="50" y="214" font-size="15" fill="#4b7d57">всё видно, всё достать</text></svg>основание, 4 стойки, кольцо</div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Каркас — плоская плита внизу, 4 плоские стойки и верхнее кольцо с чашей на винтах. Обшивка ничего не несёт: это ткань или тонкий лист.</p>
+<p><span class="lbl">Что даёт.</span> Все детали плоские и режутся лазером. К голове можно подобраться со всех сторон, а замена колеса и вынимание мяча — слабые места ревизии 7.</p>
+<p><span class="lbl">Чем платим.</span> Масса неизвестна: у Novashot стойки, похоже, стальные (вся машина 7,5 кг при 130 мячах).</p>
+<p><span class="lbl">Проверено ли.</span> Нет. Проверка — собрать 3D-модель вместе с «шайбой».</p>
+</div></div>
+
+<div class="card">
+<h3>И9. Податчик крутят сами метательные колёса <span class="badge no">красиво, но нет</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="0 0 300 160" width="300" height="160">
+<circle cx="70" cy="80" r="45" fill="#2e2e2e"/><rect x="190" y="50" width="70" height="60" fill="#5b7fb0"/><text x="160" y="135" font-size="14">свой мотор 0,16 кг</text>
+<text x="20" y="150" font-size="14">колесо</text></svg>схема</div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="0 0 300 160" width="300" height="160">
+<circle cx="70" cy="80" r="45" fill="#2e2e2e"/><circle cx="130" cy="80" r="14" fill="#c9a43a"/>
+<rect x="150" y="70" width="60" height="20" fill="#999"/><circle cx="235" cy="80" r="22" fill="none" stroke="#c0392b" stroke-width="5"/>
+<text x="110" y="120" font-size="13">ролик</text><text x="150" y="60" font-size="13">1 : 1150</text><text x="172" y="145" font-size="13">муфта на 1 оборот</text></svg>схема</div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Колёса крутятся со скоростью 5 000 об/мин, а диску нужно 5 об/мин и меньше 1 Вт. Ролик снимает вращение со ступицы, редуктор замедляет, муфта на один оборот выдаёт один мяч.</p>
+<p><span class="lbl">Что даёт.</span> Если колёса стоят, подачи нет — защита получается сама. Мотор податчика не нужен (−0,16 кг).</p>
+<p><span class="lbl">Чем платим.</span> Редуктор 1:1150 и муфта весят 0,10–0,15 кг [ОЦЕНКА] и добавляют 6–8 деталей. Интервал зависит от скорости: 3 с на 80 км/ч превращаются в 4,1 с на 60 км/ч. Новичку это сложнее покупного мотора.</p>
+<p><span class="lbl">Проверено ли.</span> Расчётом. В серийных машинах такого не видели.</p>
+</div></div>
+
+<div class="card">
+<h3>И7–И8. Один мотор на две работы <span class="badge no">нет</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="0 0 300 120" width="300" height="120">
+<rect x="20" y="40" width="60" height="40" fill="#5b7fb0"/><rect x="120" y="40" width="60" height="40" fill="#5b7fb0"/><rect x="220" y="40" width="60" height="40" fill="#5b7fb0"/>
+<text x="25" y="100" font-size="14">наклон</text><text x="122" y="100" font-size="14">поворот</text><text x="220" y="100" font-size="14">податчик</text></svg>сейчас 3 мотора</div>
+<div class="arrow">→</div>
+<div class="fig"><svg viewBox="0 0 300 120" width="300" height="120">
+<rect x="20" y="40" width="60" height="40" fill="#5b7fb0"/><rect x="120" y="40" width="60" height="40" fill="#5b7fb0"/>
+<rect x="188" y="45" width="108" height="30" fill="none" stroke="#c0392b" stroke-width="3"/><text x="193" y="66" font-size="13">+ переключатель</text>
+<text x="10" y="105" font-size="14">дифференциал: всё равно 2 мотора</text></svg>не уменьшается</div>
+</div>
+<div class="grid4">
+<p><span class="lbl">В чём суть.</span> Наклон и поворот через дифференциал, как кисть робота. Или один мотор на поворот и податчик с переключением.</p>
+<p><span class="lbl">Что даёт.</span> Почти ничего: две независимые оси требуют двух моторов. Через поворот у нас и так не идёт ни одного провода.</p>
+<p><span class="lbl">Чем платим.</span> Переключатель функций — это ещё один привод. Поворот нужен в обе стороны в любой момент, поэтому храповик не подходит.</p>
+<p><span class="lbl">Проверено ли.</span> Рассуждением.</p>
+</div></div>
+
+<div class="card">
+<h3>И13–И16. Заведомо странные <span class="badge no">нет</span></h3>
+<div class="figs">
+<div class="fig"><svg viewBox="-330 -500 560 520" width="260" height="241">
+<line x1="-330" y1="0" x2="230" y2="0" stroke="#8c8577" stroke-width="3"/>
+<rect x="-120" y="-433" width="240" height="414" fill="#eef1f4" stroke="#6b7785" stroke-width="3"/>
+<path d="M -195 -420 L 195 -370 M -195 -320 L 195 -270 M -195 -220 L 195 -170 M -195 -120 L 195 -70" stroke="#d7e04a" stroke-width="67" opacity="0.5"/>
+<text x="-320" y="-470" font-size="26" font-weight="600">И13 спираль-очередь</text></svg>+150 мм ширины</div>
+<div class="fig" style="max-width:640px;text-align:left;font-size:15px;color:#222">
+<p><b>И13. Спиральный магазин.</b> 76 мячей стоят в очередь по спирали вокруг корпуса: 5,1 м пути, 3 витка, уклон 3,4° [РАСЧЁТ]. Диск, ворошитель и двойная выдача не нужны. Но машина шире на 15 см, мячи засыпаются по одному, а песок с корта копится в спирали.</p>
+<p><b>И14. Наклон отдачей колеса.</b> Если резко изменить обороты одного колеса, голова повернётся сама (2,1 рад/с на 1 000 об/мин). Но вес головы тянет её вниз в 25 раз сильнее, и нужен тормоз — тот же привод.</p>
+<p><b>И15. Батарея-груз в неподвижном основании.</b> Центр масс ниже на 1–1,5 см, но силовые провода пойдут через поворот. В «шайбе» батарея и так внизу.</p>
+<p><b>И16. Машина на обычной тренерской корзине.</b> Мячи из корзины внизу поднимает цепь с карманами (как в патенте US 4841945). Энергии нужно всего 0,1 Вт, но это ещё мотор и 10+ деталей, а корзины бывают разные.</p>
+<p><b>И10. Обдув от колёс.</b> Крыльчатка на ступице охлаждает регуляторы бесплатно. Польза мала; вернёмся, когда узнаем нагрев.</p>
+</div>
+</div></div>
+
+<h2>Что в ревизии 7 «так сложилось», а что — физика</h2>
+<div class="card">
+<ul class="cons">
+<li><b>Падение 86 мм</b> — привычка. Проверено: не нужно.</li>
+<li><b>Дуга R90</b> — частично. Можно R75; R60 — только с прямым 70.</li>
+<li><b>Прямой 50 мм горизонтально</b> — физика: зазор с верхней шиной на 40°.</li>
+<li><b>Диск над головой</b> — привычка, и именно он задаёт высоту.</li>
+<li><b>Диск Ø210, стойки 43, крыша +48</b> — частично; Ø180 не проверен.</li>
+<li><b>Колёса одно над другим</b> — физика: иначе не выбрать верхнее и нижнее вращение.</li>
+<li><b>Колёса Ø100</b> — частично: меньше — нужна более цепкая шина.</li>
+<li><b>Ось наклона в точке захвата</b> — физика: любая другая удлиняет размах.</li>
+<li><b>Крутится вся колонна</b> — привычка; альтернатива — И6.</li>
+<li><b>Два мотора на наклон и поворот</b> — физика.</li>
+<li><b>Свой мотор у податчика</b> — привычка; альтернатива — И9.</li>
+<li><b>Интервал задаёт диск</b> — привычка.</li>
+<li><b>Корзина сверху</b> — привычка; в «шайбе» мячи на 11 см ниже.</li>
+<li><b>Корзина на прутках</b> — привычка; альтернатива — И11.</li>
+<li><b>Складные лапы</b> — привычка; «шайбе» хватит плоского основания.</li>
+<li><b>Батарея на колонне сзади</b> — частично.</li>
+<li><b>Колонна с обшивкой</b> — привычка; альтернатива — И12.</li>
+<li><b>Окно спереди</b> — физика: мяч должен вылететь.</li>
+<li><b>Блокировка подачи электроникой</b> — привычка; в И9 она механическая.</li>
+</ul>
+</div>
+
+<h2>Итог: что делать</h2>
+<div class="card">
+<table>
+<tr><th class="l">Идея</th><th>польза</th><th>сработает?</th><th>проверить дёшево?</th><th>вердикт</th></tr>
+<tr><td class="l">И3 «шайба»</td><td>−108 мм высоты, ниже центр масс</td><td>вероятно</td><td>средне</td><td class="mid">проверить → ревизия 9</td></tr>
+<tr><td class="l">И1 плита ниже, И2 дуга R75</td><td>−21 мм высоты, −15 длины</td><td>да</td><td>уже проверено</td><td class="ok">взять в ревизию 8</td></tr>
+<tr><td class="l">И11 пружинный обод</td><td>−5 деталей, проще сборка</td><td>вероятно</td><td>да</td><td class="mid">проверить образцом</td></tr>
+<tr><td class="l">И6 поворот только головы</td><td>инерция в 11 раз меньше</td><td>вероятно</td><td>нет, правка симулятора</td><td class="mid">проверить отдельно</td></tr>
+<tr><td class="l">И12 клетка</td><td>доступ, плоские детали</td><td>вероятно</td><td>средне</td><td class="mid">вместе с И3</td></tr>
+<tr><td class="l">И4 рампа 45°</td><td>низкий старт мяча</td><td>да</td><td>проверено</td><td>резерв</td></tr>
+<tr><td class="l">И5 воронка на голове</td><td>короче сзади</td><td>в нашей модели нет</td><td>—</td><td class="bad">нет</td></tr>
+<tr><td class="l">И7–И9, И13–И16</td><td>мало</td><td>—</td><td>—</td><td class="bad">нет</td></tr>
+</table>
+<p class="note">Чему верить: размеры и огибающая — расчёт по размерам модели ревизии 7. Подача — один физический движок и 30 прогонов на точку. Масса и центр масс — оценки. Подробно: research/70_ideas_first_principles.md.</p>
+</div>
+</main>
+</body>
+</html>

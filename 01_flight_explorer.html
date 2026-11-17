@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TennisCanon — полёт мяча и обороты колёс</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f5f1;--card:#fff;--ink:#1d2330;--mute:#667085;--line:#d9d6cc;--acc:#2f6f4f;--acc2:#c8e04a;--warn:#b4541a;--bad:#b3261e;--ok:#2f6f4f;--tgt:#c8e04a;--soft:#eef0e6;--c1:#2a6fdb;--c2:#2f6f4f;--c3:#b4541a;--c4:#8a4fbf}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--ink:#e8eaee;--mute:#98a2b3;--line:#333a45;--acc:#6fcf97;--acc2:#c8e04a;--warn:#f0a36b;--bad:#ff8f85;--ok:#6fcf97;--tgt:#5d6b1d;--soft:#262b33;--c1:#6ea8ff;--c2:#6fcf97;--c3:#f0a36b;--c4:#c39bf0}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:30px;margin:0 0 4px}
+h2{font-size:21px;margin:38px 0 12px}
+p.lead{color:var(--mute);margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+svg{width:100%;height:auto;display:block}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 22px;margin-top:14px}
+.ctl .nm{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.ctl .nm b{font-weight:600;text-align:right}
+.ctl .hint{font-size:12px;color:var(--mute);min-height:16px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:4px;background:var(--line);margin:8px 0 2px;cursor:pointer}
+input[type=range].tgt{background:linear-gradient(to right,var(--line) 0 22.2%,var(--tgt) 22.2% 44.4%,var(--line) 44.4% 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--acc);border:2px solid var(--card);box-shadow:0 0 0 1px var(--acc)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--acc);border:2px solid var(--card)}
+input[type=range]:focus-visible{outline:2px solid var(--warn);outline-offset:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.stat{background:var(--soft);border-radius:10px;padding:10px 12px}
+.stat small{display:block;color:var(--mute);font-size:12px}
+.stat b{font-size:19px}
+.stat span{display:block;font-size:12px;color:var(--mute)}
+.verdict{margin-top:14px;padding:10px 14px;border-radius:10px;border:2px solid var(--line);font-weight:600}
+.verdict.ok{border-color:var(--ok);color:var(--ok)}
+.verdict.net{border-color:var(--warn);color:var(--warn)}
+.verdict.out{border-color:var(--bad);color:var(--bad)}
+.btn{font:inherit;font-size:14px;padding:6px 14px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.btn[aria-pressed=true]{background:var(--acc2);color:#1d2330;border-color:var(--acc)}
+.btn:focus-visible{outline:2px solid var(--warn);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:12px}
+.legend{font-size:13px;color:var(--mute)}
+.sw{display:inline-block;width:22px;height:0;border-top:3px solid;vertical-align:middle;margin-right:5px}
+.sw.ok{border-color:var(--ok)}.sw.net{border-color:var(--warn)}.sw.out{border-color:var(--bad)}.sw.vac{border-top-style:dashed;border-color:var(--mute)}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:800px){.grid2{grid-template-columns:1fr}}
+.wbox h3{margin:0 0 4px;font-size:17px}
+.bar{position:relative;height:22px;background:var(--line);border-radius:6px;margin:10px 0 2px}
+.seg{position:absolute;top:0;bottom:0;background:var(--ok);border-radius:6px;opacity:.85}
+.cur{position:absolute;top:-5px;bottom:-5px;width:3px;background:var(--ink);border-radius:2px}
+.ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+.note{background:var(--soft);border-left:4px solid var(--warn);padding:10px 14px;border-radius:6px;font-size:14px;margin-top:12px}
+.cl{fill:none;stroke:var(--line);stroke-width:1}
+.ground{stroke:var(--ink);stroke-width:2}
+.courtfill{fill:var(--acc);opacity:.55}
+.lnv{stroke:var(--mute);stroke-width:1;stroke-dasharray:3 4}
+.gridl{stroke:var(--line);stroke-width:1}
+.txt{fill:var(--mute);font-size:13px}
+.txt.ink{fill:var(--ink)}
+.txt.b{font-weight:600}
+.netpost{fill:var(--ink)}
+.clear{stroke:var(--warn);stroke-width:2;stroke-dasharray:4 3}
+.tr{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.tr-ok{stroke:var(--ok)}.tr-net{stroke:var(--warn)}.tr-out{stroke:var(--bad)}
+.tr.vac{stroke:var(--mute);stroke-width:2.5;stroke-dasharray:8 6}
+.mk-ok{fill:var(--ok)}.mk-net{fill:var(--warn)}.mk-out{fill:var(--bad)}
+.machine{fill:var(--soft);stroke:var(--ink);stroke-width:2}
+.barrel{stroke:var(--ink);stroke-width:8;stroke-linecap:round}
+.ballp{fill:var(--acc2);stroke:var(--ink);stroke-width:1.5}
+.brk{stroke:var(--ink);stroke-width:2}
+.wheel{fill:var(--soft);stroke:var(--ink);stroke-width:3}
+.spoke{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.dotm{fill:var(--warn)}
+.arw{stroke-width:4;fill:none}
+.arw.up{stroke:var(--c1)}.arw.lo{stroke:var(--c3)}.arw.bl{stroke:var(--ink)}
+.ah{stroke:none}.ah.up{fill:var(--c1)}.ah.lo{fill:var(--c3)}.ah.bl{fill:var(--ink)}
+.ax{stroke:var(--ink);stroke-width:1.5}
+.band{fill:var(--acc2);opacity:.28}
+.tband{fill:var(--tgt);opacity:.35}
+.ln{fill:none;stroke-width:2.5}
+.ln.l1{stroke:var(--c1)}.ln.l2{stroke:var(--c2)}.ln.l3{stroke:var(--c3)}.ln.l4{stroke:var(--c4)}.ln.cur{stroke:var(--ink);stroke-dasharray:6 4}
+.t1{fill:var(--c1)}.t2{fill:var(--c2)}.t3{fill:var(--c3)}.t4{fill:var(--c4)}
+.curdot{fill:var(--acc2);stroke:var(--ink);stroke-width:2}
+.chips{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--mute);margin-top:6px}
+.chip i{display:inline-block;width:18px;height:0;border-top:3px solid;vertical-align:middle;margin-right:5px}
+.chip.l1 i{border-color:var(--c1)}.chip.l2 i{border-color:var(--c2)}.chip.l3 i{border-color:var(--c3)}.chip.l4 i{border-color:var(--c4)}.chip.cur i{border-color:var(--ink);border-top-style:dashed}
+</style>
+</head>
+<body><div id="tcsite-bar"><style>#tcsite-bar{all:initial;display:flex;align-items:center;gap:10px;flex:none;box-sizing:border-box;width:100%;height:34px;padding:0 14px;background:#1f2a37;color:#dbe4ee;font:13px/1 system-ui,Segoe UI,sans-serif;white-space:nowrap;overflow:hidden;border-bottom:1px solid #3a4756}#tcsite-bar a{color:#9fd3ff;text-decoration:none;font-weight:600;flex:none}#tcsite-bar a:hover{text-decoration:underline}#tcsite-bar .tcsite-sep{opacity:.5;flex:none}#tcsite-bar .tcsite-name{overflow:hidden;text-overflow:ellipsis;min-width:0}#tcsite-bar .tcsite-date{opacity:.8;flex:none}#tcsite-bar .tcsite-old{color:#ffcf8a;flex:none}@media (max-width:560px){#tcsite-bar .tcsite-date{display:none}}</style><a class="tcsite-back" href="index.html">← Все страницы</a><span class="tcsite-sep">·</span><span class="tcsite-name">Полёт мяча и обороты колёс</span><span class="tcsite-sep">·</span><span class="tcsite-date">обновлено 12.11.2026</span></div>
+<main>
+<h1>Полёт мяча и обороты колёс</h1>
+<p class="lead">Две интерактивные панели. Все расчёты идут прямо в браузере по тем же формулам, что и в проверенной расчётной библиотеке проекта: сила тяжести, сопротивление воздуха и подъёмная сила от вращения мяча.</p>
+
+<h2>1. Полёт мяча над кортом</h2>
+<p class="lead">Вид сбоку, масштаб по горизонтали и вертикали одинаковый. Слева машина на задней линии корта, посередине сетка, справа дальняя задняя линия. Двигай ползунки: линия полёта пересчитывается сразу.</p>
+<div class="card">
+<svg id="court" viewBox="0 0 1080 410" role="img" aria-label="Траектория мяча над теннисным кортом, вид сбоку"></svg>
+<div class="chips">
+<span><i class="sw ok"></i>попал в корт</span>
+<span><i class="sw net"></i>в сетку (не долетел или прошёл ниже 0,95 м)</span>
+<span><i class="sw out"></i>в аут (упал за дальней линией)</span>
+<span><i class="sw vac"></i>без воздуха, для сравнения</span>
+</div>
+<div class="legend" style="margin-top:6px">Оранжевый пунктир на сетке: минимальная высота центра мяча 0,95 м. Верх сетки 0,914 м плюс радиус мяча 3,35 см. Если траектория уходит выше рамки (выше 9 м), она обрезается.</div>
+<div class="controls" id="ctl1"></div>
+<div class="row"><button class="btn" id="vacBtn" aria-pressed="false">показать без воздуха</button><span class="legend" id="vacNote"></span></div>
+<div class="verdict" id="verdict"></div>
+<div class="stats" id="stats1"></div>
+</div>
+
+<div class="grid2">
+<div class="card wbox">
+<h3>Окно углов</h3>
+<div class="legend">Для текущих скорости, вращения и высоты вылета. Зелёная полоса: углы, при которых мяч и перелетает сетку, и падает в корт. Чёрная черта: текущий угол.</div>
+<div class="bar" id="wbar"><div class="seg" id="wseg"></div><div class="cur" id="wcur"></div></div>
+<div class="ticks"><span>0°</span><span>10°</span><span>20°</span><span>30°</span><span>40°</span><span>45°</span></div>
+<div id="wtext" style="margin-top:12px"></div>
+</div>
+<div class="card wbox">
+<h3>Почему окно важно</h3>
+<div>Окно углов показывает, насколько можно ошибиться, наклоняя ствол машины, и мяч всё равно упадёт в корт. Если окно широкое, ствол можно выставить на глаз или простым механизмом: небольшая неточность ничего не испортит. Если окно узкое, придётся наводить очень точно, а это сложнее и дороже.</div>
+<div class="note" id="wnote"></div>
+</div>
+</div>
+
+<h2>2. Какие обороты нужны колёсам</h2>
+<p class="lead">Мяч зажат между двумя колёсами и вылетает вперёд. Скорость мяча равна скорости обода колеса, умноженной на коэффициент k_v. Чтобы закрутить мяч, колёса должны вращаться с разной скоростью.</p>
+<div class="card">
+<div class="controls" id="ctl2"></div>
+<div class="note"><b>Важно про k_v.</b> Этот коэффициент показывает, какая доля скорости обода достаётся мячу (часть теряется на проскальзывание и сжатие мяча). Вывести его из теории нельзя: он зависит от резины на колёсах, зажима и самого мяча. Его будут измерять на стенде. Поэтому результат ниже показан диапазоном для k_v ± 0,1 (верхняя граница k_v ограничена значением 1,0: мяч не может лететь быстрее обода).</div>
+<div class="stats" id="stats2"></div>
+</div>
+<div class="grid2">
+<div class="card">
+<h3 style="margin:0 0 6px;font-size:17px">Обороты от скорости мяча</h3>
+<svg id="chart" viewBox="0 0 640 380" role="img" aria-label="График оборотов колеса от скорости мяча для разных диаметров"></svg>
+<div class="chips" id="chartLegend"></div>
+<div class="legend" style="margin-top:6px">Линии построены для текущего k_v без вращения мяча. Зелёная заливка: разброс для текущего диаметра при k_v ± 0,1. Жёлтая вертикальная полоса: целевые 60–80 км/ч.</div>
+</div>
+<div class="card">
+<h3 style="margin:0 0 6px;font-size:17px">Схема двух колёс</h3>
+<svg id="wheels" viewBox="0 0 600 360" role="img" aria-label="Схема двух встречных колёс с мячом"></svg>
+<div class="legend" id="wheelsNote"></div>
+</div>
+</div>
+</main>
+
+<script>
+const C = {
+  BALL_MASS_KG: 0.0577,
+  BALL_RADIUS_M: 0.0335,
+  COURT_LENGTH_M: 23.77,
+  COURT_NET_X_M: 11.885,
+  NET_HEIGHT_CENTER_M: 0.914,
+  NET_CLEARANCE_CENTER_M: 0.95,
+  SERVICE_LINE_FROM_BASELINE_M: 5.485,
+  RELEASE_HEIGHT_M: 0.5,
+  AIR_DENSITY_KG_M3: 1.2,
+  GRAVITY_M_S2: 9.81,
+  CD_CONST: 0.55,
+  CD_STEPANEK_BASE: 0.508,
+  LAUNCHER_K_V: 0.85,
+  LAUNCHER_K_W: 1.0,
+  LAUNCHER_CONTACT_RADIUS_M: 0.028,
+};
+
+function kmhToMs(kmh) {
+  return kmh / 3.6;
+}
+
+function rpmToRadS(rpm) {
+  return (rpm * 2 * Math.PI) / 60;
+}
+
+function dragCoefficient(v, omega, model = 'const', cd0 = C.CD_CONST, r = C.BALL_RADIUS_M) {
+  if (model === 'const') return cd0;
+  if (model !== 'stepanek') throw new Error('unknown drag model ' + model);
+  if (omega === 0 || v <= 0) return C.CD_STEPANEK_BASE;
+  const s = (r * Math.abs(omega)) / v;
+  return C.CD_STEPANEK_BASE + Math.pow(1 / (22.503 + 4.196 * Math.pow(s, -2.5)), 0.4);
+}
+
+function liftCoefficient(v, omega, r = C.BALL_RADIUS_M) {
+  if (omega === 0 || v <= 0) return 0;
+  return 1 / (2.022 + 0.981 / ((r * Math.abs(omega)) / v));
+}
+
+function simulate(v0, theta, omega, opts = {}) {
+  const o = { h0: C.RELEASE_HEIGHT_M, mass: C.BALL_MASS_KG, r: C.BALL_RADIUS_M, rho: C.AIR_DENSITY_KG_M3, cdModel: 'const', cd0: C.CD_CONST, lift: true, g: C.GRAVITY_M_S2, xNet: C.COURT_NET_X_M, tMax: 30, dt: 0.002, record: false, ...opts };
+  const k = (o.rho * Math.PI * o.r * o.r) / (2 * o.mass);
+  const s = Math.sign(omega);
+  const deriv = (a) => {
+    const sp = Math.hypot(a[2], a[3]);
+    const kd = k * dragCoefficient(sp, omega, o.cdModel, o.cd0, o.r) * sp;
+    const kl = o.lift ? k * liftCoefficient(sp, omega, o.r) * sp : 0;
+    return [a[2], a[3], -kd * a[2] + kl * s * a[3], -o.g - kd * a[3] - kl * s * a[2]];
+  };
+  const advance = (a, b, m) => a.map((v, i) => v + b[i] * m);
+  const step = (st, h) => {
+    const k1 = deriv(st);
+    const k2 = deriv(advance(st, k1, h / 2));
+    const k3 = deriv(advance(st, k2, h / 2));
+    const k4 = deriv(advance(st, k3, h));
+    return st.map((v, i) => v + (h / 6) * (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]));
+  };
+  const locate = (st, nxt, key, target) => {
+    let h = (o.dt * (target - st[key])) / (nxt[key] - st[key]);
+    for (let i = 0; i < 4; i++) {
+      const e = step(st, h);
+      h -= (e[key] - target) / e[key + 2];
+    }
+    return { h, e: step(st, h) };
+  };
+  let st = [0, o.h0, v0 * Math.cos(theta), v0 * Math.sin(theta)];
+  let t = 0;
+  let zMax = st[1];
+  let zNet = NaN;
+  const points = o.record ? [[0, st[1]]] : null;
+  while (t < o.tMax) {
+    const nxt = step(st, o.dt);
+    const landing = nxt[1] <= 0 && st[1] > 0;
+    const lc = landing ? locate(st, nxt, 1, 0) : null;
+    const xEnd = landing ? lc.e[0] : nxt[0];
+    if (Number.isNaN(zNet) && st[0] < o.xNet && xEnd >= o.xNet) zNet = locate(st, nxt, 0, o.xNet).e[1];
+    if (landing) {
+      if (o.record) points.push([lc.e[0], 0]);
+      return { xLand: lc.e[0], tLand: t + lc.h, zMax, zNet, speedLand: Math.hypot(lc.e[2], lc.e[3]), landed: true, points };
+    }
+    st = nxt;
+    t += o.dt;
+    if (st[1] > zMax) zMax = st[1];
+    if (o.record) points.push([st[0], st[1]]);
+  }
+  return { xLand: NaN, tLand: NaN, zMax, zNet, speedLand: NaN, landed: false, points };
+}
+
+function checkShot(traj, netClear = C.NET_CLEARANCE_CENTER_M, xNet = C.COURT_NET_X_M, xFar = C.COURT_LENGTH_M) {
+  if (Number.isNaN(traj.zNet) || Number.isNaN(traj.xLand)) return false;
+  return traj.zNet >= netClear && xNet < traj.xLand && traj.xLand < xFar;
+}
+
+function classifyShot(traj) {
+  if (checkShot(traj)) return 'ok';
+  if (Number.isNaN(traj.zNet) || traj.zNet < C.NET_CLEARANCE_CENTER_M) return 'net';
+  return 'out';
+}
+
+function angleWindow(v0, omega, opts = {}, stepDeg = 0.25) {
+  const ok = (deg) => checkShot(simulate(v0, (deg * Math.PI) / 180, omega, opts));
+  const n = Math.round(45 / stepDeg);
+  let first = -1;
+  let last = -1;
+  for (let i = 0; i <= n; i++) {
+    if (ok(i * stepDeg)) {
+      if (first < 0) first = i;
+      last = i;
+    }
+  }
+  if (first < 0) return null;
+  const edge = (bad, good) => {
+    for (let i = 0; i < 12; i++) {
+      const mid = (bad + good) / 2;
+      if (ok(mid)) good = mid;
+      else bad = mid;
+    }
+    return good;
+  };
+  const lo = first === 0 ? 0 : edge((first - 1) * stepDeg, first * stepDeg);
+  const hi = last === n ? 45 : edge((last + 1) * stepDeg, last * stepDeg);
+  return { lo, hi, width: hi - lo };
+}
+
+function rimToRpm(vRim, diameter) {
+  return (60 * vRim) / (Math.PI * diameter);
+}
+
+function rpmForBall(vBall, diameter, kV) {
+  return rimToRpm(vBall / kV, diameter);
+}
+
+function wheelSpeeds(vBall, omegaBall, kV = C.LAUNCHER_K_V, kW = C.LAUNCHER_K_W, rC = C.LAUNCHER_CONTACT_RADIUS_M) {
+  const mean = vBall / kV;
+  const halfDiff = (rC * omegaBall) / kW;
+  return [mean + halfDiff, mean - halfDiff];
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { C, kmhToMs, rpmToRadS, dragCoefficient, liftCoefficient, simulate, checkShot, classifyShot, angleWindow, rimToRpm, rpmForBall, wheelSpeeds };
+}
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+const f = (x, d = 1) => x.toFixed(d).replace('.', ',').replace('-', '−');
+const fi = (x) => Math.round(x).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ').replace('-', '−');
+const sched = (fn) => {
+  let pending = false;
+  return () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      fn();
+    });
+  };
+};
+const spinWord = (v) => (v > 0 ? 'топспин' : v < 0 ? 'подрезка' : 'без вращения');
+const spinShow = (v) => `${v > 0 ? '+' : v < 0 ? '−' : ''}${fi(Math.abs(v))} об/мин (${spinWord(v)})`;
+const speedShow = (v) => `${v} км/ч (${f(v / 3.6)} м/с)${v >= 60 && v <= 80 ? ', целевой диапазон' : ''}`;
+
+function makeSlider(hostId, cfg, onChange) {
+  const wrap = document.createElement('div');
+  wrap.className = 'ctl';
+  wrap.innerHTML = `<div class="nm"><span>${cfg.label}</span><b></b></div><input type="range" min="${cfg.min}" max="${cfg.max}" step="${cfg.step}" value="${cfg.value}" class="${cfg.cls || ''}" aria-label="${cfg.label}"><div class="hint">${cfg.hint || ''}</div>`;
+  $(hostId).appendChild(wrap);
+  const inp = wrap.querySelector('input');
+  const out = wrap.querySelector('b');
+  const sync = () => {
+    out.textContent = cfg.show(+inp.value);
+  };
+  inp.addEventListener('input', () => {
+    sync();
+    onChange();
+  });
+  sync();
+  return inp;
+}
+
+const SX = 40;
+const X0 = 60;
+const GY = 360;
+const px = (x) => X0 + x * SX;
+const py = (z) => GY - z * SX;
+const NET_TOP = C.NET_HEIGHT_CENTER_M;
+
+function buildCourt() {
+  let h = `<defs><clipPath id="clip"><rect x="0" y="0" width="1080" height="${GY + 1}"/></clipPath></defs>`;
+  for (const z of [2, 4, 6, 8]) h += `<line class="gridl" x1="${px(0)}" x2="1070" y1="${py(z)}" y2="${py(z)}"/><text class="txt" x="${px(0) - 8}" y="${py(z) + 4}" text-anchor="end">${z} м</text>`;
+  h += `<rect class="courtfill" x="${px(0)}" y="${GY}" width="${C.COURT_LENGTH_M * SX}" height="7"/><line class="ground" x1="0" x2="1080" y1="${GY}" y2="${GY}"/>`;
+  const s = C.SERVICE_LINE_FROM_BASELINE_M;
+  const marks = [[0, 'машина, задняя линия'], [s, 'линия подачи'], [C.COURT_NET_X_M, 'сетка'], [C.COURT_LENGTH_M - s, 'линия подачи'], [C.COURT_LENGTH_M, 'дальняя линия']];
+  for (const [x, name] of marks) {
+    h += `<line class="lnv" x1="${px(x)}" x2="${px(x)}" y1="${py(8.6)}" y2="${GY + 6}"/>`;
+    const anchor = x === 0 ? 'start' : x === C.COURT_LENGTH_M ? 'end' : 'middle';
+    h += `<text class="txt ink b" x="${px(x)}" y="${GY + 26}" text-anchor="${anchor}">${f(x, x === 0 ? 0 : x === s || x === C.COURT_LENGTH_M - s ? 3 : x === C.COURT_NET_X_M ? 3 : 2)} м</text><text class="txt" x="${px(x)}" y="${GY + 44}" text-anchor="${anchor}">${name}</text>`;
+  }
+  h += `<text class="txt" x="${px(s / 2)}" y="${GY - 8}" text-anchor="middle">5,485 м до линии подачи</text>`;
+  h += `<rect class="netpost" x="${px(C.COURT_NET_X_M) - 2}" y="${py(NET_TOP)}" width="4" height="${NET_TOP * SX}"/>`;
+  h += `<line class="clear" x1="${px(C.COURT_NET_X_M) - 14}" x2="${px(C.COURT_NET_X_M) + 14}" y1="${py(C.NET_CLEARANCE_CENTER_M)}" y2="${py(C.NET_CLEARANCE_CENTER_M)}"/>`;
+  h += `<text class="txt" x="${px(C.COURT_NET_X_M) - 8}" y="${py(NET_TOP) + 18}" text-anchor="end">сетка 0,914 м</text>`;
+  h += `<g id="dyn" clip-path="url(#clip)"></g><g id="dyn2"></g>`;
+  $('court').innerHTML = h;
+}
+buildCourt();
+
+const path = (pts) => pts.filter((p, i) => i % 5 === 0 || i === pts.length - 1).map((p, i) => `${i ? 'L' : 'M'}${px(p[0]).toFixed(1)} ${py(p[1]).toFixed(1)}`).join('');
+
+const ctl1 = {};
+const state = { vac: false };
+const update1 = sched(() => {
+  const v = kmhToMs(+ctl1.v.value);
+  const thDeg = +ctl1.a.value;
+  const th = (thDeg * Math.PI) / 180;
+  const spin = +ctl1.s.value;
+  const om = rpmToRadS(spin);
+  const h0 = +ctl1.h.value;
+  const tr = simulate(v, th, om, { h0, record: true });
+  const cls = classifyShot(tr);
+  const vac = state.vac ? simulate(v, th, 0, { h0, record: true, cd0: 0, lift: false }) : null;
+  let apex = tr.points[0];
+  for (const p of tr.points) if (p[1] > apex[1]) apex = p;
+
+  let d = '';
+  if (vac) d += `<path class="tr vac" d="${path(vac.points)}"/>`;
+  d += `<path class="tr tr-${cls}" d="${path(tr.points)}"/>`;
+  const bx = px(0) - 30 * Math.cos(th);
+  const by = py(h0) + 30 * Math.sin(th);
+  d += `<rect class="machine" x="${px(0) - 40}" y="${py(h0)}" width="34" height="${h0 * SX}"/><line class="barrel" x1="${bx}" y1="${by}" x2="${px(0)}" y2="${py(h0)}"/><circle class="ballp" cx="${px(0)}" cy="${py(h0)}" r="5"/>`;
+  $('dyn').innerHTML = d;
+
+  let o = '';
+  if (!Number.isNaN(tr.zNet)) {
+    o += `<line class="brk" x1="${px(C.COURT_NET_X_M) + 10}" x2="${px(C.COURT_NET_X_M) + 10}" y1="${py(NET_TOP)}" y2="${py(tr.zNet)}"/><circle class="ballp" cx="${px(C.COURT_NET_X_M)}" cy="${py(tr.zNet)}" r="5"/>`;
+    o += `<text class="txt ink b" x="${px(C.COURT_NET_X_M) + 18}" y="${py((NET_TOP + tr.zNet) / 2) + 4}">${tr.zNet - NET_TOP >= 0 ? '+' : '−'}${f(Math.abs(tr.zNet - NET_TOP), 2)} м над сеткой</text>`;
+  }
+  if (apex[1] < 8.7 && apex[1] > h0 + 0.15) o += `<circle class="ballp" cx="${px(apex[0])}" cy="${py(apex[1])}" r="4"/><text class="txt" x="${px(apex[0])}" y="${py(apex[1]) - 9}" text-anchor="middle">макс. ${f(apex[1], 1)} м</text>`;
+  if (tr.landed && tr.xLand <= 25) o += `<circle class="mk-${cls}" cx="${px(tr.xLand)}" cy="${GY}" r="7"/><text class="txt ink b" x="${px(tr.xLand)}" y="${GY - 14}" text-anchor="middle">падение ${f(tr.xLand, 1)} м</text>`;
+  else if (tr.landed) o += `<text class="txt ink b" x="1070" y="${GY - 14}" text-anchor="end">упал в ${f(tr.xLand, 1)} м, дальше рамки →</text>`;
+  $('dyn2').innerHTML = o;
+
+  const nx = C.COURT_NET_X_M;
+  let msg;
+  if (cls === 'ok') msg = `Попал в корт: мяч перелетел сетку на высоте центра ${f(tr.zNet, 2)} м и упал в ${f(tr.xLand, 1)} м от машины.`;
+  else if (cls === 'out') msg = `Аут: мяч перелетел сетку, но упал в ${f(tr.xLand, 1)} м от машины, за дальней линией (${f(C.COURT_LENGTH_M, 2)} м).`;
+  else if (Number.isNaN(tr.zNet)) msg = `В сетку: мяч упал в ${f(tr.xLand, 1)} м от машины, не долетев ${f(nx - tr.xLand, 1)} м до сетки.`;
+  else msg = `В сетку: у сетки центр мяча на высоте ${f(tr.zNet, 2)} м, а нужно не ниже ${f(C.NET_CLEARANCE_CENTER_M, 2)} м.`;
+  const vd = $('verdict');
+  vd.className = `verdict ${cls}`;
+  vd.textContent = msg;
+
+  const over = Number.isNaN(tr.zNet) ? 'не долетел до сетки' : `${tr.zNet - NET_TOP >= 0 ? '+' : '−'}${f(Math.abs(tr.zNet - NET_TOP), 2)} м`;
+  const overNote = Number.isNaN(tr.zNet) ? '' : `центр мяча на ${f(tr.zNet, 2)} м от земли`;
+  $('stats1').innerHTML = [
+    ['Высота над сеткой', over, overNote],
+    ['Точка падения', `${f(tr.xLand, 1)} м`, `от машины; сетка на ${f(nx, 3)} м`],
+    ['Время полёта', `${f(tr.tLand, 2)} с`, 'от вылета до падения'],
+    ['Максимальная высота', `${f(tr.zMax, 2)} м`, 'центр мяча над землёй'],
+    ['Скорость при падении', `${f(tr.speedLand * 3.6, 0)} км/ч`, `${f(tr.speedLand, 1)} м/с, при вылете ${f(+ctl1.v.value, 0)} км/ч`],
+  ].map(([a, b, c]) => `<div class="stat"><small>${a}</small><b>${b}</b><span>${c}</span></div>`).join('');
+  $('vacNote').textContent = vac ? `Без воздуха мяч упал бы в ${f(vac.xLand, 1)} м (с воздухом: ${f(tr.xLand, 1)} м), максимальная высота ${f(vac.zMax, 2)} м.` : '';
+
+  const aw = angleWindow(v, om, { h0 });
+  const seg = $('wseg');
+  if (aw) {
+    seg.style.display = 'block';
+    seg.style.left = `${(aw.lo / 45) * 100}%`;
+    seg.style.width = `${Math.max((aw.width / 45) * 100, 0.6)}%`;
+  } else seg.style.display = 'none';
+  $('wcur').style.left = `calc(${(thDeg / 45) * 100}% - 1px)`;
+  if (!aw) {
+    $('wtext').innerHTML = `<b>Подходящего угла нет.</b> При скорости ${f(+ctl1.v.value, 0)} км/ч и вращении ${spinShow(spin)} мяч ни при каком угле от 0° до 45° не перелетает сетку и не падает в корт. Измени скорость или вращение.`;
+    $('wnote').textContent = 'Окна нет, поэтому оценить допуск наведения нельзя.';
+  } else {
+    const mid = (aw.lo + aw.hi) / 2;
+    const dx = simulate(v, th + Math.PI / 360, om, { h0 }).xLand - simulate(v, th - Math.PI / 360, om, { h0 }).xLand;
+    const inside = thDeg >= aw.lo && thDeg <= aw.hi;
+    $('wtext').innerHTML = `<b>Окно: от ${f(aw.lo, 1)}° до ${f(aw.hi, 1)}°, ширина ${f(aw.width, 1)}°.</b>${aw.hi === 45 ? ' Верхняя граница упёрлась в край шкалы 45°, на самом деле окно шире.' : ''}<br>Середина окна ${f(mid, 1)}°. Если поставить ствол в середину, запас на ошибку в обе стороны ±${f(aw.width / 2, 1)}°. Сейчас угол ${f(thDeg, 0)}°: ${inside ? 'внутри окна' : 'вне окна'}.<br>Изменение угла на 1° сдвигает точку падения примерно на ${f(Math.abs(dx), 1)} м.`;
+    $('wnote').textContent = `Сейчас ширина окна ${f(aw.width, 1)}°. Это значит: ствол можно выставить с ошибкой до ±${f(aw.width / 2, 1)}° от середины окна, и мяч всё равно попадёт в корт. Чем шире окно, тем проще и дешевле механизм наведения.`;
+  }
+});
+
+ctl1.v = makeSlider('ctl1', { label: 'Скорость мяча', min: 40, max: 130, step: 1, value: 70, cls: 'tgt', hint: 'жёлтая полоса: целевые 60–80 км/ч', show: speedShow }, update1);
+ctl1.a = makeSlider('ctl1', { label: 'Угол вылета', min: 0, max: 45, step: 0.5, value: 20, hint: 'вверх от горизонта', show: (v) => `${f(v, 1)}°` }, update1);
+ctl1.s = makeSlider('ctl1', { label: 'Вращение мяча', min: -3000, max: 3000, step: 100, value: 0, hint: 'плюс: топспин (мяч прижимает вниз), минус: подрезка (мяч держится в воздухе)', show: spinShow }, update1);
+ctl1.h = makeSlider('ctl1', { label: 'Высота вылета', min: 0.3, max: 1.0, step: 0.05, value: C.RELEASE_HEIGHT_M, hint: 'на какой высоте мяч покидает машину', show: (v) => `${f(v, 2)} м` }, update1);
+$('vacBtn').addEventListener('click', () => {
+  state.vac = !state.vac;
+  $('vacBtn').setAttribute('aria-pressed', state.vac);
+  update1();
+});
+update1();
+
+const DIAMS = [100, 125, 150, 200];
+const ctl2 = {};
+const V_MIN = 40;
+const V_MAX = 130;
+const niceMax = (m) => {
+  const step = m > 12000 ? 4000 : m > 6000 ? 2000 : 1000;
+  return Math.ceil(m / step) * step;
+};
+
+function drawChart(kv, dm, vKmh, rpmNow) {
+  const L = 64;
+  const R = 570;
+  const T = 16;
+  const B = 330;
+  const rpmAt = (v, d, k) => rpmForBall(kmhToMs(v), d / 1000, k);
+  const kLo = Math.min(kv + 0.1, 1.0);
+  const kHi = kv - 0.1;
+  const ymax = niceMax(Math.max(rpmAt(V_MAX, dm, kHi), ...DIAMS.map((d) => rpmAt(V_MAX, d, kv))));
+  const X = (v) => L + ((v - V_MIN) / (V_MAX - V_MIN)) * (R - L);
+  const Y = (r) => B - (r / ymax) * (B - T);
+  let h = `<rect class="tband" x="${X(60)}" y="${T}" width="${X(80) - X(60)}" height="${B - T}"/>`;
+  const ystep = ymax > 12000 ? 4000 : ymax > 6000 ? 2000 : 1000;
+  for (let r = 0; r <= ymax; r += ystep) h += `<line class="gridl" x1="${L}" x2="${R}" y1="${Y(r)}" y2="${Y(r)}"/><text class="txt" x="${L - 8}" y="${Y(r) + 4}" text-anchor="end">${fi(r)}</text>`;
+  for (let v = 40; v <= 130; v += 10) h += `<text class="txt" x="${X(v)}" y="${B + 18}" text-anchor="middle">${v}</text>`;
+  h += `<line class="ax" x1="${L}" x2="${R}" y1="${B}" y2="${B}"/><line class="ax" x1="${L}" x2="${L}" y1="${T}" y2="${B}"/>`;
+  h += `<text class="txt ink" x="${(L + R) / 2}" y="${B + 40}" text-anchor="middle">скорость мяча, км/ч</text><text class="txt ink" x="14" y="${(T + B) / 2}" text-anchor="middle" transform="rotate(-90 14 ${(T + B) / 2})">обороты колеса, об/мин</text>`;
+  h += `<polygon class="band" points="${X(V_MIN)},${Y(rpmAt(V_MIN, dm, kLo))} ${X(V_MAX)},${Y(rpmAt(V_MAX, dm, kLo))} ${X(V_MAX)},${Y(rpmAt(V_MAX, dm, kHi))} ${X(V_MIN)},${Y(rpmAt(V_MIN, dm, kHi))}"/>`;
+  DIAMS.forEach((d, i) => {
+    h += `<line class="ln l${i + 1}" x1="${X(V_MIN)}" y1="${Y(rpmAt(V_MIN, d, kv))}" x2="${X(V_MAX)}" y2="${Y(rpmAt(V_MAX, d, kv))}"/><text class="txt t${i + 1}" x="${X(V_MAX) + 6}" y="${Y(rpmAt(V_MAX, d, kv)) + 4}">${d} мм</text>`;
+  });
+  if (!DIAMS.includes(dm)) h += `<line class="ln cur" x1="${X(V_MIN)}" y1="${Y(rpmAt(V_MIN, dm, kv))}" x2="${X(V_MAX)}" y2="${Y(rpmAt(V_MAX, dm, kv))}"/><text class="txt ink b" x="${X(V_MAX) + 6}" y="${Y(rpmAt(V_MAX, dm, kv)) + 4}">${dm} мм</text>`;
+  h += `<circle class="curdot" cx="${X(vKmh)}" cy="${Y(rpmNow)}" r="7"/><text class="txt ink b" x="${X(vKmh)}" y="${Y(rpmNow) - 13}" text-anchor="${vKmh > 110 ? 'end' : 'middle'}">${fi(rpmNow)} об/мин</text>`;
+  $('chart').innerHTML = h;
+}
+
+const wheelParts = (() => {
+  const CX = 210;
+  const CY = 180;
+  const K = 0.7;
+  const rb = 33.5 * K;
+  $('wheels').innerHTML = `<g id="wUp"></g><g id="wLo"></g><circle class="ballp" cx="${CX}" cy="${CY}" r="${rb}"/><g id="wArrows"></g>`;
+  return { CX, CY, K, rb };
+})();
+const wheelState = { rpmUp: 0, rpmLo: 0, dm: 125 };
+
+function drawWheels(w1, w2, vb, dm, rpmUp, rpmLo) {
+  const { CX, CY, K, rb } = wheelParts;
+  const rw = (dm / 2) * K;
+  const wheel = (id, cy) => {
+    let s = `<g transform="translate(${CX} ${cy})"><g id="${id}"><circle class="wheel" r="${rw}"/>`;
+    for (let i = 0; i < 6; i++) s += `<line class="spoke" x1="0" y1="0" x2="${(rw - 4) * Math.cos((i * Math.PI) / 3)}" y2="${(rw - 4) * Math.sin((i * Math.PI) / 3)}"/>`;
+    s += `<circle class="dotm" cx="${rw - 10}" cy="0" r="5"/></g></g>`;
+    return s;
+  };
+  $('wUp').innerHTML = wheel('spinUp', CY - rb - rw + 3);
+  $('wLo').innerHTML = wheel('spinLo', CY + rb + rw - 3);
+  const A = 300;
+  const S = 3;
+  const arrow = (cls, y, len, label) => `<line class="arw ${cls}" x1="${A}" y1="${y}" x2="${A + len}" y2="${y}"/><path class="ah ${cls}" d="M${A + len} ${y - 7}L${A + len + 12} ${y}L${A + len} ${y + 7}z"/><text class="txt ink" x="${A + len + 18}" y="${y + 4}">${label}</text>`;
+  let a = `<text class="txt ink b" x="${A}" y="22">стрелки: скорость, м/с</text>`;
+  a += arrow('up', CY - 34, w1 * S, `верх ${f(w1, 1)}`);
+  a += arrow('bl', CY, vb * S, `мяч ${f(vb, 1)}`);
+  a += arrow('lo', CY + 34, w2 * S, `низ ${f(w2, 1)}`);
+  $('wArrows').innerHTML = a;
+  wheelState.rpmUp = rpmUp;
+  wheelState.rpmLo = rpmLo;
+  $('wheelsNote').textContent = `Диаметр колёс на схеме в масштабе (${dm} мм), мяч 67 мм. Сжатие мяча не показано. Вращение замедлено в 120 раз: на самом деле верхнее колесо делает ${fi(rpmUp)} об/мин, нижнее ${fi(rpmLo)} об/мин. Верхнее колесо крутится против часовой стрелки, нижнее по часовой.`;
+}
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function animate(t) {
+  const up = $('spinUp');
+  const lo = $('spinLo');
+  if (up && lo) {
+    up.setAttribute('transform', `rotate(${-((wheelState.rpmUp / 20) * t) / 1000})`);
+    lo.setAttribute('transform', `rotate(${((wheelState.rpmLo / 20) * t) / 1000})`);
+  }
+  if (!reduceMotion) requestAnimationFrame(animate);
+}
+
+const update2 = sched(() => {
+  const vKmh = +ctl2.v.value;
+  const vb = kmhToMs(vKmh);
+  const dm = +ctl2.d.value;
+  const d = dm / 1000;
+  const kv = +ctl2.k.value;
+  const spin = +ctl2.s.value;
+  const om = rpmToRadS(spin);
+  const [w1, w2] = wheelSpeeds(vb, om, kv);
+  const rpmUp = rimToRpm(w1, d);
+  const rpmLo = rimToRpm(w2, d);
+  const kA = Math.min(kv + 0.1, 1.0);
+  const kB = kv - 0.1;
+  const [uA, lA] = wheelSpeeds(vb, om, kA);
+  const [uB, lB] = wheelSpeeds(vb, om, kB);
+  const range = (x, y) => `от ${fi(rimToRpm(x, d))} до ${fi(rimToRpm(y, d))} об/мин`;
+  const note = spin === 0 ? 'колёса вращаются одинаково' : spin > 0 ? 'верхнее быстрее нижнего: мяч получает топспин' : 'нижнее быстрее верхнего: мяч получает подрезку';
+  $('stats2').innerHTML = [
+    ['Верхнее колесо', `${fi(rpmUp)} об/мин`, `диапазон k_v от ${f(kB, 2)} до ${f(kA, 2)}: ${range(uA, uB)}`],
+    ['Нижнее колесо', `${fi(rpmLo)} об/мин`, `диапазон k_v от ${f(kB, 2)} до ${f(kA, 2)}: ${range(lA, lB)}`],
+    ['Окружная скорость верхнего', `${f(w1, 1)} м/с`, `${f(w1 * 3.6, 0)} км/ч на ободе`],
+    ['Окружная скорость нижнего', `${f(w2, 1)} м/с`, `${f(w2 * 3.6, 0)} км/ч на ободе; ${note}`],
+    ['Скорость мяча на выходе', `${f(vKmh, 0)} км/ч`, `${f(vb, 1)} м/с = k_v ${f(kv, 2)} от средней скорости обода`],
+  ].map(([a, b, c]) => `<div class="stat"><small>${a}</small><b>${b}</b><span>${c}</span></div>`).join('');
+  drawChart(kv, dm, vKmh, rpmForBall(vb, d, kv));
+  drawWheels(w1, w2, vb, dm, rpmUp, rpmLo);
+});
+
+ctl2.v = makeSlider('ctl2', { label: 'Скорость мяча', min: 40, max: 130, step: 1, value: 70, cls: 'tgt', hint: 'жёлтая полоса: целевые 60–80 км/ч', show: speedShow }, update2);
+ctl2.d = makeSlider('ctl2', { label: 'Диаметр колеса', min: 80, max: 200, step: 5, value: 125, hint: 'чем больше диаметр, тем меньше нужно оборотов', show: (v) => `${v} мм` }, update2);
+ctl2.k = makeSlider('ctl2', { label: 'Коэффициент передачи скорости k_v', min: 0.6, max: 1.0, step: 0.01, value: C.LAUNCHER_K_V, hint: 'какая доля скорости обода достаётся мячу; будет измерен на стенде', show: (v) => f(v, 2) }, update2);
+ctl2.s = makeSlider('ctl2', { label: 'Вращение мяча', min: -3000, max: 3000, step: 100, value: 0, hint: 'создаётся разностью скоростей верхнего и нижнего колеса', show: spinShow }, update2);
+update2();
+requestAnimationFrame(animate);
+</script>
+</body>
+</html>

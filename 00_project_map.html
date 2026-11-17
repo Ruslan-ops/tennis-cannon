@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TennisCanon — карта проекта</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1d2330;--mute:#667085;--line:#d9d6cc;--acc:#2f6f4f;--acc2:#c8e04a;--warn:#b4541a;--now:#fff6d6}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--ink:#e8eaee;--mute:#98a2b3;--line:#333a45;--acc:#6fcf97;--acc2:#c8e04a;--warn:#f0a36b;--now:#3a3418}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,Segoe UI,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:28px 20px 60px}
+h1{font-size:30px;margin:0 0 4px}
+h2{font-size:21px;margin:38px 0 12px}
+p.lead{color:var(--mute);margin:0 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+.grid2{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:16px}
+@media (max-width:800px){.grid2{grid-template-columns:1fr}}
+svg{width:100%;height:auto;display:block}
+.part{cursor:pointer}
+.part .shape{fill:var(--card);stroke:var(--ink);stroke-width:2;transition:fill .15s}
+.part:hover .shape,.part.on .shape{fill:var(--acc2)}
+.part text{fill:var(--ink);font-size:13px;pointer-events:none}
+.ball{fill:var(--acc2);stroke:var(--ink);stroke-width:1.5}
+.frame{fill:none;stroke:var(--mute);stroke-width:2;stroke-dasharray:6 5}
+.arrow{stroke:var(--warn);stroke-width:2.5;fill:none}
+.wire{stroke:var(--acc);stroke-width:2;fill:none;stroke-dasharray:3 4}
+#info h3{margin:0 0 6px;font-size:18px}
+#info .q{color:var(--mute);font-size:14px;margin-top:10px}
+#info ul{margin:8px 0 0;padding-left:20px}
+.legend{font-size:13px;color:var(--mute);margin-top:8px}
+.phases{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media (max-width:900px){.phases{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.ph{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px;cursor:pointer;font-size:14px}
+.ph b{display:block;font-size:15px}
+.ph.now{background:var(--now);border-color:var(--warn)}
+.ph.on{outline:2px solid var(--acc)}
+.ph small{color:var(--mute)}
+#phinfo{margin-top:12px}
+.money{display:inline-block;font-size:12px;border-radius:20px;padding:1px 8px;border:1px solid var(--line);color:var(--mute)}
+.money.spend{border-color:var(--warn);color:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:600}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:var(--mute)}
+.dot.run{background:var(--warn)}
+.dot.wait{background:var(--line)}
+</style>
+</head>
+<body><div id="tcsite-bar"><style>#tcsite-bar{all:initial;display:flex;align-items:center;gap:10px;flex:none;box-sizing:border-box;width:100%;height:34px;padding:0 14px;background:#1f2a37;color:#dbe4ee;font:13px/1 system-ui,Segoe UI,sans-serif;white-space:nowrap;overflow:hidden;border-bottom:1px solid #3a4756}#tcsite-bar a{color:#9fd3ff;text-decoration:none;font-weight:600;flex:none}#tcsite-bar a:hover{text-decoration:underline}#tcsite-bar .tcsite-sep{opacity:.5;flex:none}#tcsite-bar .tcsite-name{overflow:hidden;text-overflow:ellipsis;min-width:0}#tcsite-bar .tcsite-date{opacity:.8;flex:none}#tcsite-bar .tcsite-old{color:#ffcf8a;flex:none}@media (max-width:560px){#tcsite-bar .tcsite-date{display:none}}</style><a class="tcsite-back" href="index.html">← Все страницы</a><span class="tcsite-sep">·</span><span class="tcsite-name">Карта проекта</span><span class="tcsite-sep">·</span><span class="tcsite-date">обновлено 13.11.2026</span></div>
+<main>
+<h1>TennisCanon — карта проекта</h1>
+<p class="lead">Версия 0.4 от 13.11.2026.</p>
+
+<h2>1. Из чего состоит теннисная пушка</h2>
+<p class="lead">Нажми на любую часть. Схема принципиальная, вид сбоку; показан самый распространённый принцип — два встречных колеса.</p>
+<div class="grid2">
+<div class="card">
+<svg viewBox="0 0 640 400" id="machine">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--warn)"/></marker></defs>
+<rect class="frame" x="40" y="150" width="420" height="200" rx="8"/>
+<g class="part" data-k="frame"><rect class="shape" x="40" y="350" width="420" height="16" rx="4"/><circle class="shape" cx="90" cy="378" r="12"/><circle class="shape" cx="410" cy="378" r="12"/><text x="200" y="395">рама и опоры</text></g>
+<g class="part" data-k="hopper"><path class="shape" d="M70 30H290L240 140H120z"/><circle class="ball" cx="140" cy="60" r="14"/><circle class="ball" cx="175" cy="72" r="14"/><circle class="ball" cx="212" cy="58" r="14"/><circle class="ball" cx="160" cy="100" r="14"/><circle class="ball" cx="196" cy="104" r="14"/><text x="232" y="28">бункер</text></g>
+<g class="part" data-k="feeder"><ellipse class="shape" cx="180" cy="168" rx="70" ry="18"/><circle class="ball" cx="215" cy="168" r="12"/><text x="62" y="200">податчик</text></g>
+<path class="arrow" d="M225 182Q260 235 330 240" marker-end="url(#ah)"/>
+<g class="part" data-k="wheels"><circle class="shape" cx="380" cy="190" r="44"/><circle class="shape" cx="380" cy="290" r="44"/><circle cx="380" cy="190" r="6" fill="var(--ink)"/><circle cx="380" cy="290" r="6" fill="var(--ink)"/><path class="arrow" d="M352 170A34 34 0 0 1 408 170" marker-end="url(#ah)"/><path class="arrow" d="M352 310A34 34 0 0 0 408 310" marker-end="url(#ah)"/><text x="336" y="138">колёса-маховики</text></g>
+<circle class="ball" cx="378" cy="240" r="9"/>
+<g class="part" data-k="motors"><rect class="shape" x="296" y="174" width="38" height="30" rx="4"/><rect class="shape" x="296" y="276" width="38" height="30" rx="4"/><text x="250" y="270">моторы</text></g>
+<g class="part" data-k="battery"><rect class="shape" x="60" y="285" width="110" height="55" rx="6"/><text x="78" y="318">аккумулятор</text></g>
+<g class="part" data-k="ctrl"><rect class="shape" x="190" y="295" width="90" height="45" rx="6"/><text x="200" y="322">управление</text></g>
+<path class="wire" d="M170 312H190M280 318H315V306M315 204V276"/>
+<path class="arrow" d="M430 240H560" marker-end="url(#ah)"/>
+<circle class="ball" cx="590" cy="236" r="14"/>
+<g class="part" data-k="aim"><path class="shape" d="M470 330h80l-12 20h-56z"/><text x="474" y="322">наведение</text></g>
+</svg>
+<div class="legend">Оранжевые стрелки — путь мяча и вращение колёс. Зелёный пунктир — электрические связи.</div>
+</div>
+<div class="card" id="info"></div>
+</div>
+
+<h2>2. Маршрут проекта</h2>
+<p class="lead">Между фазами стоят «ворота»: проверка, без которой дальше не идём. Жёлтым отмечено, где мы сейчас.</p>
+<div class="phases" id="phases"></div>
+<div class="card" id="phinfo"></div>
+
+<h2>3. Команда и кто чем занят прямо сейчас</h2>
+<div class="card">
+<table id="team"></table>
+</div>
+</main>
+<script>
+const parts={
+hopper:{t:"Бункер",d:"Корзина, в которой лежат мячи. Под собственным весом они скатываются к податчику.",r:["мячи застревают «сводом» и перестают сыпаться","чем больше мячей, тем выше центр тяжести и хуже устойчивость"],q:"Вопрос проекта: сколько мячей нужно и какой уклон стенок."},
+feeder:{t:"Податчик",d:"Отделяет один мяч от кучи и отправляет его к колёсам через равные промежутки времени. Обычно это медленно вращающийся диск с отверстиями.",r:["два мяча сразу или ни одного","заклинивание мяча и остановка моторчика"],q:"Вопрос проекта: темп подачи и защита от заклинивания."},
+wheels:{t:"Колёса-маховики",d:"Сердце машины. Два колеса вращаются навстречу друг другу, мяч зажимается между ними и вылетает. Колёса тяжёлые, чтобы запасать энергию и не тормозиться на каждом мяче. Разная скорость колёс закручивает мяч.",r:["вибрация от плохой балансировки","разрыв или слёт колеса на высоких оборотах","износ покрытия и мячей"],q:"Вопрос проекта: диаметр, обороты, зазор, материал. Считает физик."},
+motors:{t:"Моторы",d:"Раскручивают колёса и возвращают им обороты после каждого выстрела. От мощности мотора зависит, как часто можно стрелять.",r:["перегрев при долгой работе","большой пусковой ток, просадка напряжения"],q:"Вопрос проекта: тип мотора, обороты, мощность, цена в России."},
+battery:{t:"Аккумулятор",d:"Единственный источник энергии. Определяет время работы, заметную часть веса и цены. Литиевые требуют платы защиты и аккуратного обращения.",r:["возгорание лития при коротком замыкании или неправильной зарядке","глубокий разряд портит батарею","холод снижает ёмкость"],q:"Вопрос проекта: химия, напряжение, ёмкость, вес, цена, защита."},
+ctrl:{t:"Управление",d:"Микроконтроллер (маленький компьютер), драйверы моторов, кнопки или пульт, предохранители. Задаёт обороты колёс и темп подачи, следит за безопасностью.",r:["помехи от моторов сбивают контроллер","перегрев драйверов","ошибка в программе раскручивает колёса неожиданно"],q:"Вопрос проекта: какая плата проще для первого раза и как всё проверить в симуляторе до покупки."},
+frame:{t:"Рама и опоры",d:"Держит всё вместе, гасит вибрации, не даёт машине ползти и опрокидываться. Сюда же относится корпус: защита от пыли и брызг, ограждение колёс.",r:["тряска и «уползание» при стрельбе","резонанс: рама начинает гудеть на определённых оборотах","пыль и влага внутри"],q:"Вопрос проекта: материал, который можно обработать ручным инструментом."},
+aim:{t:"Наведение",d:"Наклон ствола по высоте и поворот по сторонам. В простом варианте выставляется вручную, в продвинутом — моторчиками, чтобы машина сама раскидывала мячи по корту.",r:["люфт: мячи летят с разбросом","раскрученные колёса сопротивляются повороту (гироскоп)"],q:"Решение по этапам: сначала вручную, автоматика позже."}};
+const info=document.getElementById("info");
+function showPart(k){const p=parts[k];document.querySelectorAll(".part").forEach(g=>g.classList.toggle("on",g.dataset.k===k));info.innerHTML=`<h3>${p.t}</h3><div>${p.d}</div><div class="q">Что может пойти не так:</div><ul>${p.r.map(x=>`<li>${x}</li>`).join("")}</ul><div class="q">${p.q}</div>`}
+document.querySelectorAll(".part").forEach(g=>g.addEventListener("click",()=>showPart(g.dataset.k)));
+showPart("wheels");
+const phases=[
+["Ф0","Разведка","Изучили готовые машины, физику запуска, инструменты и цены в России; красная команда проверила расчёты.","Пройдены 12.11.2026: владелец утвердил требования версии 1.",0],
+["Ф1","Виртуальный прототип","Вся машина сначала в компьютере: 3D-модель, расчёты запуска, устойчивости, привода и батареи, прошивка в симуляторе. Смета — по настоящим объявлениям магазинов. Ничего не покупаем.","Модель и расчёты показывают, что требования версии 1 выполняются во всём диапазоне неизвестных, либо названы нужные регулировки; смета собрана; красная команда согласна.",0],
+["Ф2","Закупка и сборка по узлам","Запуск по шагам: питание без моторов, мотор без колеса, колесо в кожухе, два колеса, подача, наведение. Измерения делаются на самой машине и уточняют модель.","Перед первым вращением колеса: кожух, аварийная кнопка, предохранитель. На выходе: машина стреляет безопасно и повторяемо.",1],
+["Ф3","Испытания","Поле с разметкой корта, долгая работа, нагрев, пыль, влага, перевозка. Корт — для приёмки.","Все требования версии 1 выполнены.",1],
+["Ф4","Развитие","Версия 1.1 и дальше: программы тренировок, пульт, облегчение до 8 кг.","—",1]];
+const phEl=document.getElementById("phases"),phInfo=document.getElementById("phinfo");
+function showPhase(i){const p=phases[i];[...phEl.children].forEach((e,j)=>e.classList.toggle("on",j===i));phInfo.innerHTML=`<b>${p[0]} · ${p[1]}</b><div>${p[2]}</div><div class="q" style="margin-top:8px"><b>Ворота:</b> ${p[3]}</div><div style="margin-top:8px"><span class="money ${p[4]?"spend":""}">${p[4]?"тратим деньги":"денег не тратим"}</span></div>`}
+phases.forEach((p,i)=>{const d=document.createElement("div");d.className="ph"+(i===1?" now":"");d.innerHTML=`<b>${p[0]}</b>${p[1]}<br><small>${i===1?"мы здесь":i===0?"пройдено":""}</small>`;d.addEventListener("click",()=>showPhase(i));phEl.appendChild(d)});
+showPhase(1);
+const team=[
+["Главный инженер","Fable","Решения, спецификация, ворота, объяснения","run","ждёт решений владельца"],
+["Аналитик рынка","Sonnet","Серийные машины и самоделки: параметры, устройство, жалобы","wait","отчёт сдан"],
+["Физик-расчётчик","Opus","Модель запуска и полёта мяча, требования к мотору и батарее","wait","отчёт сдан"],
+["Инженер по питанию и закупкам","Sonnet","Аккумуляторы, моторы, контроллеры, цены в России","wait","отчёт сдан"],
+["Инженер по инструментам","Sonnet","Чем чертить, считать и симулировать","wait","отчёт сдан"],
+["Разработчик инструментов","Sonnet","Расчётные программы с тестами","wait","библиотека готова, 93 теста"],
+["Красная команда","Opus","Критика, сценарии отказов","wait","рецензия сдана"]];
+document.getElementById("team").innerHTML="<tr><th>Роль</th><th>Модель</th><th>Зона ответственности</th><th>Статус</th></tr>"+team.map(t=>`<tr><td>${t[0]}</td><td>${t[1]}</td><td>${t[2]}</td><td><span class="dot ${t[3]}"></span>${t[4]}</td></tr>`).join("");
+</script>
+</body>
+</html>
