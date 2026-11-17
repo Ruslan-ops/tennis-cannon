@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как удешевить машину</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1d2330;--mute:#667085;--line:#d9d6cc;--acc:#2f6f4f;--acc2:#c8e04a;--warn:#b4541a;--ok:#2f6f4f;--bad:#b3261e;--mid:#c58a14;--gray:#aab0bc}
+@media (prefers-color-scheme:dark){:root{--bg:#14171c;--card:#1d2128;--ink:#e8eaee;--mute:#98a2b3;--line:#333a45;--acc:#6fcf97;--warn:#f0a36b;--ok:#6fcf97;--bad:#ff8a80;--mid:#e0b04a;--gray:#5a6272}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Segoe UI,sans-serif}
+header{padding:16px 28px;background:var(--card);border-bottom:1px solid var(--line)}
+header h1{margin:0 0 4px;font-size:24px}
+header p{margin:0;color:var(--mute)}
+main{max-width:1560px;margin:0 auto;padding:18px 28px 40px}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:18px}
+h2{margin:0 0 8px;font-size:20px}
+h3{margin:14px 0 6px;font-size:16px}
+.mute{color:var(--mute)}
+.small{font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13px;background:var(--bg);font-weight:400;text-decoration:none;color:var(--ink)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;background:var(--gray)}
+.dot.done{background:var(--ok)}
+.dot.work{background:var(--mid)}
+.plate{border:2px dashed var(--mid);border-radius:10px;padding:10px 14px;margin:8px 0;background:var(--bg)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+svg{display:block;width:100%;height:auto}
+svg text{fill:var(--ink);font:13px system-ui,Segoe UI,sans-serif}
+svg text.m{fill:var(--mute);font-size:12px}
+svg text.bad{fill:var(--bad);font-weight:700}
+svg .axis{stroke:var(--line);stroke-width:1}
+svg .budget{stroke:var(--bad);stroke-width:2;stroke-dasharray:6 4}
+svg .b-est{fill:#7c8494}
+svg .b-sc{fill:#4e8fb3}
+svg .b-ok{fill:var(--ok)}
+svg .b-hope{fill:var(--mid)}
+svg .b-none{fill:var(--gray);opacity:.5}
+svg .p0{fill:var(--ok)}
+svg .p1{fill:var(--mid)}
+svg .p2{fill:#7c8494}
+svg .p3{fill:var(--bad)}
+svg circle{stroke:var(--card);stroke-width:1.5}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+td.nw,span.nw{white-space:nowrap}
+tr.grp td{background:var(--bg);font-weight:700}
+.tag{display:inline-block;padding:1px 9px;border-radius:999px;font-weight:600;font-size:12px;white-space:nowrap;color:#10151c}
+.v0{background:#6fcf97}
+.v1{background:#e8c25a}
+.v2{background:#b9c0cc}
+.v3{background:#f0908a}
+.r0{background:#6fcf97}
+.r1{background:#c8e04a}
+.r2{background:#e8c25a}
+.r3{background:#f0908a}
+.tag.o{background:var(--bg);color:var(--mute);border:1px solid var(--line);font-weight:400}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.ctl button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:8px;font:inherit;cursor:pointer}
+.ctl button.on{background:var(--acc2);color:#1d2330;border-color:var(--acc2)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.card{border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--bg)}
+.card b{display:block;margin-bottom:4px}
+.card p{margin:3px 0;font-size:13px}
+.hide{display:none}
+td.bar{width:55%}
+.bar i{display:block;height:7px;border-radius:4px;margin:2px 0}
+.bar i.e{background:#7c8494}
+.bar i.a{background:#4e8fb3}
+.bar i.b{background:var(--mid)}
+.bar i.c{background:var(--ok)}
+.legend span{margin-right:14px;font-size:13px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+ul.q{margin:4px 0;padding-left:20px}
+a{color:var(--acc)}
+</style>
+</head>
+<body><div id="tcsite-bar"><style>#tcsite-bar{all:initial;display:flex;align-items:center;gap:10px;flex:none;box-sizing:border-box;width:100%;height:34px;padding:0 14px;background:#1f2a37;color:#dbe4ee;font:13px/1 system-ui,Segoe UI,sans-serif;white-space:nowrap;overflow:hidden;border-bottom:1px solid #3a4756}#tcsite-bar a{color:#9fd3ff;text-decoration:none;font-weight:600;flex:none}#tcsite-bar a:hover{text-decoration:underline}#tcsite-bar .tcsite-sep{opacity:.5;flex:none}#tcsite-bar .tcsite-name{overflow:hidden;text-overflow:ellipsis;min-width:0}#tcsite-bar .tcsite-date{opacity:.8;flex:none}#tcsite-bar .tcsite-old{color:#ffcf8a;flex:none}@media (max-width:560px){#tcsite-bar .tcsite-date{display:none}}</style><a class="tcsite-back" href="index.html">← Все страницы</a><span class="tcsite-sep">·</span><span class="tcsite-name">Как удешевить машину</span><span class="tcsite-sep">·</span><span class="tcsite-date">обновлено 17.11.2026</span></div>
+<header>
+<h1>Как удешевить машину</h1>
+<p>Смета ревизии 9 — 101 тыс. ₽, бюджет — 50 тыс. ₽: здесь сценарии первого прохода и находки второго, страница пересобирается по ходу поиска. Собрано: 2026-11-17 12:53.</p>
+<div class="chips"><a class="chip" href="#t-battery"><span class="dot "></span>Батарея и питание: нет данных</a><a class="chip" href="#t-launcher"><span class="dot "></span>Метатель: моторы, колёса, привод: нет данных</a><a class="chip" href="#t-diy"><span class="dot "></span>Самоделки и чужие проекты: нет данных</a><a class="chip" href="#t-printing"><span class="dot "></span>Печать и изготовление деталей: нет данных</a><a class="chip" href="#t-rest"><span class="dot "></span>Остальное: металл, крепёж, управление: нет данных</a></div>
+</header>
+<main>
+<section><h2>Лестница денег</h2><svg viewBox="0 0 1500 380" role="img" aria-label="Лестница денег: смета, сценарии и находки второго прохода"><line class="axis" x1="60" x2="1470" y1="310.0" y2="310.0"/><text class="m" x="52" y="314.0" text-anchor="end">0</text><line class="axis" x1="60" x2="1470" y1="245.0" y2="245.0"/><text class="m" x="52" y="249.0" text-anchor="end">25</text><line class="axis" x1="60" x2="1470" y1="180.0" y2="180.0"/><text class="m" x="52" y="184.0" text-anchor="end">50</text><line class="axis" x1="60" x2="1470" y1="115.0" y2="115.0"/><text class="m" x="52" y="119.0" text-anchor="end">75</text><line class="axis" x1="60" x2="1470" y1="50.0" y2="50.0"/><text class="m" x="52" y="54.0" text-anchor="end">100</text><rect class="b-est" x="104.7" y="47.5" width="145.7" height="262.5" rx="4"><title>Смета: 100 964 ₽</title></rect><text x="177.5" y="41.5" text-anchor="middle" font-weight="700">100 964 ₽</text><text x="177.5" y="330" text-anchor="middle">Смета</text><rect class="b-sc" x="339.6" y="99.2" width="145.7" height="210.8" rx="4"><title>Сценарий A: 81 063 ₽</title></rect><text x="412.5" y="93.2" text-anchor="middle" font-weight="700">81 063 ₽</text><text x="412.5" y="330" text-anchor="middle">Сценарий A</text><text class="m" x="412.5" y="348" text-anchor="middle">Аккуратная экономия</text><rect class="b-sc" x="574.6" y="140.8" width="145.7" height="169.2" rx="4"><title>Сценарий B: 65 071 ₽</title></rect><text x="647.5" y="134.8" text-anchor="middle" font-weight="700">65 071 ₽</text><text x="647.5" y="330" text-anchor="middle">Сценарий B</text><text class="m" x="647.5" y="348" text-anchor="middle">Гаражная версия</text><rect class="b-sc" x="809.6" y="170.7" width="145.7" height="139.3" rx="4"><title>Сценарий C: 53 589 ₽</title></rect><text x="882.5" y="164.7" text-anchor="middle" font-weight="700">53 589 ₽</text><text x="882.5" y="330" text-anchor="middle">Сценарий C</text><text class="m" x="882.5" y="348" text-anchor="middle">Радикальный минимум</text><rect class="b-none" x="1044.7" y="47.5" width="145.7" height="262.5" rx="4"><title>Второй проход: надёжно: ищем</title></rect><text x="1117.5" y="41.5" text-anchor="middle" font-weight="700">ищем</text><text x="1117.5" y="330" text-anchor="middle">Второй проход: надёжно</text><rect class="b-none" x="1279.7" y="47.5" width="145.7" height="262.5" rx="4"><title>Если подтвердится: ищем</title></rect><text x="1352.5" y="41.5" text-anchor="middle" font-weight="700">ищем</text><text x="1352.5" y="330" text-anchor="middle">Если подтвердится</text><line class="budget" x1="60" x2="1470" y1="180.0" y2="180.0"/><text class="bad" x="68" y="174.0">бюджет 50 тыс. ₽</text><text class="m" x="60" y="14">тыс. ₽</text></svg><p class="mute">Как считается: для каждой статьи берём самый выгодный вариант с вердиктом «брать» (столбец «надёжно») и самый выгодный из «брать» и «брать после проверки» (столбец «если подтвердится»); экономия считается от сметы 101 тыс. ₽, каждая статья один раз. Статьи считаются независимыми, а цены сняты на разные даты, поэтому это оценка, а не обещание. Находок второго прохода ещё нет: столбцы серые, идёт поиск.</p></section>
+<section><h2>Куда уходят деньги</h2><p class="mute">Статьи сметы от самой дорогой; полосы показывают, как статья дешевеет в сценариях первого прохода.</p><p class="legend"><span><i style="background:#7c8494"></i>смета</span><span><i style="background:#4e8fb3"></i>A</span><span><i style="background:var(--mid)"></i>B</span><span><i style="background:var(--ok)"></i>C</span></p><table><tr><th>Статья</th><th>Полосы</th><th class="n">смета / A / B / C, ₽</th></tr><tr><td>Печать (PA12 550 г + PETG 580 г)</td><td class="bar"><i class="e" style="width:100.0%"></i><i class="a" style="width:51.9%"></i><i class="b" style="width:48.2%"></i><i class="c" style="width:33.5%"></i></td><td class="n nw">17 000 / 8 819 / 8 195 / 5 695</td></tr><tr><td>Привод метателя</td><td class="bar"><i class="e" style="width:78.4%"></i><i class="a" style="width:59.4%"></i><i class="b" style="width:59.4%"></i><i class="c" style="width:28.0%"></i></td><td class="n nw">13 330 / 10 097 / 10 097 / 4 768</td></tr><tr><td>Питание</td><td class="bar"><i class="e" style="width:70.5%"></i><i class="a" style="width:66.6%"></i><i class="b" style="width:54.8%"></i><i class="c" style="width:54.8%"></i></td><td class="n nw">11 985 / 11 314 / 9 324 / 9 324</td></tr><tr><td>Листовой алюминий</td><td class="bar"><i class="e" style="width:64.5%"></i><i class="a" style="width:50.7%"></i><i class="b" style="width:38.4%"></i><i class="c" style="width:38.4%"></i></td><td class="n nw">10 973 / 8 625 / 6 521 / 6 521</td></tr><tr><td>Фурнитура и крепёж</td><td class="bar"><i class="e" style="width:55.2%"></i><i class="a" style="width:53.4%"></i><i class="b" style="width:34.4%"></i><i class="c" style="width:32.2%"></i></td><td class="n nw">9 379 / 9 074 / 5 845 / 5 470</td></tr><tr><td>Токарка и сталь 45</td><td class="bar"><i class="e" style="width:50.0%"></i><i class="a" style="width:20.6%"></i><i class="b" style="width:8.8%"></i><i class="c" style="width:8.8%"></i></td><td class="n nw">8 500 / 3 496 / 1 496 / 1 496</td></tr><tr><td>Наведение и подача</td><td class="bar"><i class="e" style="width:49.6%"></i><i class="a" style="width:47.6%"></i><i class="b" style="width:47.6%"></i><i class="c" style="width:28.3%"></i></td><td class="n nw">8 430 / 8 087 / 8 087 / 4 809</td></tr><tr><td>Лазерная резка и гибка</td><td class="bar"><i class="e" style="width:37.6%"></i><i class="a" style="width:37.6%"></i><i class="b" style="width:3.5%"></i><i class="c" style="width:3.5%"></i></td><td class="n nw">6 400 / 6 400 / 600 / 600</td></tr><tr><td>Безопасность (узлы рецензий)</td><td class="bar"><i class="e" style="width:36.5%"></i><i class="a" style="width:36.5%"></i><i class="b" style="width:36.5%"></i><i class="c" style="width:36.5%"></i></td><td class="n nw">6 201 / 6 201 / 6 201 / 6 201</td></tr><tr><td>Прочие листы и прутки</td><td class="bar"><i class="e" style="width:34.5%"></i><i class="a" style="width:38.5%"></i><i class="b" style="width:38.5%"></i><i class="c" style="width:38.5%"></i></td><td class="n nw">5 864 / 6 542 / 6 542 / 6 542</td></tr><tr><td>Управление</td><td class="bar"><i class="e" style="width:8.6%"></i><i class="a" style="width:5.7%"></i><i class="b" style="width:3.6%"></i><i class="c" style="width:3.6%"></i></td><td class="n nw">1 461 / 967 / 606 / 606</td></tr><tr><td>Подшипники 6001 и 608</td><td class="bar"><i class="e" style="width:8.5%"></i><i class="a" style="width:8.5%"></i><i class="b" style="width:9.2%"></i><i class="c" style="width:9.2%"></i></td><td class="n nw">1 441 / 1 441 / 1 557 / 1 557</td></tr></table></section>
+<section id="t-battery"><h2>Батарея и питание <span class="chip"><span class="dot "></span>нет данных</span></h2><div class="plate">Поиск по этой теме ещё не оставил результатов.</div></section><section id="t-launcher"><h2>Метатель: моторы, колёса, привод <span class="chip"><span class="dot "></span>нет данных</span></h2><div class="plate">Поиск по этой теме ещё не оставил результатов.</div></section><section id="t-diy"><h2>Самоделки и чужие проекты <span class="chip"><span class="dot "></span>нет данных</span></h2><div class="plate">Поиск по этой теме ещё не оставил результатов.</div></section><section id="t-printing"><h2>Печать и изготовление деталей <span class="chip"><span class="dot "></span>нет данных</span></h2><div class="plate">Поиск по этой теме ещё не оставил результатов.</div></section><section id="t-rest"><h2>Остальное: металл, крепёж, управление <span class="chip"><span class="dot "></span>нет данных</span></h2><div class="plate">Поиск по этой теме ещё не оставил результатов.</div></section>
+<section><h2>Соразмерность: выгода и объём переделок</h2><p class="mute">Каждая точка — вариант из любой темы. Наведите курсор, чтобы увидеть, что это.</p><p class="mute">Точек пока нет: варианты с экономией и объёмом переделок ещё не найдены.</p></section>
+<section><h2>Что не удалось прочитать и нужна помощь владельца</h2><p>Всё прочитано.</p></section>
+<section><h2>Первый проход</h2><h3>Три сценария (против сметы 101 тыс. ₽)</h3><table><tr><th>Сценарий</th><th class="n">Итого</th><th>Что делаем</th><th>Что теряем</th><th>Безопасность</th></tr><tr><td><b>A</b></td><td class="n nw">81 063 ₽<div class="mute small">−19,9 тыс.</div></td><td>Та же конструкция: печать в сервисе FDM вместо PA12, покупные валы и ступицы, токарь только для четырёх обойм, моторы и платы с AliExpress, новый оригинальный аккумулятор.</td><td>около 70 г массы; детали слоистые, посадки подгонять; доставка с AliExpress 2–4 недели; риск подделки батареи на Авито.</td><td>не меняется</td></tr><tr><td><b>B</b></td><td class="n nw">65 071 ₽<div class="mute small">−35,9 тыс.</div></td><td>Всё из A, а ещё: без токарки и лазера, готовые подшипниковые узлы KFL001, листовые детали руками по бумажным шаблонам, днище из фанеры, б/у оригинальная батарея, один ESP32 и телефон вместо пульта.</td><td>2–4 выходных ручной работы; точность ±0,5 мм; фанера боится воды; на 4,5 мм выше; у KFL001 нет паспорта оборотов; износ печатных секторов не проверен.</td><td>не меняется</td></tr><tr><td><b>C</b></td><td class="n nw">53 589 ₽<div class="mute small">−47,4 тыс.</div></td><td>Всё из B, а ещё: ручной поворот и наклон с фиксатором, коллекторные моторы 775 с драйверами BTS7960 вместо X4110S.</td><td>нарушает шесть решений владельца (моторное наведение, предустановленные точки, переход между подачами до 3 с и другие); машина бьёт в одну точку; масса растёт на 0,4 кг, шум и щётки.</td><td>не меняется</td></tr></table><div class="cols"><div><h3>Стенд для испытаний</h3><table><tr><td>Стенд по прежнему плану</td><td class="n nw">55–77 тыс. ₽</td><td>из них приборы и «только стенд» 22,5–44 тыс.</td></tr><tr><td>Минимальный безопасный стенд</td><td class="n nw">28–35 тыс. ₽</td><td>из них 23–25 тыс. — детали, которые потом идут в машину; «только стенд» около 9,6 тыс.</td></tr><tr><td>«Стенд ноль» без мотора</td><td class="n nw">около 3,5 тыс. ₽</td><td>колесо крутят рукой, мяч прижат грузом: проверяется сцепление шины раньше всех трат; опасности нет, энергии нет</td></tr></table></div><div><h3>Вопросы владельцу</h3><ul class="q"><li>Есть ли у вас или знакомых аккумулятор Makita 18 В (лучше 4–5 А·ч, оригинал) и зарядка? Если да, это минус 8,7 тыс. ₽ во всех сценариях.</li><li>Считать ли телефон по Wi-Fi или Bluetooth «пультом по радио»? Если да, минус 0,4 тыс. ₽ и не нужен корпус пульта; кнопок на ощупь не будет.</li><li>Какой сценарий брать за основу: A (81 тыс., та же машина), B (65 тыс., руками, гаражный вид) или C (54 тыс., ручное наведение, нарушает шесть решений)?</li><li>Годится ли б/у оригинальная батарея? Если да, минус 2,7 тыс. ₽, но неизвестен износ.</li><li>Стенд: «минимальный безопасный» вместо прежнего и «стенд ноль» за 3,5 тыс. ₽ первым шагом?</li><li>Свой 3D-принтер (около 17–20 тыс. ₽, окупается со второй-третьей ревизии) или печать в сервисе (около 8–9 тыс. ₽ за проход)?</li><li>Открывать ли заново выбор мотора (775 вместо X4110S)? Минус 8,5 тыс. ₽, но плюс 0,4 кг, щётки и шум.</li></ul></div></div><h3>Десять самых выгодных ходов первого прохода</h3><table><tr><th>№</th><th>Ход</th><th class="n">Экономия</th><th>Что теряем</th></tr><tr><td>1</td><td>Стенд: минимальный набор приборов, без токарки</td><td class="n nw">13 000–34 000 ₽</td><td>точность части замеров; безопасность не трогается</td></tr><tr><td>2</td><td>Печать PA12 → PETG и ASA в сервисе FDM</td><td class="n nw">8 181 ₽</td><td>около 70 г и подгонка посадок</td></tr><tr><td>3</td><td>Аккумулятор владельца или знакомого</td><td class="n nw">8 689 ₽</td><td>ничего, нужно только спросить</td></tr><tr><td>4</td><td>Токарка → покупные вал, фланцы и KFL001</td><td class="n nw">6 900–7 000 ₽</td><td>оборотов KFL001 нет в паспорте, проверка на стенде</td></tr><tr><td>5</td><td>Лазер → ручная резка по шаблону и печатные сектора</td><td class="n nw">3 520 ₽</td><td>2–4 выходных, точность, вид</td></tr><tr><td>6</td><td>Мотор X4110S с AliExpress</td><td class="n nw">3 233 ₽</td><td>доставка 2–4 недели</td></tr><tr><td>7</td><td>Фурнитура: винт и гайка вместо резьбовых заклёпок</td><td class="n nw">3 534 ₽</td><td>сборка менее удобна</td></tr><tr><td>8</td><td>Днище и перегородка из фанеры</td><td class="n nw">2 104 ₽</td><td>на 4,5 мм выше, нужен лак</td></tr><tr><td>9</td><td>Б/у оригинальная батарея</td><td class="n nw">2 661 ₽</td><td>износ неизвестен</td></tr><tr><td>10</td><td>Алюминий Д16АТ → АМг2М</td><td class="n nw">1 995 ₽</td><td>ничего</td></tr></table></section>
+<section><h2>Как читать метки</h2>
+<ul>
+<li><b>Происхождение цены:</b> «страница товара» — карточка открыта и прочитана; «выдача» — цена из результатов поиска магазина (вариант в карточке может стоить иначе); «прайс» — прайс-лист сервиса; «оценка» — прикидка без источника; «не знаю» — цена не найдена.</li>
+<li><b>Переделки:</b> «нет» — конструкция та же; «малая» — поправить пару деталей; «средняя» — пересчитать часть расчётов; «большая» — пересматривать схему и повторять много расчётов.</li>
+<li><b>Вердикт:</b> «брать» — выгодно и безопасно; «брать после проверки» — сначала дешёвая проверка на стенде; «запасной» — если основной не подойдёт; «не брать» — потери перевешивают.</li>
+</ul>
+<p class="plate">Цены действуют на дату проверки и могут измениться. Параметры из карточек маркетплейсов (ёмкость, ток, момент) заявлены продавцом и не измерены.</p></section>
+</main>
+<script>
+(function(){
+document.querySelectorAll('[data-topic]').forEach(function(sec){
+ var rows=sec.querySelectorAll('tr.opt');
+ var btns=sec.querySelectorAll('.ctl button[data-f]');
+ var sortBtn=sec.querySelector('.ctl button[data-sort]');
+ function apply(f){
+  rows.forEach(function(r){
+   var show=f==='all'||(f==='take'&&r.dataset.v==='брать')||(f==='nore'&&r.dataset.r==='нет');
+   r.classList.toggle('hide',!show);
+  });
+  sec.querySelectorAll('tbody.grp').forEach(function(g){
+   var any=g.querySelector('tr.opt:not(.hide)');
+   g.querySelector('tr.grp').classList.toggle('hide',!any);
+  });
+ }
+ btns.forEach(function(b){b.addEventListener('click',function(){
+  btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');apply(b.dataset.f);
+ })});
+ if(sortBtn){sortBtn.addEventListener('click',function(){
+  var on=sortBtn.classList.toggle('on');
+  sec.querySelectorAll('tbody.grp').forEach(function(g){
+   var list=Array.prototype.slice.call(g.querySelectorAll('tr.opt'));
+   list.sort(function(a,b){return on?(Number(b.dataset.s)-Number(a.dataset.s)):(Number(a.dataset.i)-Number(b.dataset.i))});
+   list.forEach(function(r){g.appendChild(r)});
+  });
+ })}
+});
+})();
+</script>
+</body>
+</html>
